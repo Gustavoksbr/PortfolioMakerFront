@@ -1,0 +1,24 @@
+<div class="search-container">
+  <label>Nome</label>
+  <input
+    type="text"
+    [(ngModel)]="searchText"
+    (input)="onInputChange()"
+    (keydown.enter)="onEnterKey()"
+    placeholder="Digite um link (ex: linkedin, github...)"
+  />
+  <div class="suggestions">
+    @for (match of filteredLinks; track $index) {
+      <div class="suggestion" (click)="selectLink(match)">
+        <div
+          [innerHTML]="highlightMatch(match)"
+        ></div>
+        <img
+          [src]="'links/' + match + '.png'"
+          [alt]="match"
+          class="icon"
+        />
+      </div>
+    }
+  </div>
+</div>

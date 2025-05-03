@@ -1,0 +1,40 @@
+<div class=" container-cadastro">
+  <div class="card cadastro">
+    <div class="parte-de-cima">
+    <h3>Cadastre-se</h3>
+    <button class="btn btn-close" (click)="fecharCadastro()">
+
+    </button>
+    </div>
+    <form (submit)="register()" class="form-group">
+<!--      <div class="mb-3">-->
+<!--        <input type="text" [(ngModel)]="user.username" placeholder="Username"  class="form-control" required name="username" />-->
+<!--      </div>-->
+      <div class="mb-3 label-input">
+        <label for="email">
+          Email:
+        </label>
+        <input type="email" id="email" [(ngModel)]="user.email"  class="form-control" required  name="email" />
+      </div>
+      <div class="mb-3 label-input">
+        <label for="password">
+          Senha:
+        </label>
+        <input type="password" id="password" [(ngModel)]="user.senha"  class="form-control" required name="senha" />
+      </div>
+      <div class="entrar-cancelar-container">
+      @if (!tentandoCadastrar){
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+      } @else {
+        <button type="submit" class="btn btn-secondary" disabled>
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          <span class="sr-only">Carregando</span>
+        </button>
+      }
+      </div>
+    </form>
+    <div class="outras-opcoes">
+    <p>Já possui conta? <a class="a" (click)="logar()">Login</a> </p>
+  </div>
+  </div>
+</div>

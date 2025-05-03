@@ -1,0 +1,158 @@
+<div class="container-lista-ordenaveis">
+<div class="content-lista-ordenaveis" xmlns="http://www.w3.org/1999/html">
+  @for( projeto of projetos; track $index){
+    <!-- Modo edição -->
+    <ng-container>
+      @if(editando){
+
+      <div class="ordenavel-container-edit ordenavel-container ">
+        <div class="card ordenavel-content-edit">
+          <div class="excluir-projeto">
+            <button class="btn btn-close " (click)="mostrarConfirmacao($index)" ></button>
+          </div>
+          <div *ngIf="confirmarIndex === $index" class="confirmacao-box">
+            <p>Deseja excluir esse projeto?</p>
+            <div>
+            <button class="btn btn-sm btn-danger" (click)="confirmarExclusao($index)">Sim</button>
+            <button class="btn btn-sm btn-secondary" (click)="cancelarConfirmacao()">Não</button>
+            </div>
+            </div>
+          <div class="label-input">
+      <label>Nome</label>
+      <input maxlength="15"  [(ngModel)]="projeto.nome" (ngModelChange)="atualizarCampo($index, 'nome', $event)" />
+          </div>
+          @if(projeto.nome == ""){
+            <div class="alert alert-danger" role="alert">
+              Nome do projeto não pode ser vazio!
+            </div>
+          }
+          <div class="label-input">
+            <label>Link do Projeto</label>
+            <input [(ngModel)]="projeto.linkDoProjeto" (ngModelChange)="atualizarCampo($index, 'linkDoProjeto', $event)" />
+          </div>
+          <div class="label-textarea">
+            <label for="descricao">Descrição</label>
+            <textarea id="descricao" maxlength="400" class="textarea-descricao"
+                      [(ngModel)]="projeto.descricao"
+                      (ngModelChange)="atualizarCampo($index, 'descricao', $event)">
+  </textarea>
+            <div class="contador-caracteres text-end mt-1" style="font-size: 14px;position: relative;bottom: 10px;right: 10px;">
+            {{ projeto.descricao.length || 0 }}/400
+          </div>
+          </div>
+
+
+<!--          <div class="label-input">-->
+<!--      <label>Link do Repositório</label>-->
+<!--      <input [placeholder]="projeto.linkDoRepositorio" [(ngModel)]="projeto.linkDoRepositorio" (ngModelChange)="atualizarCampo(i, 'linkDoRepositorio', $event)" />-->
+<!--          </div>-->
+<!--          <div class="label-input">-->
+<!--      <label>Link do YouTube</label>-->
+<!--      <input [placeholder]="projeto.linkYoutube" [(ngModel)]="projeto.linkYoutube" (ngModelChange)="atualizarCampo(i, 'linkYoutube', $event)" />-->
+<!--          </div>-->
+          <div class="habilidades-container">
+            <div class="habilidades-content">
+            <h5 class="">Tecnologias</h5>
+            @if(projeto.tecnologias != null){
+              @for (tecnologia of projeto.tecnologias; track $index )
+              {
+                <div class="habilidade">
+                <app-autocomplete
+                  [searchText]="tecnologia"
+                  [habilidadeInicial]="tecnologia"
+                  [indice]="$index"
+                  (retornarHabilidadeInicialEPosterior)="alterarHabilidades($event)"
+                ></app-autocomplete>
+                  <div class="icon-e-x">
+                @if (languages.includes(tecnologia )) {
+                  <img
+                    [src]="langUrl + tecnologia"
+                    [alt]="tecnologia"
+                    class="habilidade-icon"
+                  >
+                  <button class="btn btn-close excluir-habilidade" (click)="deleteHabilidade($index,tecnologia)" ></button>
+                }@else{
+                  <button class="btn btn-close excluir-habilidade" style="margin-left: 40px" (click)="deleteHabilidade($index,tecnologia)" ></button>
+                }
+                  </div>
+
+                </div>
+              }
+              <div class="align-items-center">
+                <p>Adicione uma tecnologia:</p>
+              <app-autocomplete
+                [searchText]="''"
+                [habilidadeInicial]="''"
+                [indice]="$index"
+                (retornarHabilidadeInicialEPosterior)="alterarHabilidades($event)"
+              ></app-autocomplete>
+              </div>
+            }
+
+          </div>
+
+        </div>
+          <div class="container-dois-botoes-seta">
+            <button class="botao-seta" (click)="moverProjeto($index, 'esquerda')"><</button>
+            <button class="botao-seta" (click)="moverProjeto($index, 'direita')">> </button>
+          </div>
+      </div>
+        @if (editando && $index == projetos.length - 1) {
+          <div (click)="addProjetoNovo()" class="add-projeto-botao add-projeto-botao-fim-lista" >
+            <img src="plus.png" alt="add" width="100%" />
+          </div>
+        }
+      </div>
+
+<!--        view-->
+      }@else{
+      <div class="card  zoom-hover ordenavel-container-view ordenavel-container">
+        <div class="ordenavel-content ordenavel-content-view">
+      <h3>{{ projeto.nome }}</h3>
+      <p>{{ projeto.descricao }}</p>
+          <div class="botoes-links">
+          @if(projeto.linkDoProjeto != null && projeto.linkDoProjeto != ""){
+            <button class="btn btn-primary" ><a href="{{projeto.linkDoProjeto}}" target="_blank">Ver Projeto</a></button><br />
+          }
+          @if(projeto.linkYoutube != null && projeto.linkYoutube != ""){
+            <button class="btn btn-primary" ><a href="{{projeto.linkYoutube}}" target="_blank">Ver Vídeo</a></button><br />
+          }
+          @if(projeto.linkDoRepositorio != null && projeto.linkDoRepositorio != ""){
+            <button class="btn btn-primary" ><a href="{{projeto.linkDoRepositorio}}" target="_blank">Ver Repositório</a></button><br />
+          }
+          </div>
+          @if (projeto.tecnologias != null && projeto.tecnologias.length > 0) {
+          <div class="habilidades-container habilidades-container-view">
+
+            <h5 >Tecnologias</h5>
+            <ul class="lista-habilidades-projeto">
+          @for (tecnologia of projeto.tecnologias; track $index )
+          {
+            <li >
+              {{ tecnologia }}
+              @if (languages.includes(tecnologia )) {
+                <img
+                  [src]="langUrl + tecnologia"
+                  [alt]="tecnologia"
+                  class="habilidade-icon"
+                >
+
+              }
+            </li>
+          }
+            </ul>
+          </div>
+            }
+
+        </div>
+      </div>
+      }
+    </ng-container>
+  }
+  @if (editando && projetos.length == 0) {
+    <div (click)="addProjetoNovo()" class="add-projeto-botao " >
+      <img src="plus.png" alt="add" width="100%" />
+    </div>
+  }
+</div>
+</div>

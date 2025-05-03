@@ -1,0 +1,63 @@
+<p>recuperar-senha works!</p>
+  <div class="container-forget">
+    <div class="card forget">
+      <button class="btn btn-close" style="margin: 0 0 10px 240px" (click)="fecharRecuperarSenha()">
+
+      </button>
+      <h3>Recuperar a senha</h3>
+
+      <form (submit)="forget()" class="form-group">
+        <div class="mb-3">
+          <input type="text" [(ngModel)]="emailParaRecuperarRequest.email" class="form-control" placeholder="Email" required name="email" />
+        </div>
+        @if (!enviado){
+          @if (!tentandoEnviar){
+            <div style="display: flex; align-items: center; justify-content: center">
+            <button type="submit" class="btn btn-primary">
+              Enviar
+            </button>
+            </div>
+          } @else{
+            <button type="submit" class="btn btn-secondary" disabled>
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              <span class="sr-only">Carregando</span>
+            </button>
+          }
+        } @else {
+          <button type="submit" class="btn btn-primary">
+            Enviar novamente
+          </button>
+        }
+      </form>
+      @if (enviadoPelaPrimeiraVez){
+        <div class="redefinindo-senha">
+          <h5>Enviado código de recuperação para <b>{{this.redefinirSenhaRequest.email}}</b></h5>
+          <p>Obs: possivelmente estará no lixo eletrônico</p>
+          <form (submit)="redefinirSenha()" class="form-group">
+            <div class="mb-3">
+              <label for="codigo">Código de recuperação</label>
+              <input id="codigo" type="text" [(ngModel)]="redefinirSenhaRequest.codigo" class="form-control" required name="codigo" />
+            </div>
+            <div class="mb-3">
+              <label for="novasenha">Nova Senha</label>
+              <input id="novasenha" type="password" [(ngModel)]="redefinirSenhaRequest.novaSenha" class="form-control" required name="senha" />
+            </div>
+            <!--          <div class="mb-3">-->
+            <!--            <input type="password" [(ngModel)]="redefinirSenhaRequest.confirmacao" class="form-control" placeholder="Confirmação da nova senha" required name="confirmacaoSenha" />-->
+            <!--          </div>-->
+            @if (!tentandoRedefinir){
+              <button type="submit" class="btn btn-primary">
+                Redefinir
+              </button>
+            } @else{
+              <button type="submit" class="btn btn-secondary" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                <span class="sr-only">Carregando</span>
+              </button>
+
+            }
+          </form>
+        </div>
+      }
+    </div>
+  </div>

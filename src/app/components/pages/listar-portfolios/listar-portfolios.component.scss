@@ -1,0 +1,26 @@
+.lista-portfolios-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 colunas de largura igual */
+  gap: 16px; /* espaço entre os itens */
+  width: 1200px;
+}
+
+.lista-portfolios-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.imagem{
+  width: 150px;
+  height: auto;
+  border-radius: 40px;
+}
+.zoom-hover {
+  transition: transform 0.3s ease;
+}
+
+.zoom-hover:hover {
+  transform: scale(1.06);
+}

@@ -1,0 +1,42 @@
+<div #tiltCard class="card portfolio-container">
+  <div class="portfolio-content">
+
+
+      <img class="background-img " src="background-padrao.png" alt="Imagem de fundo do portfólio" />
+<!--    <div class="foto-e-nome">-->
+    @if (portfolio.foto != null) {
+      <img class="imagem-portfolio-card" [src]="'data:' + portfolio.foto.contentType + ';base64,' + portfolio.foto.data" alt="Imagem de {{ portfolio.username }}" />
+    } @else {
+      <img src="icon-profile.png" class="imagem-portfolio-card" alt="Imagem de {{ portfolio.username }}" />
+    }
+
+    @if (portfolio.nome) {
+    <div class="nome-portfolio">
+      <h3 > {{ portfolio.nome }}</h3>
+    </div>
+  }
+<!--    </div>-->
+    @if (portfolio.breveDescricao){
+      <div class="breve-descricao-portfolio">
+        <p> {{ portfolio.breveDescricao }}</p>
+      </div>
+    }
+
+    @if (portfolio.localizacao){
+      <div class="localizacao-portfolio">
+        <img src="localizacao.png" alt="">
+        <p> {{ portfolio.localizacao }}</p>
+      </div>
+    }
+<!--    <hr>-->
+
+    @if (portfolio.habilidades){
+      <div class="habilidades-portfolio">
+      <p>{{ Array.from(portfolio.habilidades).join(' • ') }}</p>
+      </div>
+        }
+    <div class="div-botao-ver-portfolio">
+      <button class="btn btn-secondary" (click)="irParaPortfolio(portfolio.username)">Ver Portfólio</button>
+    </div>
+  </div>
+</div>

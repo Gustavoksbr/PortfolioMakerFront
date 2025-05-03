@@ -1,0 +1,57 @@
+
+<header class="header">
+  <div class="header-content">
+  <h2 class="irParaHome" (click)="irParaHome()">PortfolioMaker</h2>
+  <div class="header-autenticacao">
+@if (email != null && email != '') {
+  <p>Olá, {{email}}</p>
+  @if (portfolioProprio.username!=null && portfolioProprio.username != '') {
+    <button (click)="irParaPortfolio()" class="botao-com-zoom" style="margin-right: 20px">
+      Ver Seu portfólio
+    </button>
+  } @else {
+    <button (click)="irParaCriarPortfolio()" class="botao-com-zoom" style="margin-right: 20px">
+      Criar portfólio
+    </button>
+  }
+
+  <button class="sair botao-com-zoom" (click)="abrirModalDeslogar()">
+    <img src="sair.png" alt="logout" />
+    <p>Deslogar</p>
+  </button>
+} @else {
+
+<!--  @if (email==null){-->
+  <button (click)="abrirLogin()" class="btn botao-com-zoom">Login</button>
+  /
+  <button (click)="abrirCadastro()" class="btn botao-com-zoom">Cadastrar</button>
+<!--  <button (click)="abrirRecuperarSenha()" class="btn btn-warning">Esqueci minha senha</button>-->
+  <div *ngIf="isLoginOpen" class="modal-overlay" >
+    <app-login (devolverFecharLogin)="fecharLogin()" (abrirCadastro)="abrirCadastro()" (abrirRecuperarSenha)="abrirRecuperarSenha()" ></app-login>
+  </div>
+
+  <div *ngIf="isCadastroOpen" class="modal-overlay">
+    <app-cadastro (devolverFecharCadastro)="fecharCadastro()" (abrirLogin)="abrirLogin()" ></app-cadastro>
+  </div>
+
+  <div *ngIf="isRecuperarSenhaOpen" class="modal-overlay">
+    <app-recuperar-senha (devolverFecharRecuperarSenha)="fecharRecuperarSenha()"></app-recuperar-senha>
+  </div>
+}
+  </div>
+  </div>
+</header>
+
+@if(modalDeslogarAberto){
+<app-modal
+  [title]="'Quer mesmo deslogar?'"
+  [confirmButtonText]="'deslogar'"
+  [closeButtonText]="'cancelar'"
+  [danger]="true"
+  (closeModal)="fecharModalDeslogar()"
+  (confirmModal)="deslogar()"
+
+>
+
+</app-modal>
+}

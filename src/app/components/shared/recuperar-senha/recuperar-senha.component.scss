@@ -1,0 +1,44 @@
+.container-forget {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 1rem;
+}
+
+.card.forget {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  position: relative;
+  animation: slideIn 0.4s ease-out;
+}
+
+
+.card h3 {
+  margin-bottom: 1rem;
+  font-weight: 600;
+  text-align: center;
+  color: #333;
+}
+
+
+.redefinindo-senha {
+  margin-top: 2rem;
+  background-color: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid #007bff;
+}
+
+.redefinindo-senha h5 {
+  margin-bottom: 0.5rem;
+}
+
+.redefinindo-senha p {
+  font-size: 0.875rem;
+  color: #555;
+}

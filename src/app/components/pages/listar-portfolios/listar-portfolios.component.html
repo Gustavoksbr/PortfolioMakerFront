@@ -1,0 +1,12 @@
+
+<app-header (devolverPortfolio)="receberPortfolioProprio($event)" >
+
+</app-header>
+
+<div class="lista-portfolios-container">
+  <div class="lista-portfolios-content">
+@for (p of listaPortfolios; track $index) {
+ <app-portolio [portfolio]="p"></app-portolio>
+}
+  </div>
+</div>

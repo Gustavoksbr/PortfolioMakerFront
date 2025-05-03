@@ -1,0 +1,17 @@
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  color: var(--text-color);
+  background-color: var(--background-color2);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  animation: slideIn 0.4s ease-out;
+}
+.modal-opcoes{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}

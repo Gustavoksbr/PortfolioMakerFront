@@ -1,0 +1,37 @@
+<div class="adicionar-foto">
+  <!-- Mostrar imagem, se houver -->
+  <ng-container *ngIf="imagePreviewUrl; else placeholder">
+    <img
+      [src]="imagePreviewUrl"
+      alt="Imagem selecionada"
+      class="preview-imagem"
+    />
+
+    <!-- Botão de remover (se não for só visualização) -->
+    <button
+      *ngIf="!somenteVisualizacao"
+      type="button"
+      class="botao-remover"
+      (click)="removerImagem()">
+      Remover
+    </button>
+  </ng-container>
+
+  <!-- Placeholder com botão de adicionar -->
+  <ng-template #placeholder>
+    <button
+      *ngIf="!somenteVisualizacao"
+      (click)="fileInput.click()"
+      class="botao-adicionar-foto">
+      {{ labelText }}
+    </button>
+  </ng-template>
+
+  <!-- Hidden file input -->
+  <input
+    type="file"
+    #fileInput
+    accept="image/*"
+    (change)="onFileSelected($event)"
+    style="display: none" />
+</div>

@@ -1,0 +1,374 @@
+<div>
+<app-header (devolverPortfolio)="receberPortfolioProprio($event)" >
+</app-header>
+  @if (portfolio.email==null || portfolio.email == '') {
+    <div class="pagina-not-found">
+      <h3>Portfólio  não encontrado!</h3>
+    </div>
+  }@else{
+    <div>
+      <div class="mostrar-portfolio-content">
+        <!-- Nome do portfólio em destaque -->
+        @if (!editando){
+          @if (criarPortfolioPrimeiraVez && portfolioProprio.email == null){
+<!--            <div class="botao-editar lapis edit-permitido" (click)="alterar()" title="Clique para editar seu portfólio">-->
+<!--              <img src="edit.webp" alt="alterar">-->
+<!--            </div>-->
+          } @else {
+            @if ( !this.portfolioProprio.email){
+              <div class="botao-editar impedido edit-impedido lapis"  title="Você precisa estar logado para alterar o portfólio">
+                <img src="edit-denied.jpg" alt="alterar">
+              </div>
+            }@else{
+              @if (portfolioProprio.email== portfolio.email) {
+                <div class="botao-editar lapis edit-permitido" (click)="alterar()" title="Clique para editar seu portfólio">
+                  <img src="edit.webp" alt="alterar">
+                </div>
+              } @else {
+                <div class="botao-editar impedido edit-impedido lapis" title="Você não pode editar o portfólio de outra pessoa">
+                  <img src="edit-denied.jpg" alt="alterar">
+                </div>
+              }
+            }
+          }
+
+
+          } @else {
+          <div class="botao-editar editando">
+            @if (podeSalvarSemErroDeRequisicao){
+              <button
+                class="salvar btn btn-primary"
+                (click)="abrirModalSalvar()">
+                salvar
+              </button>
+              } @else {
+              <button
+                class ="salvar btn btn-primary impedido"
+                title="Você tem campos mal preenchidos">
+                salvar
+              </button>
+            }
+            @if (!criarPortfolioPrimeiraVez){
+              <button class="cancelar btn btn-secondary" (click)="abrirCancelarModal()">
+                cancelar
+              </button>
+            }
+
+
+          </div>
+        }
+
+
+        <header class="nome-e-titulo">
+          <div class="nome-e-titulo-content">
+            @if (editando){
+                <label>Seu nome</label>
+                <input type="text" class="form-control" [(ngModel)]="portfolioNovo.nome" placeholder="{{ portfolio.nome }}" maxlength="50"/>
+            } @else {
+              <h1 class="display-4 nome-text">{{ portfolio.nome }}</h1>
+            }
+
+            <div class="breve-descricao">
+              @if (editando){
+                <label>Breve descrição</label>
+                <textarea class="form-control breve-descricao-edit" [(ngModel)]="portfolioNovo.breveDescricao" placeholder=" {{ portfolio.breveDescricao }}" maxlength="80"></textarea>
+                <div class="contador-caracteres text-end mt-1" style="font-size: 14px; color: white;">
+                  {{ portfolioNovo.breveDescricao.length || 0 }}/80
+                </div>
+              } @else {
+                <p class="display-6 breve-descricao-text"> {{ portfolio.breveDescricao }}</p>
+              }
+              </div>
+          </div>
+
+        </header>
+
+        <!-- Foto e Descrição lado a lado -->
+
+          @if (editando){
+            <div class="username-container">
+              <div class="username-content">
+            <label>O final da url do seu portfolio. Serve como identificador único</label>
+            <input type="text" class="form-control" [(ngModel)]="portfolioNovo.username"/>
+            <p>https://portfoliomaker.vercel.app/portfolios/{{portfolioNovo.username}}</p>
+                @if(portfolioNovo.username == ""){
+                  <div class="alert alert-danger" role="alert">
+                    Username não pode ser vazio!
+                  </div>
+                }
+              </div>
+
+              </div>
+          }
+        <hr class="barra-horizontal" />
+        <div class="row mb-4 foto-e-decricao">
+          <div class="col-md-4 text-center">
+
+              <app-selecionar-imagem
+                [imagem]="portfolio.foto"
+                [somenteVisualizacao]="!editando"
+                (imagemAlterada)="atualizarFotoPortfolio($event)"
+                (imagemRemovida)="portfolioNovo.foto = null">
+              </app-selecionar-imagem>
+
+          </div>
+          <div class="col-md-8">
+            <!--      <p><strong>Email:</strong> {{ portfolio.email }}</p>-->
+            <div class="descricao">
+
+              <div style="max-width: 1000px">
+                @if (!editando){
+                  <div class="descricao-view">
+                  <p style="word-wrap: break-word; overflow-wrap: break-word; font-size: 20px">{{ portfolio.descricao }}
+                  </p>
+                  </div>
+                } @else {
+                  <label for="descricao" class="titulo-sobre-mim text-center">Descrição</label>
+                  <textarea id="descricao" class="form-control textarea-descricao" [(ngModel)]="portfolioNovo.descricao"  rows="5"  maxlength="400">
+
+          </textarea>
+                  <div class="contador-caracteres text-end mt-1" style="font-size: 14px; color: gray;">
+                    {{ portfolioNovo.descricao.length || 0 }}/400
+                  </div>
+                }
+
+              </div>
+            </div>
+            <!--      <p *ngIf="portfolio.link"><strong>Link do projeto:</strong> <a [href]="portfolio.link" target="_blank">{{ portfolio.link }}</a></p>-->
+          </div>
+        </div>
+        <hr class="barra-horizontal" />
+
+        <div class="localizacao-container">
+          <div class="localizacao-content">
+            @if (editando){
+            <h3 class="titulos">Localização</h3>
+            <input type="text" class="form-control" [(ngModel)]="portfolioNovo.localizacao"  maxlength="50"/>
+
+            } @else {
+              <p class="localizacao-text">{{ portfolio.localizacao }}</p>
+            }
+          </div>
+        </div>
+<!--         Redes sociais -->
+        <div class="links-container">
+
+
+        @if (!editando) {
+          <div class="links-content">
+          @if(portfolioNovo.links != null && portfolioNovo.links.length> 0){
+                @for (link of portfolio.links; track $index)
+                {
+
+                  <div class="link-container-view"  (click)="goToExternalPage(link.url)">
+                    <div>
+                      @if (links.includes(link.nome)) {
+                      <img
+                        [src]="'links/' + link.nome+ '.png'"
+                        [alt]="link.nome"
+                        class="link-icon-view"
+                      >
+                      } @else {
+                        <img
+                          src="/links/link.png"
+                          alt="link"
+                          class="link-icon-view"
+                        >
+                      }
+                    </div>
+                    <div>
+                      <p>
+                        {{ link.nome }}
+                      </p>
+                    </div>
+                  </div>
+
+                }
+          }
+          </div>
+        }
+        @else {
+
+          <h3 class="titulos">Links externos</h3>
+          <div class="links-content">
+<!--          <h1>aaaaaaaaaaab</h1>-->
+              @for ( link of portfolioNovo.links; track $index)
+
+              {
+<div class="nome-e-link">
+  <div class="nome-link-content card">
+    <div class="icon-e-x-link">
+      @if (links.includes(link.nome)) {
+      <img
+        [src]="'links/' + link.nome+ '.png'"
+        [alt]="link.nome"
+        class="habilidade-icon"
+      >
+    } @else {
+        <img
+          src="/links/link.png"
+          alt="link"
+          class="habilidade-icon"
+        >
+      }
+    <button class="btn btn-close excluir-link " (click)="deleteLink(link.nome)" ></button>
+    </div>
+    <div>
+    <app-links-autocomplete
+                  [searchText]="link.nome"
+                  [linkInicial]="link.nome"
+                  (retornarLinkInicialEPosterior)="alterarLinks($event)"
+                ></app-links-autocomplete>
+
+    </div>
+
+    <div class="url-link-content">
+      <label>Url</label>
+      <input type="text"
+             class="link-url-input form-control"
+             [(ngModel)]="link.url" />
+    </div>
+              </div>
+
+</div>
+              }
+            <div (click)="addLinkNovo()" class="add-link-botao" >
+              <img src="plus.png" alt="add" width="100%" />
+            </div>
+          </div>
+        }
+
+
+        </div>
+
+<!--habilidades-->
+        <div class="habilidades-container">
+          @if (!editando){
+
+              <ul class="list-inline habilidades-view habilidades-content">
+                <li *ngFor="let habilidade of portfolio.habilidades" class="">
+                  {{ habilidade }}
+                  @if (languages.includes(habilidade)) {
+                    <img
+                      [src]="langUrl + habilidade"
+                      [alt]="habilidade"
+                      class="habilidade-icon"
+                    >
+                  }
+                </li>
+              </ul>
+
+          } @else {
+            <h1 class="titulos">Habilidades</h1>
+
+            <div class="habilidades-edit habilidades-content">
+              @for (habilidade of portfolioNovo.habilidades; track $index) {
+                <div class="habilidade">
+                <app-autocomplete
+                  [searchText]="habilidade"
+                  [habilidadeInicial]="habilidade"
+                  (retornarHabilidadeInicialEPosterior)="alterarHabilidades($event)"
+                  ></app-autocomplete>
+                  <div class="icon-e-x">
+                  @if (languages.includes(habilidade)) {
+                    <img
+                      [src]="langUrl + habilidade"
+                      [alt]="habilidade"
+                      class="habilidade-icon"
+                    >
+                    <button class="btn btn-close" (click)="deleteHabilidade(habilidade)" ></button>
+                  }@else{
+                    <button class="btn btn-close" style="margin-left: 40px" (click)="deleteHabilidade(habilidade)" ></button>
+                  }
+                </div>
+                </div>
+              }
+              <div class="add-habilidade">
+              <p>Adicione uma habilidade:</p>
+              <app-autocomplete
+                [searchText]="''"
+                [habilidadeInicial]="''"
+                (retornarHabilidadeInicialEPosterior)=alterarHabilidades($event)
+              >
+              </app-autocomplete>
+              </div>
+            </div>
+          }
+        </div>
+
+        <!-- Projetos -->
+        <div style="margin-bottom: 20px">
+        <h1 class="titulos">Projetos</h1>
+        <app-listar-ordenaveis
+          [listaEmQuestao]="portfolio.projetos"
+          [editando]="editando"
+          (retornar)="atualizarProjetos($event)">
+        </app-listar-ordenaveis>
+        </div>
+        <!--  <div class="row">-->
+        <!--    <div class="col-md-4 mb-4" *ngFor="let projeto of portfolio.projetos">-->
+        <!--      <div class="card h-100">-->
+        <!--        <img *ngIf="projeto.imagem" class="card-img-top"-->
+        <!--             [src]="'data:' + projeto.imagem.contentType + ';base64,' + projeto.imagem.data"-->
+        <!--             [alt]="projeto.nome" />-->
+
+        <!--        <div class="card-body d-flex flex-column">-->
+        <!--          <h5 class="card-title">{{ projeto.nome }}</h5>-->
+        <!--          <p class="card-text">{{ projeto.descricao }}</p>-->
+
+        <!--          <div class="mt-auto">-->
+        <!--            <p><strong>Tecnologias:</strong></p>-->
+        <!--            <ul class="list-inline">-->
+        <!--              <li *ngFor="let tech of projeto.tecnologias" class="list-inline-item badge bg-info text-dark me-1">-->
+        <!--                {{ tech }}-->
+        <!--              </li>-->
+        <!--            </ul>-->
+
+        <!--            <p *ngIf="projeto.linkDoProjeto">-->
+        <!--              🔗 <a [href]="projeto.linkDoProjeto" target="_blank">Projeto</a>-->
+        <!--            </p>-->
+        <!--            <p *ngIf="projeto.linkDoRepositorio">-->
+        <!--              📁 <a [href]="projeto.linkDoRepositorio" target="_blank">Repositório</a>-->
+        <!--            </p>-->
+        <!--            <div *ngIf="projeto.linkYoutube">-->
+        <!--              <iframe width="100%" height="200"-->
+        <!--                      [src]="getEmbedYoutubeUrl(projeto.linkYoutube)" allowfullscreen>-->
+        <!--              </iframe>-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--        </div>-->
+        <!--      </div>-->
+        <!--    </div>-->
+        <!--  </div>-->
+      </div>
+<!--      <p >Desenvolvedor de Sistemas • Estudante de Análise e Desenvolvimento</p>-->
+<!--      <p >Desenvolvedor de Sistemas • Estudante de Análise e Desenvolvimento</p>-->
+<!--      <p >Desenvolvedor de Sistemas • Estudante de Análise e Desenvolvimento</p>-->
+<!--      <p >Desenvolvedor de Sistemas • Estudante de Análise e Desenvolvimento</p>-->
+<!--      <p >Desenvolvedor de Sistemas • Estudante de Análise e Desenvolvimento</p>-->
+<!--      <p >Desenvolvedor de Sistemas • Estudante de Análise e Desenvolvimento</p>-->
+<!--      <p >Desenvolvedor de Sistemas • Estudante de Análise e Desenvolvimento</p>-->
+<!--      <p >Desenvolvedor de Sistemas • Estudante de Análise e Desenvolvimento</p>-->
+<!--      <textarea ></textarea>-->
+<!--      <p >Desenvolvedor de Sistemas • Estudante de Análise e Desenvolvimento</p>-->
+<!--      <p >Desenvolvedor de Sistemas • Estudante de Análise e Desenvolvimento</p>-->
+    </div>
+  }
+
+  @if(modal.isOpen){
+    <app-modal
+      [title]="modal.title"
+      [message]="modal.message"
+      [confirmButtonText]="modal.confirmButtonText"
+      [closeButtonText]="modal.closeButtonText"
+      [danger]="modal.danger"
+      [carregandoClose]="modal.carregandoClose"
+      [carregandoConfirm]="modal.carregandoConfirm"
+      [salvarAlteracoes]="modal.salvarAlteracoes"
+
+      (closeModal)="cancelarModal()"
+      (confirmModal)="salvar($event)"
+    ></app-modal>
+  }
+
+</div>

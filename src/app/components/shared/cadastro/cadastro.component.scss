@@ -1,0 +1,45 @@
+.cadastro{
+  width: 450px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5%;
+  animation: slideIn 0.4s ease-out;
+  border-radius: 1rem;
+}
+.parte-de-cima{
+  margin:20px;
+  display: grid;
+  grid-template-columns: repeat(11,1fr); /* 3 colunas iguais */
+  width: 100%;
+  h3{
+    grid-column: 4/9;
+  }
+  button{
+    grid-column: 11;
+  }
+}
+
+.entrar-cancelar-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin:10px;
+}
+
+.outras-opcoes{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top:20px;
+}
+
+
+.a {
+  color: var(--text-color-link);
+  text-decoration: underline;
+  cursor: pointer;
+}
+

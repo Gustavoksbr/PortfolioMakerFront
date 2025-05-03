@@ -1,0 +1,46 @@
+
+<!--<app-modal>-->
+  <div class=" container-login">
+    <div class="card login">
+      <div class="parte-de-cima">
+  <h3>Login</h3>
+      <button class="btn btn-close" (click)="fecharLogin()">
+
+      </button>
+      </div>
+<form (submit)="login()" class="form-group">
+  <div class="mb-3 label-input">
+    <label for="email">
+      Email:
+    </label>
+    <input type="text" id="email" [(ngModel)]="credentials.email" class="form-control"  required name="email" />
+  </div>
+  <div class="mb-3 label-input">
+    <label for="password">
+      Senha:
+    </label>
+    <input type="password" id="password" [(ngModel)]="credentials.senha" class="form-control"  required name="password" />
+  </div>
+<div class="entrar-cancelar-container">
+    @if (!tentandoLogar){
+      <button type="submit" class="btn btn-primary">
+      Entrar
+      </button>
+    } @else {
+      <button type="submit" class="btn btn-secondary" disabled>
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      <span class="sr-only">Carregando</span>
+      </button>
+    }
+</div>
+</form>
+      <div class="outras-opcoes">
+      <p>Esqueceu a senha? <a class="a " (click)="esqueciSenha()">Recupere-a </a></p>
+  <p>Não possui conta? <a class="a" (click)="cadastrar()">Cadastre-se</a> </p>
+      </div>
+      </div>
+  </div>
+<!--</app-modal>-->
+
+<!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">-->
+

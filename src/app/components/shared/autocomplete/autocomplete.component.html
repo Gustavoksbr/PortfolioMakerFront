@@ -1,0 +1,37 @@
+<div>
+  <div class="search-container">
+    <input
+      type="text"
+      [(ngModel)]="searchText"
+      (input)="onInputChange()"
+      (keydown.enter)="onEnterKey()"
+      placeholder=""
+      maxlength="15"
+    />
+    <div class="suggestions">
+      @for (match of filteredLanguages; track $index) {
+        <div class="suggestion" (click)="selectLanguage(match)">
+        <div
+
+          [innerHTML]="highlightMatch(match)"
+        >
+
+        </div>
+        <img
+          [src]="url + match"
+          [alt]="selectedLanguage"
+        />
+        </div>
+      }
+
+    </div>
+  </div>
+
+<!--  <div class="result" *ngIf="selectedLanguage">-->
+<!--    <h3>{{ selectedLanguage | titlecase }}</h3>-->
+<!--    <img-->
+<!--      [src]="'https://skillicons.dev/icons?i=' + selectedLanguage"-->
+<!--      [alt]="selectedLanguage"-->
+<!--    />-->
+<!--  </div>-->
+</div>

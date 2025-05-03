@@ -1,0 +1,24 @@
+<div #tiltCard class="linkedin-card">
+  <img class="background-img" src="background-padrao.png" alt="Background"/>
+  <img class="profile-pic" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Foto de perfil"/>
+  @if (portfolio.foto!=null){
+    <app-selecionar-imagem
+      [imagem]="portfolio.foto"
+      [somenteVisualizacao]=true>
+    </app-selecionar-imagem>
+  } @else {
+
+  }
+
+  <div class="info">
+    <div class="url-portfolio" >
+      <p>http://localhost:4200/</p>
+      <p class="username">{{portfolio.username}}</p>
+    </div>
+    <div class="name">{{portfolio.nome}}</div>
+    <div class="title">{{ portfolio.breveDescricao }}</div>
+    <div class="location">São Paulo, Brasil</div>
+    <div class="skills">{{ portfolio.habilidades }}</div>
+<!--    <div class="skills">HTML • CSS • JavaScript • React • UX/UI</div>-->
+  </div>
+</div>

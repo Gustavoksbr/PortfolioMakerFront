@@ -1,0 +1,117 @@
+
+.zoom-hover {
+  transition: transform 0.3s ease;
+}
+
+.portfolio-container{
+  width: 350px;
+  height: 400px;
+  border-radius: 20px
+}
+
+.portfolio-content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+height: 100%;
+  width: 100%;
+}
+
+.background-img-container{
+
+}
+
+.background-img{
+  width: 100%;
+  height: 70px;
+  object-fit: cover;
+  border-radius:20px 20px 0px 0px;
+  position: fixed;
+}
+
+
+
+.zoom-hover:hover {
+  transform: scale(1.06);
+}
+//.container-imagem-portfolio-card{
+//  width: 260px;
+//  height: 150px;
+//}
+//.foto-e-nome{
+//  display: flex;
+//  flex-direction: column;
+//  justify-content: center;
+//}
+.imagem-portfolio-card{
+  width: 100px;
+  height: 100px;
+  //position: relative;
+  //bottom: 50px;
+  //right: 80px;
+  //margin: 10px 120px 10px 10px;
+  border-radius: 50%;
+  border: 3px solid #f1f1f1;
+  background-color: white;
+
+  object-fit:fill;
+  z-index: 1;
+}
+
+.nome-portfolio{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 90%;
+  //position: relative;
+  //bottom: 50px;
+}
+
+.breve-descricao-portfolio{
+  color: #666;
+  //position: relative;
+  //bottom: 50px;
+  width: 90%;
+}
+
+.localizacao-portfolio{
+  color: #666;
+  //position: relative;
+  //bottom: 60px;
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  img{
+    width: 20px;
+    height: 20px;
+  }
+}
+
+//hr{
+//  position: relative;
+//  bottom: 80px;
+//  width: 80%; /* Largura da barra */
+//  height: 1px;
+//  background-color: #000; /* Cor da barra */
+//  border: none;
+//}
+
+.habilidades-portfolio{
+  //position: relative;
+  //bottom: 70px;
+  width: 90%;
+  border-top: 1px solid #c1c0c0;
+  padding-top: 10px;
+  p{
+    display: -webkit-box;
+    -webkit-line-clamp: 2;   /* Limita para 2 linhas */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.div-botao-ver-portfolio{
+  //position: relative;
+  //bottom: 70px;
+}
