@@ -1,6 +1,7 @@
-<div>
+<div class="mostrar-portfolio-container">
 <app-header (devolverPortfolio)="receberPortfolioProprio($event)" >
 </app-header>
+
   @if (portfolio.email==null || portfolio.email == '') {
     <div class="pagina-not-found">
       <h3>Portfólio  não encontrado!</h3>
@@ -59,16 +60,21 @@
         }
 
 
-        <header class="nome-e-titulo">
-          <div class="nome-e-titulo-content">
+        <header class="nome-breve-descricao-container">
+          <div class="nome-breve-descricao-content">
+            @if (criarPortfolioPrimeiraVez){
+              <h1 class="display-4 nome-text">Crie seu portfólio</h1>
+            }
             @if (editando){
+              <div class="nome-breve-descricao">
                 <label>Seu nome</label>
                 <input type="text" class="form-control" [(ngModel)]="portfolioNovo.nome" placeholder="{{ portfolio.nome }}" maxlength="50"/>
-            } @else {
+              </div>
+                } @else {
               <h1 class="display-4 nome-text">{{ portfolio.nome }}</h1>
             }
 
-            <div class="breve-descricao">
+            <div class="nome-breve-descricao">
               @if (editando){
                 <label>Breve descrição</label>
                 <textarea class="form-control breve-descricao-edit" [(ngModel)]="portfolioNovo.breveDescricao" placeholder=" {{ portfolio.breveDescricao }}" maxlength="80"></textarea>
@@ -100,6 +106,7 @@
 
               </div>
           }
+
         <hr class="barra-horizontal" />
         <div class="row mb-4 foto-e-decricao">
           <div class="col-md-4 text-center">
@@ -243,6 +250,7 @@
 
 <!--habilidades-->
         <div class="habilidades-container">
+          <h2 class="titulos">Habilidades</h2>
           @if (!editando){
 
               <ul class="list-inline habilidades-view habilidades-content">
@@ -259,7 +267,7 @@
               </ul>
 
           } @else {
-            <h1 class="titulos">Habilidades</h1>
+
 
             <div class="habilidades-edit habilidades-content">
               @for (habilidade of portfolioNovo.habilidades; track $index) {
@@ -371,4 +379,9 @@
     ></app-modal>
   }
 
+
 </div>
+<app-footer>
+
+</app-footer>
+

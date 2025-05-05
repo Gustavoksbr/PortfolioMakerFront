@@ -17,6 +17,7 @@ import {SelecionarImagemComponent} from '../../shared/selecionar-imagem/selecion
 import {Projeto} from '../../../models/response/Projeto';
 import {ListarOrdenaveisComponent} from '../../shared/listar-ordenaveis/listar-ordenaveis.component';
 import {LinksAutocompleteComponent} from '../../shared/links-autocomplete/links-autocomplete.component';
+import {FooterComponent} from '../../shared/footer/footer.component';
 
 @Component({
   selector: 'app-mostrar-portfolio',
@@ -29,7 +30,8 @@ import {LinksAutocompleteComponent} from '../../shared/links-autocomplete/links-
     ModalComponent,
     SelecionarImagemComponent,
     ListarOrdenaveisComponent,
-    LinksAutocompleteComponent
+    LinksAutocompleteComponent,
+    FooterComponent
   ],
   templateUrl: './mostrar-portfolio.component.html',
   styleUrl: './mostrar-portfolio.component.scss'

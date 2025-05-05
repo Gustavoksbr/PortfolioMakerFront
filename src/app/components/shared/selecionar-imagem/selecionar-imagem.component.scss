@@ -1,7 +1,6 @@
 .adicionar-foto {
   width: 230px;
   height: 230px;
-  //border-radius: 50%;
   border-radius: 40px;
   border: 2px solid #000;
   display: flex;
@@ -13,11 +12,8 @@
   flex-direction: column;
 }
 
-//.sublinhado{
-//  border: 2px dashed #000;
-//}
 
-.adicionar-foto button {
+.adicionar-foto .add-remover {
   padding: 6px;
   border: none;
   background-color: gray;
@@ -33,7 +29,7 @@
   height: 100%;
   object-fit: cover;
   border-radius: 40px;
-  //border-radius: 50%;
+
 }
 
 
@@ -41,12 +37,12 @@
   position: absolute;
   bottom: 10px;
   right: 10px;
-  background-color: #d32f2f;
+  color: #d32f2f;
+
 }
 
 .botao-remover:hover {
   background-color: #b71c1c;
 }
-//.botao-adicionar-foto{
-//  background-color: lightgray;
-//}
+
+

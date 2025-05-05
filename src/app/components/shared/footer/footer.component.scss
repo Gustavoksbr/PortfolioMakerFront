@@ -1,0 +1,16 @@
+.footer{
+  background-color: #c5c6ca;
+  padding: 20px;
+  text-align: center;
+  bottom: 0;
+  width: 100%;
+  p{
+    a{
+      color: rgba(0, 72, 255, 0.71);
+      cursor: pointer;
+      &:hover{
+        text-decoration: underline;
+      }
+    }
+  }
+}

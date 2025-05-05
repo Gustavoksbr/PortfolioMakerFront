@@ -3,10 +3,59 @@
 
 </app-header>
 
+<div class="listar-portfolios-container">
+  <div class="listar-portfolios-content">
+    <div class="container portfolio-proporio-container">
+      <div class="portfolio-proprio-content">
+@if (portfolioProprio.email){
+
+    <h3> Seu Portfólio</h3>
+    <app-portolio [portfolio]="portfolioProprio"></app-portolio>
+
+} @else if(email) {
+    <h5>Você ainda não criou seu portfólio</h5>
+  <p>
+    <b (click)="irParaCriarPortfolio()" class="criar-portfolio-ahref">
+    Clique aqui
+  </b>
+    para criar seu portfólio e mostrar suas habilidades!</p>
+}
+@else {
+    <h5>Logue-se para criar seu portfólio!</h5>
+}
+      </div>
+    </div>
+
 <div class="lista-portfolios-container">
   <div class="lista-portfolios-content">
-@for (p of listaPortfolios; track $index) {
- <app-portolio [portfolio]="p"></app-portolio>
-}
+    @if (portfolioProprio.email){
+      <h3> Procure por outros portfólios</h3>
+    } @else {
+      <h3> Procure algum portfólio</h3>
+    }
+
+    <input
+      type="text"
+      class="busca-input"
+      placeholder="Buscar por nome ou username..."
+      [(ngModel)]="filtro"
+      (ngModelChange)="aplicarFiltro()"
+    />
+  <div class="lista-portfolios">
+    @if (listaFiltrada.length > 0) {
+      @for (p of listaFiltrada; track $index) {
+        <app-portolio [portfolio]="p" />
+      }
+    } @else {
+      <h5>Nenhum portfólio encontrado</h5>
+    }
+
+  </div>
   </div>
 </div>
+  </div>
+</div>
+
+<app-footer>
+
+</app-footer>

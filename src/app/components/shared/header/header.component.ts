@@ -124,6 +124,7 @@ export class HeaderComponent implements OnInit{
   }
 
   deslogar(){
+    console.log("logout");
     this.fecharModalDeslogar();
     localStorage.removeItem('email');
     localStorage.removeItem('token');

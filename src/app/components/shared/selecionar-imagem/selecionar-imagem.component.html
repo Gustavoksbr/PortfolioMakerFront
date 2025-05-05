@@ -1,3 +1,4 @@
+
 <div class="adicionar-foto">
   <!-- Mostrar imagem, se houver -->
   <ng-container *ngIf="imagePreviewUrl; else placeholder">
@@ -11,18 +12,27 @@
     <button
       *ngIf="!somenteVisualizacao"
       type="button"
-      class="botao-remover"
-      (click)="removerImagem()">
+      class="botao-remover add-remover"
+      (click)="abrirPopUpRemoverImagem()">
       Remover
     </button>
-  </ng-container>
 
+  </ng-container>
+  @if (imagemRemoverPopUp){
+    <div class="confirmacao-box">
+      <p>Deseja remover essa imagem?</p>
+      <div>
+        <button class="btn btn-sm btn-danger" (click)="removerImagem()">Sim</button>
+        <button class="btn btn-sm btn-secondary" (click)="fecharPopUpRemoverImagem()">Não</button>
+      </div>
+    </div>
+  }
   <!-- Placeholder com botão de adicionar -->
   <ng-template #placeholder>
     <button
       *ngIf="!somenteVisualizacao"
       (click)="fileInput.click()"
-      class="botao-adicionar-foto">
+      class="botao-adicionar-foto add-remover">
       {{ labelText }}
     </button>
   </ng-template>

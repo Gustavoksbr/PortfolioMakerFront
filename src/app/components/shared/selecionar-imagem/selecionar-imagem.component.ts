@@ -22,6 +22,7 @@ export class SelecionarImagemComponent implements OnInit, OnChanges {
 
   imagePreviewUrl: string | null = null;
   labelText = 'Adicionar foto';
+  public imagemRemoverPopUp = false;
   ngOnInit(): void {
     this.atualizarPreview();
   }
@@ -64,7 +65,14 @@ export class SelecionarImagemComponent implements OnInit, OnChanges {
     }
   }
 
+  abrirPopUpRemoverImagem(){
+    this.imagemRemoverPopUp = true;
+  }
+  fecharPopUpRemoverImagem(){
+    this.imagemRemoverPopUp = false;
+  }
   removerImagem(): void {
+    this.imagemRemoverPopUp = false;
     if (this.somenteVisualizacao) return;
 
     this.imagePreviewUrl = null;

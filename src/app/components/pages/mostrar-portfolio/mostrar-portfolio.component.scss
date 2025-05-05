@@ -1,3 +1,7 @@
+.mostrar-portfolio-container{
+  min-height:90vh;
+}
+
 .foto{
   width: 230px;
   object-fit: cover;
@@ -5,7 +9,7 @@
   border: 2px solid #000;
 }
 
-.nome-e-titulo{
+.nome-breve-descricao-container{
   display: flex;
   background: #343a40;
   color: white;
@@ -16,6 +20,21 @@
   align-items: center;
   text-align: center;
 
+}
+.nome-breve-descricao-content{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nome-breve-descricao{
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  label{
+    margin-bottom: 5px;
+  }
 }
 
 .username-container{
@@ -30,9 +49,7 @@
 
 
 
-.nome-e-titulo-content{
-  flex-direction: column;
-}
+
 
 .nome-text{
   font-size: 38px;
@@ -128,6 +145,8 @@
   width: 100%;
   h2{
     text-align: center;
+  }
+  .titulos{
   }
 
 }
@@ -278,13 +297,12 @@
 .botao-editar{
   z-index: 70;
   position: fixed;
-  left: 70%;
+  left: 90%;
   top:180px;
   background-color: white;
   border-radius: 15px;
   padding: 8px;
   box-shadow: #333333 1px 1px 4px;
-
 }
 .editando{
   display: flex;
@@ -317,4 +335,13 @@
 
 .edit-impedido{
 
+}
+
+.pagina-not-found{
+  width: 100%;
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

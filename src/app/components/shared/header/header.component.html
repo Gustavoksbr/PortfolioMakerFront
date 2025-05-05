@@ -24,7 +24,7 @@
 <!--  @if (email==null){-->
   <button (click)="abrirLogin()" class="btn botao-com-zoom">Login</button>
   /
-  <button (click)="abrirCadastro()" class="btn botao-com-zoom">Cadastrar</button>
+  <button (click)="abrirCadastro()" class="btn botao-com-zoom">Cadastro</button>
 <!--  <button (click)="abrirRecuperarSenha()" class="btn btn-warning">Esqueci minha senha</button>-->
   <div *ngIf="isLoginOpen" class="modal-overlay" >
     <app-login (devolverFecharLogin)="fecharLogin()" (abrirCadastro)="abrirCadastro()" (abrirRecuperarSenha)="abrirRecuperarSenha()" ></app-login>
@@ -50,7 +50,6 @@
   [danger]="true"
   (closeModal)="fecharModalDeslogar()"
   (confirmModal)="deslogar()"
-
 >
 
 </app-modal>
