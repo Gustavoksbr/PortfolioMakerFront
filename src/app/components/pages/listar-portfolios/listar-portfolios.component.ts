@@ -79,6 +79,7 @@ export class ListarPortfoliosComponent implements OnInit{
 
   }
   ngOnInit(): void {
+    this.carregando = true;
     this.email = localStorage.getItem('email');
     this.email = this.authService.getStorage('email');
     if(!this.email){

@@ -7,23 +7,22 @@
   <div class="listar-portfolios-content">
     <div class="container portfolio-proporio-container">
       <div class="portfolio-proprio-content">
-@if (email || portfolioProprio.email){
-
+@if (email){
     <h3> Seu Portfólio</h3>
   @if (!carregando){
-    <app-portolio [portfolio]="portfolioProprio"></app-portolio>
+    @if (!portfolioProprio.email){
+      <h5>Você ainda não criou seu portfólio</h5>
+      <p>
+        <b (click)="irParaCriarPortfolio()" class="criar-portfolio-ahref">
+          Clique aqui
+        </b>
+        para criar seu portfólio e mostrar suas habilidades!</p>
+    } @else {
+      <app-portolio [portfolio]="portfolioProprio"></app-portolio>
+    }
   } @else {
     <app-portolio [carregando]="true"></app-portolio>
-  }
-
-} @else if(email && !carregando) {
-    <h5>Você ainda não criou seu portfólio</h5>
-  <p>
-    <b (click)="irParaCriarPortfolio()" class="criar-portfolio-ahref">
-    Clique aqui
-  </b>
-    para criar seu portfólio e mostrar suas habilidades!</p>
-}
+  }}
 @else {
     <h5>Logue-se para criar seu portfólio!</h5>
 }

@@ -45,11 +45,20 @@
           } @else {
           <div class="botao-editar editando">
             @if (podeSalvarSemErroDeRequisicao){
-              <button
-                class="salvar btn btn-primary"
-                (click)="abrirModalSalvar()">
-                salvar
-              </button>
+              @if (!carregandoSalvamento){
+                <button
+                  class="salvar btn btn-primary"
+                  (click)="abrirModalSalvar()">
+                  salvar
+                </button>
+                } @else {
+                <button
+                  class="salvar btn btn-primary"
+                  disabled>
+                  <div class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></div>
+                </button>
+              }
+
               } @else {
               <button
                 class ="salvar btn btn-primary impedido"
@@ -76,8 +85,13 @@
             @if (editando){
               <div class="nome-breve-descricao">
                 <label>Seu nome</label>
-                <input type="text" class="form-control" [(ngModel)]="portfolioNovo.nome" placeholder="{{ portfolio.nome }}" maxlength="50"/>
+                <input type="text" class="form-control" [(ngModel)]="portfolioNovo.nome"  maxlength="50"/>
               </div>
+              @if(portfolioNovo.nome == ""){
+                <div class="alert alert-danger" role="alert">
+                  Nome não pode ser vazio!
+                </div>
+              }
                 } @else {
               <h1 class="display-4 nome-text">{{ portfolio.nome }}</h1>
             }
@@ -85,7 +99,7 @@
             <div class="nome-breve-descricao">
               @if (editando){
                 <label>Breve descrição</label>
-                <textarea class="form-control breve-descricao-edit" [(ngModel)]="portfolioNovo.breveDescricao" placeholder=" {{ portfolio.breveDescricao }}" maxlength="80"></textarea>
+                <textarea class="form-control breve-descricao-edit" [(ngModel)]="portfolioNovo.breveDescricao" maxlength="80"></textarea>
                 <div class="contador-caracteres text-end mt-1" style="font-size: 14px; color: white;">
                   {{ portfolioNovo.breveDescricao.length || 0 }}/80
                 </div>

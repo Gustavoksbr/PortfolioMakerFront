@@ -101,6 +101,7 @@ export class MostrarPortfolioComponent implements OnInit{
   public editando = false;
 
   public carregando = true;
+  public carregandoSalvamento = false;
 
   public projetosOrdenados : Projeto[]= [];
 
@@ -183,13 +184,16 @@ export class MostrarPortfolioComponent implements OnInit{
 
   salvar(salvarAlteracoes: boolean) {
     this.cancelarModal();
+    this.carregandoSalvamento = true;
     if(!salvarAlteracoes){
       this.editando=false;
+      this.carregandoSalvamento = false;
     }
     else{
         this.portfolioNovo.habilidades = Array.from(this.portfolioNovo.habilidades);
         this.service.savePortfolio(this.portfolioNovo).subscribe({
           next:(portfolio: Portfolio) => {
+            this.carregandoSalvamento = false;
             this.editando=false;
             //this.router.navigate(['/portfolios/']);
             this.router.navigate(['/portfolios/',this.portfolioNovo.username]);
@@ -197,6 +201,7 @@ export class MostrarPortfolioComponent implements OnInit{
             this.portfolioNovo = criarPortfolioRequest(portfolio);
             this.portfolio = { ...portfolio };
           },error: (err: any) => {
+            this.carregandoSalvamento = false;
             console.error('Erro ao salvar o portfólio:', err);
 
             // const toastr = this.injector.get(ToastrService);
@@ -303,6 +308,8 @@ novoLink: { nome: string, url: string } = { nome: '', url: '' };
 
   ngOnInit(): void {
     //console.log("ngOnInit");
+    // this.email = localStorage.getItem('email');
+    this.carregando = true;
     if(this.criarPortfolioPrimeiraVez){
       this.carregando = false;
     this.portfolio = { ...this.portfolioProprio };

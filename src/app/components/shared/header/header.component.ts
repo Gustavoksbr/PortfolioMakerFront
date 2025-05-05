@@ -28,6 +28,7 @@ export class HeaderComponent implements OnInit{
   constructor(private router: Router, private portfolioService: PortfolioService) {
   }
   ngOnInit(): void {
+    this.carregando = true;
     this.email = localStorage.getItem('email')!;
     if(this.email) {
       this.portfolioService.mostrarPortfolioPorEmail(this.email).subscribe(
