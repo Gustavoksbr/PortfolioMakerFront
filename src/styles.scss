@@ -219,3 +219,12 @@
     justify-content: space-between;
   }
 }
+
+.carregando{
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}

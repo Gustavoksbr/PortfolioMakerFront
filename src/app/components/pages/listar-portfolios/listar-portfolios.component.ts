@@ -45,6 +45,7 @@ export class ListarPortfoliosComponent implements OnInit{
     links: []
 
   }
+  public carregando: boolean = true;
   public email: string | null = '';
   filtro: string = '';
   listaFiltrada: Portfolio[] = [];
@@ -100,7 +101,7 @@ export class ListarPortfoliosComponent implements OnInit{
     this.service.listar().subscribe((portfolios: Portfolio[]) => {
       this.listaPortfolios = portfolios;
       this.listaPortfolioSemProprio = [];
-
+      this.carregando = false;
       portfolios.forEach(p => {
         if (p.email === this.email) {
           this.portfolioProprio = p;

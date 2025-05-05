@@ -15,7 +15,7 @@ import VanillaTilt from 'vanilla-tilt';
 export class PortolioComponent implements AfterViewInit, OnInit {
   @ViewChild('tiltCard', { static: false }) tiltCard!: ElementRef;
 
-
+@Input() public carregando: boolean = false;
 @Input() public portfolio: Portfolio = {
   id: '',
   username: '',

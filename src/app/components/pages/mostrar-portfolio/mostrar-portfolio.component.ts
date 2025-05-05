@@ -100,6 +100,8 @@ export class MostrarPortfolioComponent implements OnInit{
   }
   public editando = false;
 
+  public carregando = true;
+
   public projetosOrdenados : Projeto[]= [];
 
   public email: string | null = null;
@@ -300,18 +302,9 @@ novoLink: { nome: string, url: string } = { nome: '', url: '' };
   }
 
   ngOnInit(): void {
-    // this.portfolioProprio.email = localStorage.getItem('email')!;
-    // if(this.portfolioProprio.email != null){
-    //   this.service.mostrarPortfolioPorEmail(this.portfolioProprio.email ).subscribe((portfolio: Portfolio) => {
-    //     if(portfolio != null){
-    //       this.portfolioProprio = portfolio;
-    //     }
-    //   });
-    // }
-    // this.email = this.authService.getStorage('email');
-    // console.log("email: " + this.email);
     console.log("ngOnInit");
     if(this.criarPortfolioPrimeiraVez){
+      this.carregando = false;
     this.portfolio = { ...this.portfolioProprio };
     this.portfolioNovo = criarPortfolioRequest(this.portfolioProprio);
     this.linkss = this.portfolioNovo.links;
@@ -321,11 +314,17 @@ novoLink: { nome: string, url: string } = { nome: '', url: '' };
       this.route.paramMap.subscribe(params => {
         const username = this.route.snapshot.url[1]?.path;
         if (username) {
-          this.service.mostrarPortfolioPorUsername(username).subscribe((portfolio: Portfolio) => {
-            this.portfolio = { ...portfolio };
-            this.portfolioNovo = criarPortfolioRequest(portfolio);
-            console.log("aaaaaaathis.portfolioProprio.email: "+this.portfolioProprio.email);
-            console.log("this.portfolio.email: "+this.portfolio.email);
+          this.service.mostrarPortfolioPorUsername(username).subscribe({
+            next: (portfolio: Portfolio) => {
+              this.carregando = false;
+              this.portfolio = { ...portfolio };
+              this.portfolioNovo = criarPortfolioRequest(portfolio);
+              console.log("aaaaaaathis.portfolioProprio.email: " + this.portfolioProprio.email);
+              console.log("this.portfolio.email: " + this.portfolio.email);
+            },
+            error: () => {
+              this.carregando = false;
+            }
           });
         }
       });

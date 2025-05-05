@@ -1,6 +1,14 @@
-<div class="mostrar-portfolio-container">
 <app-header (devolverPortfolio)="receberPortfolioProprio($event)" >
 </app-header>
+<div class="mostrar-portfolio-container">
+
+  @if (carregando){
+    <div class="carregando">
+      <h3 class="sr-only">Carregando</h3>
+      <div class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="width: 40px;height: 40px"></div>
+    </div>
+  } @else {
+
 
   @if (portfolio.email==null || portfolio.email == '') {
     <div class="pagina-not-found">
@@ -379,8 +387,9 @@
     ></app-modal>
   }
 
-
+  }
 </div>
+
 <app-footer>
 
 </app-footer>
