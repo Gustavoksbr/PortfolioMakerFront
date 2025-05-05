@@ -78,7 +78,7 @@ export class ListarOrdenaveisComponent {
   }
 
   public alterarHabilidades({inicial, atual, indice}: { inicial: string; atual: string, indice: number}) {
-    console.log("this.projetos[indice].tecnologias", this.projetos[indice].tecnologias);
+    //console.log("this.projetos[indice].tecnologias", this.projetos[indice].tecnologias);
     if(atual!=  inicial){
       if(inicial != ''){
         const index = this.projetos[indice].tecnologias.indexOf(inicial);

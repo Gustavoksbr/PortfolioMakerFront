@@ -7,12 +7,16 @@
   <div class="listar-portfolios-content">
     <div class="container portfolio-proporio-container">
       <div class="portfolio-proprio-content">
-@if (portfolioProprio.email){
+@if (email || portfolioProprio.email){
 
     <h3> Seu Portfólio</h3>
+  @if (!carregando){
     <app-portolio [portfolio]="portfolioProprio"></app-portolio>
+  } @else {
+    <app-portolio [carregando]="true"></app-portolio>
+  }
 
-} @else if(email) {
+} @else if(email && !carregando) {
     <h5>Você ainda não criou seu portfólio</h5>
   <p>
     <b (click)="irParaCriarPortfolio()" class="criar-portfolio-ahref">
@@ -41,7 +45,8 @@
       [(ngModel)]="filtro"
       (ngModelChange)="aplicarFiltro()"
     />
-  <div class="lista-portfolios">
+  <div
+[ngClass]="listaFiltrada.length == 0 && !carregando ? 'nenhum-portfolio' : 'lista-portfolios'">
     @if (carregando){
       @for (i of [0, 1, 2, 3, 4, 5]; track $index) {
         <app-portolio [carregando]="true"/>

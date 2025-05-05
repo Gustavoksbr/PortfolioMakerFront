@@ -117,9 +117,9 @@ export class MostrarPortfolioComponent implements OnInit{
   protected readonly languages = languages;
   public alterar(){
     this.editando = true;
-    console.log("this.portfolio.email: "+this.portfolio.email);
-    console.log("this.portfolioProprio.email: "+this.portfolioProprio.email);
-    console.log("criarPelaimeiraVez: "+this.criarPortfolioPrimeiraVez);
+    //console.log("this.portfolio.email: "+this.portfolio.email);
+    //console.log("this.portfolioProprio.email: "+this.portfolioProprio.email);
+    //console.log("criarPelaimeiraVez: "+this.criarPortfolioPrimeiraVez);
 
     // this.toastr.error("blablabla")
   }
@@ -138,11 +138,11 @@ export class MostrarPortfolioComponent implements OnInit{
 
   atualizarFotoPortfolio(imagem: Imagem) {
     this.portfolioNovo.foto = imagem;
-    console.log('Imagem convertida e emitida:', imagem);
+    //console.log('Imagem convertida e emitida:', imagem);
   }
 
   abrirCancelarModal(){
-    console.log("portfolioNovo.username: "+JSON.stringify(this.portfolioNovo.username) + "\n portfolioNovo.projetos" + JSON.stringify(this.portfolioNovo.projetos));
+    //console.log("portfolioNovo.username: "+JSON.stringify(this.portfolioNovo.username) + "\n portfolioNovo.projetos" + JSON.stringify(this.portfolioNovo.projetos));
     this.modal.isOpen = true;
     this.modal.title = 'Cancelar alterações';
     this.modal.message = 'Todas as suas alterações serão perdidas. Deseja continuar?';
@@ -221,7 +221,7 @@ export class MostrarPortfolioComponent implements OnInit{
 
 
   public alterarHabilidades({inicial, atual}: { inicial: string; atual: string, indice: number | null }) {
-    console.log("this.portfolioNovo.habilidades"+this.portfolioNovo.habilidades);
+    //console.log("this.portfolioNovo.habilidades"+this.portfolioNovo.habilidades);
     if(atual!=  inicial){
       if(inicial != ''){
         this.portfolioNovo.habilidades.delete(inicial);
@@ -243,7 +243,7 @@ novoLink: { nome: string, url: string } = { nome: '', url: '' };
     this.novoLink.nome = atual;
   }
   public alterarLinks({inicial, atual}: { inicial: string; atual: string}) {
-    console.log("this.portfolioNovo.links"+this.portfolioNovo.links);
+    //console.log("this.portfolioNovo.links"+this.portfolioNovo.links);
     if(atual!=  inicial){
       const index = this.portfolioNovo.links.findIndex(l => l.nome === inicial);
       if (index !== -1) {
@@ -266,7 +266,7 @@ novoLink: { nome: string, url: string } = { nome: '', url: '' };
   }
   public receberEmail(email: string | null) {
     this.portfolioProprio.email  = email!;
-    console.log("abc");
+    //console.log("abc");
   }
 
   @Input() criarPortfolioPrimeiraVez: boolean = false;
@@ -297,12 +297,12 @@ novoLink: { nome: string, url: string } = { nome: '', url: '' };
               private toastr: ToastrService) {
     this.portfolioProprio.email = this.authService.getStorage('email')!;
 
-    console.log("zthis.portfolioProprio.email: "+this.portfolioProprio.email);
-    console.log("zthis.portfolio.email: "+this.portfolio.email);
+    //console.log("zthis.portfolioProprio.email: "+this.portfolioProprio.email);
+    //console.log("zthis.portfolio.email: "+this.portfolio.email);
   }
 
   ngOnInit(): void {
-    console.log("ngOnInit");
+    //console.log("ngOnInit");
     if(this.criarPortfolioPrimeiraVez){
       this.carregando = false;
     this.portfolio = { ...this.portfolioProprio };
@@ -319,8 +319,8 @@ novoLink: { nome: string, url: string } = { nome: '', url: '' };
               this.carregando = false;
               this.portfolio = { ...portfolio };
               this.portfolioNovo = criarPortfolioRequest(portfolio);
-              console.log("aaaaaaathis.portfolioProprio.email: " + this.portfolioProprio.email);
-              console.log("this.portfolio.email: " + this.portfolio.email);
+              //console.log("aaaaaaathis.portfolioProprio.email: " + this.portfolioProprio.email);
+              //console.log("this.portfolio.email: " + this.portfolio.email);
             },
             error: () => {
               this.carregando = false;
@@ -329,8 +329,8 @@ novoLink: { nome: string, url: string } = { nome: '', url: '' };
         }
       });
     }
-console.log("this.portfolioProprio.email: "+this.portfolioProprio.email);
-    console.log("this.portfolio.email: "+this.portfolio.email);
+//console.log("this.portfolioProprio.email: "+this.portfolioProprio.email);
+    //console.log("this.portfolio.email: "+this.portfolio.email);
 
   }
 

@@ -55,7 +55,7 @@ deleteStorage(chave:string){
     localStorage.removeItem('token');
     localStorage.removeItem('email');
     // if(this.router.url != "/register" && this.router.url != "/forget") {
-    //   this.router.navigate(['/login']).then(r => console.log("logout"));
+    //   this.router.navigate(['/login']).then(r => //console.log("logout"));
     // }
   }
 
@@ -71,7 +71,7 @@ deleteStorage(chave:string){
   // }
   // logout(): void {
   //   this.cookieService.delete('token');
-  //   this.router.navigate(['/login']).then(r =>console.log("logout") );
+  //   this.router.navigate(['/login']).then(r =>//console.log("logout") );
   // }
   //
   //

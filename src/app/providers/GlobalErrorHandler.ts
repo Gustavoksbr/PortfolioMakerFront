@@ -10,7 +10,7 @@ export class GlobalErrorHandler implements ErrorHandler {
   handleError(error: any): void {
     const toastr = this.injector.get(ToastrService)
     console.error('An error occurred:', error);
-    console.log("erro é:"+JSON.stringify(error));
+    //console.log("erro é:"+JSON.stringify(error));
     if (error.error && error.status != null) {
       if(error.error instanceof ProgressEvent){
         toastr.error("status code: "+"500","Erro ao tentar se conectar com o servidor");

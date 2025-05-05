@@ -5,13 +5,19 @@
   <div class="header-autenticacao">
 @if (email != null && email != '') {
   <p>Olá, {{email}}</p>
-  @if (portfolioProprio.username!=null && portfolioProprio.username != '') {
-    <button (click)="irParaPortfolio()" class="botao-com-zoom" style="margin-right: 20px">
-      Ver Seu portfólio
-    </button>
+  @if (!carregando) {
+    @if (portfolioProprio.username != null && portfolioProprio.username != '') {
+      <button (click)="irParaPortfolio()" class="botao-com-zoom" style="margin-right: 20px">
+        Ver Seu portfólio
+      </button>
+    } @else {
+      <button (click)="irParaCriarPortfolio()" class="botao-com-zoom" style="margin-right: 20px">
+        Criar portfólio
+      </button>
+    }
   } @else {
-    <button (click)="irParaCriarPortfolio()" class="botao-com-zoom" style="margin-right: 20px">
-      Criar portfólio
+    <button style="margin-right: 20px;opacity: 0">
+      Ver Seu portfólio
     </button>
   }
 

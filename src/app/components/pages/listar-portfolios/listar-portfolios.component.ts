@@ -2,7 +2,7 @@ import {Component, OnInit, PipeTransform} from '@angular/core';
 import {HeaderComponent} from '../../shared/header/header.component';
 import {PortfolioService} from '../../../services/portfolio/portfolio.service';
 import {Portfolio} from '../../../models/response/Portfolio';
-import {NgForOf} from '@angular/common';
+import {NgClass, NgForOf} from '@angular/common';
 import {Router} from '@angular/router';
 import {PortolioComponent} from '../../shared/portolio/portolio.component';
 import {PortfolioLinkedinComponent} from '../../shared/portfolio-linkedin/portfolio-linkedin.component';
@@ -19,7 +19,8 @@ import {FooterComponent} from '../../shared/footer/footer.component';
     PortolioComponent,
     PortfolioLinkedinComponent,
     FormsModule,
-    FooterComponent
+    FooterComponent,
+    NgClass
   ],
   templateUrl: './listar-portfolios.component.html',
   styleUrl: './listar-portfolios.component.scss'
@@ -78,6 +79,7 @@ export class ListarPortfoliosComponent implements OnInit{
 
   }
   ngOnInit(): void {
+    this.email = localStorage.getItem('email');
     this.email = this.authService.getStorage('email');
     if(!this.email){
       this.portfolioProprio = {

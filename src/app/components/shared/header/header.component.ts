@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {NgIf} from "@angular/common";
+import {NgIf, NgStyle} from "@angular/common";
 import {LoginComponent} from '../login/login.component';
 import {CadastroComponent} from '../cadastro/cadastro.component';
 import {RecuperarSenhaComponent} from '../recuperar-senha/recuperar-senha.component';
@@ -19,6 +19,7 @@ import {ModalComponent} from '../modal/modal.component';
     RecuperarSenhaComponent,
     ReactiveFormsModule,
     ModalComponent,
+    NgStyle,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
@@ -31,6 +32,7 @@ export class HeaderComponent implements OnInit{
     if(this.email) {
       this.portfolioService.mostrarPortfolioPorEmail(this.email).subscribe(
         (portfolioEncontrado: Portfolio) => {
+          this.carregando = false;
           this.portfolioProprio = portfolioEncontrado;
           const url = this.router.url;
           if (url === '/criar-portfolio') {
@@ -42,6 +44,8 @@ export class HeaderComponent implements OnInit{
         }
       )
       this.devolverPortfolio.emit(this.portfolioProprio);
+    }else{
+      this.carregando = false;
     }
   }
   @Output() devolverEmail = new EventEmitter<string | null>();
@@ -70,6 +74,7 @@ export class HeaderComponent implements OnInit{
   isLoginOpen : boolean = false;
   isCadastroOpen: boolean = false;
   isRecuperarSenhaOpen: boolean = false;
+  carregando: boolean = true;
   public irParaHome(): void {
     this.router.navigate(['/']);
   }
@@ -94,8 +99,10 @@ export class HeaderComponent implements OnInit{
 
     this.portfolioProprio.email = this.email;
     if(this.email){
+      this.carregando = true;
       this.portfolioService.mostrarPortfolioPorEmail(this.email).subscribe(
         (portfolioEncontrado: Portfolio) => {
+          this.carregando = false;
           this.portfolioProprio = portfolioEncontrado;
         }
       )
@@ -124,7 +131,7 @@ export class HeaderComponent implements OnInit{
   }
 
   deslogar(){
-    console.log("logout");
+    //console.log("logout");
     this.fecharModalDeslogar();
     localStorage.removeItem('email');
     localStorage.removeItem('token');
@@ -149,8 +156,8 @@ export class HeaderComponent implements OnInit{
 
     }
     this.devolverPortfolio.emit(this.portfolioProprio);
-    console.log('email:', this.email);
-    console.log('username:', this.portfolioProprio.username);
+    //console.log('email:', this.email);
+    //console.log('username:', this.portfolioProprio.username);
 
   }
 
