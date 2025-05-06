@@ -67,7 +67,7 @@
               </button>
             }
             @if (!criarPortfolioPrimeiraVez){
-              <button class="cancelar btn btn-secondary" (click)="abrirCancelarModal()">
+              <button class="cancelar btn btn-secondary" (click)="abrirModalNaoSalvar()">
                 cancelar
               </button>
             }
@@ -397,7 +397,7 @@
       [salvarAlteracoes]="modal.salvarAlteracoes"
 
       (closeModal)="cancelarModal()"
-      (confirmModal)="salvar($event)"
+      (confirmModal)="sairCancelandoOuSalvando($event)"
     ></app-modal>
   }
 

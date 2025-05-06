@@ -9,7 +9,7 @@ import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {AutocompleteComponent} from '../../shared/autocomplete/autocomplete.component';
 import {languages, langUrl, links} from '../../../models/others/languages';
-import {criarPortfolioRequest, PortfolioRequest} from '../../../models/request/PortfolioRequest';
+import {criarPortfolioRequest, isEqual, PortfolioRequest} from '../../../models/request/PortfolioRequest';
 import {ToastrService} from 'ngx-toastr';
 import {ModalComponent} from '../../shared/modal/modal.component';
 import {Imagem} from '../../../models/response/Imagem';
@@ -109,6 +109,7 @@ export class MostrarPortfolioComponent implements OnInit{
 
   public get podeSalvarSemErroDeRequisicao(): boolean {
     return !!this.portfolioNovo.username &&
+      !!this.portfolioNovo.nome &&
       this.portfolioNovo.projetos.every(p => p.nome.trim() !== '');
   }
 
@@ -142,8 +143,12 @@ export class MostrarPortfolioComponent implements OnInit{
     //console.log('Imagem convertida e emitida:', imagem);
   }
 
-  abrirCancelarModal(){
-    //console.log("portfolioNovo.username: "+JSON.stringify(this.portfolioNovo.username) + "\n portfolioNovo.projetos" + JSON.stringify(this.portfolioNovo.projetos));
+  abrirModalNaoSalvar(){
+    if(isEqual(this.portfolioNovo, this.portfolio)){
+      this.sairCancelandoOuSalvando(false);
+      return;
+    }
+
     this.modal.isOpen = true;
     this.modal.title = 'Cancelar alterações';
     this.modal.message = 'Todas as suas alterações serão perdidas. Deseja continuar?';
@@ -165,24 +170,30 @@ export class MostrarPortfolioComponent implements OnInit{
     }
   }
 
-  cancelar() {
-    this.portfolioNovo = criarPortfolioRequest(this.portfolio);
-    this.editando = false;
+  abrirModalSalvar() {
+    this.modal.title = 'Salvar alterações';
+    this.modal.isOpen = true;
+    this.modal.danger = false;
+
+
+    if (isEqual(this.portfolioNovo, this.portfolio)) {
+
+      this.modal.message = 'Você não alterou nada. Tem certeza que deseja sair?';
+      this.modal.confirmButtonText = 'Sair';
+      this.modal.closeButtonText = 'Cancelar';
+      this.modal.salvarAlteracoes = false;
+    }else{
+      this.modal.title = 'Salvar alterações';
+      this.modal.message = 'Você tem certeza que deseja salvar as alterações?';
+      this.modal.confirmButtonText = 'Salvar';
+      this.modal.closeButtonText = 'Cancelar';
+      this.modal.salvarAlteracoes = true;
+    }
   }
 
-  abrirModalSalvar(){
-        this.modal.isOpen = true;
-        this.modal.title = 'Salvar alterações';
-        this.modal.message = 'Você tem certeza que deseja salvar as alterações?';
-        this.modal.confirmButtonText = 'Salvar';
-        this.modal.closeButtonText = 'Cancelar';
-        this.modal.danger = false;
-        this.modal.salvarAlteracoes = true;
-    // }
-}
 
 
-  salvar(salvarAlteracoes: boolean) {
+  sairCancelandoOuSalvando(salvarAlteracoes: boolean) {
     this.cancelarModal();
     this.carregandoSalvamento = true;
     if(!salvarAlteracoes){
@@ -200,18 +211,16 @@ export class MostrarPortfolioComponent implements OnInit{
             this.portfolioProprio = portfolio;
             this.portfolioNovo = criarPortfolioRequest(portfolio);
             this.portfolio = { ...portfolio };
+            this.toastr.success('Portfólio salvo com sucesso!', 'Sucesso', {
+              closeButton: true,
+              extendedTimeOut: 5000,
+              progressBar: true,
+              disableTimeOut: 'extendedTimeOut',
+              tapToDismiss: false,
+            })
           },error: (err: any) => {
             this.carregandoSalvamento = false;
             console.error('Erro ao salvar o portfólio:', err);
-
-            // const toastr = this.injector.get(ToastrService);
-            // toastr.error(`Status code: ${err.status}`, err.error, {
-            //   closeButton: true,
-            //   extendedTimeOut: 5000,
-            //   progressBar: true,
-            //   disableTimeOut: 'extendedTimeOut',
-            //   tapToDismiss: false,
-            // });
             throw err;
           }}
         );
@@ -225,7 +234,7 @@ export class MostrarPortfolioComponent implements OnInit{
 
 
 
-  public alterarHabilidades({inicial, atual}: { inicial: string; atual: string, indice: number | null }) {
+  public alterarHabilidades({inicial, atual}: { inicial: string; atual: string }) {
     //console.log("this.portfolioNovo.habilidades"+this.portfolioNovo.habilidades);
     if(atual!=  inicial){
       if(inicial != ''){
@@ -283,6 +292,7 @@ novoLink: { nome: string, url: string } = { nome: '', url: '' };
     this.portfolioProprio.email  = this.authService.getStorage('email')!;
   }
 
+  // usarei no futuro
   getEmbedYoutubeUrl(youtubeUrl: string): SafeResourceUrl {
     const videoId = this.extractYoutubeVideoId(youtubeUrl);
     const embedUrl = `https://www.youtube.com/embed/${videoId}`;
@@ -297,8 +307,8 @@ novoLink: { nome: string, url: string } = { nome: '', url: '' };
 
   constructor(private service: PortfolioService,
               private authService: AuthService,
-              private route: ActivatedRoute, private router: Router, private sanitizer: DomSanitizer,private el: ElementRef,
-              private injector : Injector,
+              private route: ActivatedRoute, private router: Router,
+              private sanitizer: DomSanitizer,
               private toastr: ToastrService) {
     this.portfolioProprio.email = this.authService.getStorage('email')!;
 
