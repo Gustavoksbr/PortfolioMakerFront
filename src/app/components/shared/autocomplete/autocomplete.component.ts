@@ -18,11 +18,11 @@ export class AutocompleteComponent {
 
  @Input()  searchText: string = '';
  @Input() habilidadeInicial: string = '';
- @Input() indice: number = 0;
+ // @Input() indice: number = 0;
   filteredLanguages: string[] = [];
   selectedLanguage: string | null = null;
   url: string = langUrl;
-  @Output() retornarHabilidadeInicialEPosterior = new EventEmitter<{ inicial: string; atual: string; indice: number }>();
+  @Output() retornarHabilidadeInicialEPosterior = new EventEmitter<{ inicial: string; atual: string; }>();
 
 
   // urlELinguagem = {
@@ -63,7 +63,6 @@ export class AutocompleteComponent {
         this.retornarHabilidadeInicialEPosterior.emit({
           inicial: this.habilidadeInicial,
           atual: lang,
-          indice : this.indice
         });
       this.habilidadeInicial = '';
       this.searchText = '';

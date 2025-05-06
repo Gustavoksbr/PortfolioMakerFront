@@ -1,6 +1,6 @@
 <div class="container-lista-ordenaveis">
 <div class="content-lista-ordenaveis" xmlns="http://www.w3.org/1999/html">
-  @for( projeto of projetos; track $index){
+  @for (projeto of projetos; track projeto.ordem) {
     <!-- Modo edição -->
     <ng-container>
       @if(editando){
@@ -54,14 +54,13 @@
             <div class="habilidades-content">
             <h5 class="">Tecnologias</h5>
             @if(projeto.tecnologias != null){
-              @for (tecnologia of projeto.tecnologias; track $index )
+              @for (tecnologia of projeto.tecnologias; track  $index )
               {
                 <div class="habilidade">
                 <app-autocomplete
                   [searchText]="tecnologia"
                   [habilidadeInicial]="tecnologia"
-                  [indice]="$index"
-                  (retornarHabilidadeInicialEPosterior)="alterarHabilidades($event)"
+                  (retornarHabilidadeInicialEPosterior)="alterarHabilidades({ indice: projeto.ordem, inicial: $event.inicial, atual: $event.atual })"
                 ></app-autocomplete>
                   <div class="icon-e-x">
                 @if (languages.includes(tecnologia )) {
@@ -70,9 +69,9 @@
                     [alt]="tecnologia"
                     class="habilidade-icon"
                   >
-                  <button class="btn btn-close excluir-habilidade" (click)="deleteHabilidade($index,tecnologia)" ></button>
+                  <button class="btn btn-close excluir-habilidade" (click)="deleteHabilidade(projeto.ordem,tecnologia)" ></button>
                 }@else{
-                  <button class="btn btn-close excluir-habilidade" style="margin-left: 40px" (click)="deleteHabilidade($index,tecnologia)" ></button>
+                  <button class="btn btn-close excluir-habilidade" style="margin-left: 40px" (click)="deleteHabilidade(projeto.ordem,tecnologia)" ></button>
                 }
                   </div>
 
@@ -83,8 +82,8 @@
               <app-autocomplete
                 [searchText]="''"
                 [habilidadeInicial]="''"
-                [indice]="$index"
-                (retornarHabilidadeInicialEPosterior)="alterarHabilidades($event)"
+                (retornarHabilidadeInicialEPosterior)="alterarHabilidades({ indice: projeto.ordem, inicial: $event.inicial, atual: $event.atual })"
+
               ></app-autocomplete>
               </div>
             }

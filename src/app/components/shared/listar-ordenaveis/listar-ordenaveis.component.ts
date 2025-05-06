@@ -77,25 +77,42 @@ export class ListarOrdenaveisComponent {
     this.retornar.emit(this.projetos);
   }
 
-  public alterarHabilidades({inicial, atual, indice}: { inicial: string; atual: string, indice: number}) {
-    //console.log("this.projetos[indice].tecnologias", this.projetos[indice].tecnologias);
+  public alterarHabilidades({
+                              indice,
+                              inicial,
+                              atual,
+                            }: {
+    indice: number;
+    inicial: string;
+    atual: string;
+  }) {
+    const projeto = this.projetos.find(p => p.ordem == indice);
+    if (!projeto) {
+      console.log("Projeto não encontrado");
+      return;
+    }
     if(atual!=  inicial){
       if(inicial != ''){
-        const index = this.projetos[indice].tecnologias.indexOf(inicial);
+        const index = projeto.tecnologias.indexOf(inicial);
         if (index > -1) {
-          this.projetos[indice].tecnologias.splice(index, 1);
+          projeto.tecnologias.splice(index, 1);
         }
       }
       if(atual != '') {
-        this.projetos[indice].tecnologias.push(atual);
+        projeto.tecnologias.push(atual);
       }
     }
 
   }
   public deleteHabilidade(indice: number, habilidade: string){
-    const index = this.projetos[indice].tecnologias.indexOf(habilidade);
+    console.log("chegou acola")
+    const projeto = this.projetos.find(p => p.ordem == indice);
+    if (!projeto) return;
+
+    const index = projeto.tecnologias.indexOf(habilidade);
     if (index > -1) {
-      this.projetos[indice].tecnologias.splice(index, 1);
+      console.log("chegou aqui")
+      projeto.tecnologias.splice(index, 1);
     }
     this.retornar.emit(this.projetos);
   }
