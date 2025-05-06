@@ -18,7 +18,6 @@ import {Projeto} from '../../../models/response/Projeto';
 import {ListarOrdenaveisComponent} from '../../shared/listar-ordenaveis/listar-ordenaveis.component';
 import {LinksAutocompleteComponent} from '../../shared/links-autocomplete/links-autocomplete.component';
 import {FooterComponent} from '../../shared/footer/footer.component';
-
 @Component({
   selector: 'app-mostrar-portfolio',
   standalone: true,
@@ -98,6 +97,7 @@ export class MostrarPortfolioComponent implements OnInit{
     salvarAlteracoes: false
 
   }
+
   public editando = false;
 
   public carregando = true;
@@ -198,6 +198,7 @@ export class MostrarPortfolioComponent implements OnInit{
     this.carregandoSalvamento = true;
     if(!salvarAlteracoes){
       this.editando=false;
+      this.portfolioNovo = criarPortfolioRequest(this.portfolio);
       this.carregandoSalvamento = false;
     }
     else{
@@ -251,7 +252,6 @@ export class MostrarPortfolioComponent implements OnInit{
     this.portfolioNovo.habilidades.delete(habilidade);
   }
 novoLink: { nome: string, url: string } = { nome: '', url: '' };
-  linkss: { nome: string, url: string }[] = [];
 
   public alterarPrimeiroLink({inicial, atual}: { inicial: string; atual: string}) {
     this.novoLink.nome = atual;
@@ -319,18 +319,21 @@ novoLink: { nome: string, url: string } = { nome: '', url: '' };
   ngOnInit(): void {
     //console.log("ngOnInit");
     // this.email = localStorage.getItem('email');
+    // this.gustavoksbrPortfolio=db.gustavoksbr;
     this.carregando = true;
     if(this.criarPortfolioPrimeiraVez){
       this.carregando = false;
     this.portfolio = { ...this.portfolioProprio };
     this.portfolioNovo = criarPortfolioRequest(this.portfolioProprio);
-    this.linkss = this.portfolioNovo.links;
     this.editando = true;
 
     }else{
       this.route.paramMap.subscribe(params => {
         const username = this.route.snapshot.url[1]?.path;
         if (username) {
+          if(username=="gustavoksbr"){
+            this.service.listar(); //serve apenas para carregar o back end, mesmo que aqui não usemos. Vai agilizar o despertar do back end (que pode demorar ate 3 minutos), agilizando o uso do back end em outras partes da aplicação. Render no plano gratuito é dureza
+          }
           this.service.mostrarPortfolioPorUsername(username).subscribe({
             next: (portfolio: Portfolio) => {
               this.carregando = false;

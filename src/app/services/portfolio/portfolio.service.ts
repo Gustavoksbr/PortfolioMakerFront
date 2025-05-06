@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {Portfolio} from '../../models/response/Portfolio';
 import {AuthService} from '../autenticacao/auth.service';
 import {PortfolioRequest} from '../../models/request/PortfolioRequest';
+import {gustavoksbr} from '../../backup/db';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ import {PortfolioRequest} from '../../models/request/PortfolioRequest';
 
 export class PortfolioService {
   private readonly API = API_CONFIG.BASE_URL + '/portfolio';
+  private readonly gu = gustavoksbr;
   constructor(private http: HttpClient, private authService: AuthService) {
   }
   private getHeaders(): HttpHeaders {
@@ -19,15 +21,29 @@ export class PortfolioService {
   }
   listar() : Observable<Portfolio[]>{
     //console.log("fazendo http get em "+this.API);
+    return this.http.get<Portfolio[]>(this.API + "/no-gustavoksbr");
+  }
+
+  listarTodos() : Observable<Portfolio[]>{
     return this.http.get<Portfolio[]>(this.API);
   }
 // http://localhost:8080/portfolio/get/username/teste9
   mostrarPortfolioPorUsername(username: string) : Observable<Portfolio>{
-    //console.log("fazendo http get em "+this.API+"/get/username/"+username);
+    if(username=="gustavoksbr"){
+      return new Observable(observer => {
+        observer.next(this.gu);
+        observer.complete();
+      });
+    }
     return this.http.get<Portfolio>(this.API+"/get/username/"+username);
   }
   mostrarPortfolioPorEmail(email: string) : Observable<Portfolio>{
-    //console.log("fazendo http get em "+this.API+"/get/email/"+email);
+    if(email=="gustavosalesi@hotmail.com"){
+      return new Observable(observer => {
+        observer.next(this.gu);
+        observer.complete();
+      });
+    }
     return this.http.get<Portfolio>(this.API+"/get/email/"+email);
   }
 

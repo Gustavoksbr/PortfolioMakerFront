@@ -26,7 +26,7 @@ import {FooterComponent} from '../../shared/footer/footer.component';
   styleUrl: './listar-portfolios.component.scss'
 })
 export class ListarPortfoliosComponent implements OnInit{
-  public listaPortfolios: Portfolio[] = [];
+  // public listaPortfolios: Portfolio[] = [];
   public listaPortfolioSemProprio: Portfolio[] = [];
   public portfolioProprio: Portfolio = {
     id: '',
@@ -45,6 +45,23 @@ export class ListarPortfoliosComponent implements OnInit{
     localizacao: '',
     links: []
 
+  }
+  public portfolioGustavoksbr: Portfolio = {
+    id: '',
+    username: '',
+    email: '',
+    descricao: '',
+    foto: null,
+
+    habilidades: new Set<string>(),
+    projetos: [],
+    nome: '',
+    breveDescricao: '',
+    experiencias: [],
+
+    background: null,
+    localizacao: '',
+    links: []
   }
   public carregando: boolean = true;
   public email: string | null = '';
@@ -101,8 +118,11 @@ export class ListarPortfoliosComponent implements OnInit{
         links: []
       }
     }
+    this.service.mostrarPortfolioPorEmail("gustavosalesi@hotmail.com").subscribe((portfolio: Portfolio) => {
+      this.portfolioGustavoksbr = portfolio;
+    });
+
     this.service.listar().subscribe((portfolios: Portfolio[]) => {
-      this.listaPortfolios = portfolios;
       this.listaPortfolioSemProprio = [];
       this.carregando = false;
       portfolios.forEach(p => {
@@ -112,6 +132,11 @@ export class ListarPortfoliosComponent implements OnInit{
           this.listaPortfolioSemProprio.push(p);
         }
       });
+      if(this.email=="gustavosalesi@hotmail.com"){
+        this.portfolioProprio =  this.portfolioGustavoksbr;
+      }else{
+    this.listaPortfolioSemProprio.unshift(this.portfolioGustavoksbr);
+      }
       this.aplicarFiltro();
     });
   }

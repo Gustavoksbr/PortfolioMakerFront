@@ -47,7 +47,8 @@
   <div
 [ngClass]="listaFiltrada.length == 0 && !carregando ? 'nenhum-portfolio' : 'lista-portfolios'">
     @if (carregando){
-      @for (i of [0, 1, 2, 3, 4, 5]; track $index) {
+      <app-portolio [portfolio]= portfolioGustavoksbr />
+      @for (i of [0, 1, 2, 3, 4]; track $index) {
         <app-portolio [carregando]="true"/>
       }
     }@else{

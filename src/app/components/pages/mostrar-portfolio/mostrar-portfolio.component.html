@@ -85,7 +85,7 @@
             @if (editando){
               <div class="nome-breve-descricao">
                 <label>Seu nome</label>
-                <input type="text" class="form-control" [(ngModel)]="portfolioNovo.nome"  maxlength="50"/>
+                <input type="text" class="form-control" [(ngModel)]="portfolioNovo.nome"  maxlength="30"/>
               </div>
               @if(portfolioNovo.nome == ""){
                 <div class="alert alert-danger" role="alert">
@@ -117,7 +117,7 @@
             <div class="username-container">
               <div class="username-content">
             <label>O final da url do seu portfolio. Serve como identificador único</label>
-            <input type="text" class="form-control" [(ngModel)]="portfolioNovo.username"/>
+            <input type="text" class="form-control" style="width: 60%" [(ngModel)]="portfolioNovo.username" maxlength="20"/>
             <p>https://portfoliomaker.vercel.app/portfolios/{{portfolioNovo.username}}</p>
                 @if(portfolioNovo.username == ""){
                   <div class="alert alert-danger" role="alert">
