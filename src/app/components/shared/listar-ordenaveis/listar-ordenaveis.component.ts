@@ -105,13 +105,13 @@ export class ListarOrdenaveisComponent {
 
   }
   public deleteHabilidade(indice: number, habilidade: string){
-    console.log("chegou acola")
+    // console.log("chegou acola")
     const projeto = this.projetos.find(p => p.ordem == indice);
     if (!projeto) return;
 
     const index = projeto.tecnologias.indexOf(habilidade);
     if (index > -1) {
-      console.log("chegou aqui")
+      // console.log("chegou aqui")
       projeto.tecnologias.splice(index, 1);
     }
     this.retornar.emit(this.projetos);
