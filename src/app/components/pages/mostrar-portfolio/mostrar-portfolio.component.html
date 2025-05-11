@@ -153,9 +153,7 @@
                   </div>
                 } @else {
                   <label for="descricao" class="titulo-sobre-mim text-center">Descrição</label>
-                  <textarea id="descricao" class="form-control textarea-descricao" [(ngModel)]="portfolioNovo.descricao"  rows="5"  maxlength="400">
-
-          </textarea>
+                  <textarea id="descricao" class="form-control textarea-descricao" [(ngModel)]="portfolioNovo.descricao"  rows="5"  maxlength="400"></textarea>
                   <div class="contador-caracteres text-end mt-1" style="font-size: 14px; color: gray;">
                     {{ portfolioNovo.descricao.length || 0 }}/400
                   </div>

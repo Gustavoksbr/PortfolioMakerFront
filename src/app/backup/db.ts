@@ -7,7 +7,7 @@ username: "gustavoksbr",
   email: "gustavosalesi@hotmail.com",
 nome: "Gustavo Kenzo Salesi",
 breveDescricao: "Desenvolvedor de Sistemas • Estudante de Análise e Desenvolvimento",
-descricao: "Estudante na FATEC de Presidente Prudente\n",
+descricao: "Estudante de análise e desenvolvimento de sistemas na FATEC de Presidente Prudente.\nEstagiário da SETEC de Presidente Prudente desde 07/2024",
 
 habilidades: new Set<string>([
   "spring",
@@ -63,11 +63,11 @@ localizacao: "Presidente Prudente",
 links: [
 {
 nome: "linkedin",
-url: "https://linkedin.com"
+url: "https://www.linkedin.com/in/gustavo-salesi-9a5b32265/"
 },
 {
 nome: "instagram",
-url: "https://instagram.com"
+url: "https://www.instagram.com/gustavoksbr/"
 }
 ],
   foto: {
