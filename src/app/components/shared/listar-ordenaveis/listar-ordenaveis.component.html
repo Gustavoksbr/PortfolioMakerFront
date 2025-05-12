@@ -19,7 +19,7 @@
             </div>
           <div class="label-input">
       <label>Nome</label>
-      <input maxlength="15"  [(ngModel)]="projeto.nome" (ngModelChange)="atualizarCampo($index, 'nome', $event)" />
+      <input maxlength="40"  [(ngModel)]="projeto.nome" (ngModelChange)="atualizarCampo($index, 'nome', $event)" />
           </div>
           @if(projeto.nome == ""){
             <div class="alert alert-danger" role="alert">
@@ -107,7 +107,9 @@
       }@else{
       <div class="card  zoom-hover ordenavel-container-view ordenavel-container">
         <div class="ordenavel-content ordenavel-content-view">
-      <h3>{{ projeto.nome }}</h3>
+      <div class="nome-projeto">
+        <p>{{ projeto.nome }}</p>
+      </div>
       <p>{{ projeto.descricao }}</p>
           <div class="botoes-links">
           @if(projeto.linkDoProjeto != null && projeto.linkDoProjeto != ""){
