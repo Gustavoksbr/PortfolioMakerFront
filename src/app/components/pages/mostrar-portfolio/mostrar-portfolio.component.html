@@ -116,9 +116,14 @@
           @if (editando){
             <div class="username-container">
               <div class="username-content">
-            <label>O final da url do seu portfolio. Serve como identificador único</label>
-            <input type="text" class="form-control" style="width: 60%" [(ngModel)]="portfolioNovo.username" maxlength="20"/>
-            <p>https://portfoliomaker.vercel.app/portfolios/{{portfolioNovo.username}}</p>
+                <div class="label-e-duvida">
+            <label>O final da url do seu portfolio</label>
+                <div class="duvida" [title]="'Serve como identificador único.\nSó pode conter letras, números, hífens e traços sublinhados.'">
+                  <img src="duvida.png">
+                </div>
+                </div>
+            <input type="text" class="form-control" style="width: 60%" [(ngModel)]="portfolioNovo.username" maxlength="20" (keypress)="permitirCaracteres($event)"/>
+            <p style="margin-top: 10px">https://portfoliomaker.vercel.app/portfolios/<b style="font-size: 18px">{{portfolioNovo.username}}</b></p>
                 @if(portfolioNovo.username == ""){
                   <div class="alert alert-danger" role="alert">
                     Username não pode ser vazio!

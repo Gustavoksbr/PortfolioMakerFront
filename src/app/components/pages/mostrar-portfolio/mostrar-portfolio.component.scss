@@ -38,7 +38,7 @@
 }
 
 .username-container{
-  border : 1px solid #000;
+  //border : 1px solid #000;
   border-radius: 10px;
   margin:10px;
 }
@@ -51,7 +51,11 @@
   justify-content: center;
 }
 
-
+.localizacao-content{
+  input{
+    width: 300px;
+  }
+}
 
 
 
@@ -348,4 +352,19 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.label-e-duvida{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  .duvida{
+    position: relative;
+    left: 30%;
+    &:hover{
+      transition: transform 0.7s ease;
+      transform: scale(1.3);
+    }
+  }
 }

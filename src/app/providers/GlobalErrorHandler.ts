@@ -14,6 +14,14 @@ export class GlobalErrorHandler implements ErrorHandler {
     if (error.error && error.status != null) {
       if(error.error instanceof ProgressEvent){
         toastr.error("status code: "+"500","Erro ao tentar se conectar com o servidor");
+      }else if(error.error== "Campo 'username': deve corresponder a \"^[a-zA-Z0-9 _-]+$\"."){
+        toastr.error(`Status code: ${error.status}`, "Campo 'username' deve conter apenas letras e números", {
+          closeButton: true,
+          extendedTimeOut: 5000,
+          progressBar: true,
+          disableTimeOut: 'extendedTimeOut',
+          tapToDismiss: false,
+        });
       }else {
         toastr.error(`Status code: ${error.status}`, error.error, {
           closeButton: true,
@@ -25,15 +33,11 @@ export class GlobalErrorHandler implements ErrorHandler {
         if(error.status == 401){
           this.authService.logout();
         }
+
       }
     }
     else{
-      if(error.status==404){
-        // toastr.error("404","Página não encontrada");
-      }else{
         toastr.error("Um erro inesperado ocorreu");
-
-      }
     }
   }
 }

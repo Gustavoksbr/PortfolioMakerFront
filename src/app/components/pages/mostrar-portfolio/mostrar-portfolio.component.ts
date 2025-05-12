@@ -291,6 +291,14 @@ novoLink: { nome: string, url: string } = { nome: '', url: '' };
     this.portfolioProprio = portfolio;
     this.portfolioProprio.email  = this.authService.getStorage('email')!;
   }
+  permitirCaracteres(event: KeyboardEvent): void {
+    const regex = /^[a-zA-Z0-9_-]$/;
+    const inputChar = event.key;
+
+    if (!regex.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
 
   // usarei no futuro
   getEmbedYoutubeUrl(youtubeUrl: string): SafeResourceUrl {
