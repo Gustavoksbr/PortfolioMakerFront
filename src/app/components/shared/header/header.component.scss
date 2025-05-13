@@ -5,6 +5,7 @@ justify-content: center;
   //background-color: #6e8efb;
   background-color: #c5c6ca;
   padding: 20px;
+  min-width: 1000px;
 }
 
 .header-content{
@@ -13,7 +14,12 @@ justify-content: center;
   min-width: 500px;
   justify-content: space-between;
   align-items: center;
+  //@media (max-width: 900px) {
+  //  min-width: 400px;
+  //}
 }
+
+
 
 header-autenticacao{
   display: flex;

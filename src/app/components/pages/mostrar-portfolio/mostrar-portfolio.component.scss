@@ -1,5 +1,6 @@
 .mostrar-portfolio-container{
   min-height:90vh;
+  min-width: 1000px;
 }
 
 .foto{
@@ -116,8 +117,17 @@
 }
 
 .foto-e-decricao{
-
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   margin-top: 30px;
+  gap: 20px;
+  @media (max-width: 1000px) {
+
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .titulo-sobre-mim{
@@ -311,6 +321,9 @@
   border-radius: 15px;
   padding: 8px;
   box-shadow: #333333 1px 1px 4px;
+  @media (max-width: 1000px) {
+    left: 80%;
+  }
 }
 .editando{
   display: flex;
