@@ -66,6 +66,10 @@ nome: "linkedin",
 url: "https://www.linkedin.com/in/gustavo-salesi-9a5b32265/"
 },
 {
+nome: "github",
+url: "https://github.com/Gustavoksbr"
+},
+{
 nome: "instagram",
 url: "https://www.instagram.com/gustavoksbr/"
 }

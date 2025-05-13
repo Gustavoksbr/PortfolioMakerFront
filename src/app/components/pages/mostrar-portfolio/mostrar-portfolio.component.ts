@@ -1,20 +1,13 @@
 import {
-  AfterViewInit,
   Component,
-  ElementRef,
-  EventEmitter,
-  Injector,
   Input,
-  OnInit,
-  Output,
-  ViewChild
 } from '@angular/core';
 import {Portfolio} from '../../../models/response/Portfolio';
 import {PortfolioService} from '../../../services/portfolio/portfolio.service';
 import {AuthService} from '../../../services/autenticacao/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HeaderComponent} from '../../shared/header/header.component';
-import {NgClass, NgForOf} from '@angular/common';
+import {NgForOf} from '@angular/common';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {AutocompleteComponent} from '../../shared/autocomplete/autocomplete.component';
