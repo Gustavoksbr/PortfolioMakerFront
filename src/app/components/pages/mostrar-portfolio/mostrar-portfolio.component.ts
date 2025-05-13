@@ -1,4 +1,14 @@
-import {Component, ElementRef, EventEmitter, Injector, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Injector,
+  Input,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
 import {Portfolio} from '../../../models/response/Portfolio';
 import {PortfolioService} from '../../../services/portfolio/portfolio.service';
 import {AuthService} from '../../../services/autenticacao/auth.service';
@@ -97,6 +107,8 @@ export class MostrarPortfolioComponent implements OnInit{
     salvarAlteracoes: false
 
   }
+  mostrarTooltip = false;
+  mouseNaDuvida = false;
 
   public editando = false;
 
@@ -117,25 +129,22 @@ export class MostrarPortfolioComponent implements OnInit{
   protected readonly langUrl = langUrl;
 
   protected readonly languages = languages;
-  public alterar(){
-    this.editando = true;
-    //console.log("this.portfolio.email: "+this.portfolio.email);
-    //console.log("this.portfolioProprio.email: "+this.portfolioProprio.email);
-    //console.log("criarPelaimeiraVez: "+this.criarPortfolioPrimeiraVez);
+  tooltipTimeout: any;
 
-    // this.toastr.error("blablabla")
+  iniciarTooltip() {
+        this.mostrarTooltip = true;
   }
 
-  // @Output() closeModal = new EventEmitter<void>();
-  // @Output() confirmModal = new EventEmitter<void>();
-  // @Input() public title: string = '';
-  // @Input() public message: string = '';
-  // @Input() public confirmButtonText: string = 'Confirmar';
-  // @Input() public closeButtonText: string = 'Cancelar';
-  // @Input() public warning: boolean = false;
-  // @Input() public success: boolean = false;
+  cancelarTooltip() {
+    setTimeout(() => {
+      this.mostrarTooltip = false;
+    }, 400);
 
-  //imagem
+  }
+  public alterar(){
+    this.editando = true;
+
+  }
   imagemAtual: Imagem | null = null;
 
   atualizarFotoPortfolio(imagem: Imagem) {
@@ -361,6 +370,5 @@ novoLink: { nome: string, url: string } = { nome: '', url: '' };
     //console.log("this.portfolio.email: "+this.portfolio.email);
 
   }
-
   protected readonly links = links;
 }

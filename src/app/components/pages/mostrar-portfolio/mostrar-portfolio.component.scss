@@ -359,12 +359,4 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  .duvida{
-    position: relative;
-    left: 30%;
-    &:hover{
-      transition: transform 0.7s ease;
-      transform: scale(1.3);
-    }
-  }
 }

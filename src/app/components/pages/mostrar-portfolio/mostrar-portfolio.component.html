@@ -118,10 +118,24 @@
               <div class="username-content">
                 <div class="label-e-duvida">
             <label>O final da url do seu portfolio</label>
-                <div class="duvida" [title]="'Serve como identificador único.\nSó pode conter letras, números, hífens e traços sublinhados.'">
-                  <img src="duvida.png">
+                  <div class="duvida-container" >
+                <div class="duvida"
+                     >
+                  <img src="duvida.png" (mouseenter)="iniciarTooltip()"
+                       (mouseleave)="cancelarTooltip()">
                 </div>
+
+
+                  </div>
                 </div>
+                @if (mostrarTooltip){
+                  <div class="tooltip-container">
+                    <div class="tooltip-text">
+                      <p>  Serve como identificador único.</p>
+                      <p>  Só pode conter letras, números, hífens (-) e traços inferiores (_)</p>
+                    </div>
+                  </div>
+                }
             <input type="text" class="form-control" style="width: 60%" [(ngModel)]="portfolioNovo.username" maxlength="20" (keypress)="permitirCaracteres($event)"/>
             <p style="margin-top: 10px">https://portfoliomaker.vercel.app/portfolios/<b style="font-size: 18px">{{portfolioNovo.username}}</b></p>
                 @if(portfolioNovo.username == ""){
