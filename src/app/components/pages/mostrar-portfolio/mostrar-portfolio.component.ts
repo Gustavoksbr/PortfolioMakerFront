@@ -1,6 +1,6 @@
 import {
   Component,
-  Input,
+  Input, OnInit,
 } from '@angular/core';
 import {Portfolio} from '../../../models/response/Portfolio';
 import {PortfolioService} from '../../../services/portfolio/portfolio.service';
