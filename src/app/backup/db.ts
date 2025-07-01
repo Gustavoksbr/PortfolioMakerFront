@@ -6,8 +6,8 @@ export const gustavoksbr : Portfolio = {
 username: "gustavoksbr",
   email: "gustavosalesi@hotmail.com",
 nome: "Gustavo Kenzo Salesi",
-breveDescricao: "Desenvolvedor de Sistemas • Estudante de Análise e Desenvolvimento",
-descricao: "Estudante de análise e desenvolvimento de sistemas na FATEC de Presidente Prudente.\nEstagiário da SETEC de Presidente Prudente desde 07/2024",
+breveDescricao: "Desenvolvedor de software",
+descricao: "Formado em análise e desenvolvimento de sistemas na FATEC de Presidente Prudente",
 
 habilidades: new Set<string>([
   "spring",
