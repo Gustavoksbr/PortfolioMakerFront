@@ -12,7 +12,7 @@ import {gustavoksbr} from '../../backup/db';
 })
 
 export class PortfolioService {
-  private readonly API = API_CONFIG.BASE_URL + '/portfolio';
+  private readonly API = API_CONFIG.BASE_URL + '/portfolios';
   private readonly gu = gustavoksbr;
   constructor(private http: HttpClient, private authService: AuthService) {
   }
@@ -35,7 +35,7 @@ export class PortfolioService {
         observer.complete();
       });
     }
-    return this.http.get<Portfolio>(this.API+"/get/username/"+username);
+    return this.http.get<Portfolio>(this.API+"/username/"+username);
   }
   mostrarPortfolioPorEmail(email: string) : Observable<Portfolio>{
     if(email=="gustavosalesi@hotmail.com"){
@@ -44,7 +44,7 @@ export class PortfolioService {
         observer.complete();
       });
     }
-    return this.http.get<Portfolio>(this.API+"/get/email/"+email);
+    return this.http.get<Portfolio>(this.API+"/email/"+email);
   }
 
   savePortfolio(portfolio: PortfolioRequest): Observable<Portfolio> {
