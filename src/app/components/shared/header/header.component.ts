@@ -37,7 +37,7 @@ export class HeaderComponent implements OnInit{
           this.portfolioProprio = portfolioEncontrado;
           const url = this.router.url;
           if (url === '/criar-portfolio') {
-            if (this.portfolioProprio.username != null || this.portfolioProprio.username !== '') {
+            if (this.portfolioProprio && (this.portfolioProprio.username != null || this.portfolioProprio.username !== '')) {
               alert(this.portfolioProprio.username);
               this.irParaPortfolio();
             }

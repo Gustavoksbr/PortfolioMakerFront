@@ -1,6 +1,5 @@
 ﻿import {Portfolio} from '../models/response/Portfolio';
 
-
 export const gustavoksbr : Portfolio = {
   id:"680ec87e2318bf0a21be9d4f",
 username: "gustavoksbr",
@@ -29,7 +28,7 @@ ordem: 0,
 nome: "PortfolioMaker",
 descricao: "Site para criacao e alteração de portfólios on-line\n\n",
 linkDoProjeto: "https://gustavoksbr-portfolio-maker.vercel.app/",
-linkDoRepositorio: '',
+linkDoRepositorio: 'https://github.com/Gustavoksbr/PortfolioMakerBack',
 linkYoutube: "",
 imagem: null,
 tecnologias: [
@@ -45,7 +44,7 @@ ordem: 1,
 nome: "RoomMaker",
 descricao: "Site para criacao de salas on-line\n\nUtiliza de Websockets para comunicação em tempo real\n\nCada sala pode tem um bate-papo ao vivo, e o dono pode configurá-la com limite de participantes, senha e categoria (com jogos multiplayer)",
 linkDoProjeto: "https://room-maker-front.vercel.app",
-linkDoRepositorio: '',
+linkDoRepositorio: 'https://github.com/Gustavoksbr/RoomMakerBack',
 linkYoutube: '',
 imagem: null,
 tecnologias: [

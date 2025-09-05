@@ -206,7 +206,7 @@
                 @for (link of portfolio.links; track $index)
                 {
 
-                  <div class="link-container-view"  (click)="goToExternalPage(link.url)">
+                  <a class="link-container-view"  href="{{link.url}}">
                     <div>
                       @if (links.includes(link.nome)) {
                       <img
@@ -227,7 +227,7 @@
                         {{ link.nome }}
                       </p>
                     </div>
-                  </div>
+                  </a>
 
                 }
           }

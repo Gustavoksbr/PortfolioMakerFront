@@ -30,6 +30,10 @@
             <label>Link do Projeto</label>
             <input [(ngModel)]="projeto.linkDoProjeto" (ngModelChange)="atualizarCampo($index, 'linkDoProjeto', $event)" />
           </div>
+          <div class="label-input">
+            <label>Link do Repositório</label>
+            <input [(ngModel)]="projeto.linkDoRepositorio" (ngModelChange)="atualizarCampo($index, 'linkDoRepositorio', $event)" />
+          </div>
           <div class="label-textarea">
             <label for="descricao">Descrição</label>
             <textarea id="descricao" maxlength="400" class="textarea-descricao"
@@ -42,10 +46,7 @@
           </div>
 
 
-<!--          <div class="label-input">-->
-<!--      <label>Link do Repositório</label>-->
-<!--      <input [placeholder]="projeto.linkDoRepositorio" [(ngModel)]="projeto.linkDoRepositorio" (ngModelChange)="atualizarCampo(i, 'linkDoRepositorio', $event)" />-->
-<!--          </div>-->
+
 <!--          <div class="label-input">-->
 <!--      <label>Link do YouTube</label>-->
 <!--      <input [placeholder]="projeto.linkYoutube" [(ngModel)]="projeto.linkYoutube" (ngModelChange)="atualizarCampo(i, 'linkYoutube', $event)" />-->
@@ -111,17 +112,19 @@
         <p>{{ projeto.nome }}</p>
       </div>
       <p>{{ projeto.descricao }}</p>
+
           <div class="botoes-links">
           @if(projeto.linkDoProjeto != null && projeto.linkDoProjeto != ""){
-            <button class="btn btn-primary" ><a href="{{projeto.linkDoProjeto}}" target="_blank">Ver Projeto</a></button><br />
+            <a class="btn btn-primary" href="{{projeto.linkDoProjeto}}" target="_blank">Ver Projeto</a><br />
           }
           @if(projeto.linkYoutube != null && projeto.linkYoutube != ""){
-            <button class="btn btn-primary" ><a href="{{projeto.linkYoutube}}" target="_blank">Ver Vídeo</a></button><br />
+            <a class="btn btn-primary" href="{{projeto.linkYoutube}}" target="_blank">Ver Vídeo</a><br />
           }
           @if(projeto.linkDoRepositorio != null && projeto.linkDoRepositorio != ""){
-            <button class="btn btn-primary" ><a href="{{projeto.linkDoRepositorio}}" target="_blank">Ver Repositório</a></button><br />
+            <a class="btn btn-secondary" href="{{projeto.linkDoRepositorio}}" target="_blank">Ver Código</a><br />
           }
           </div>
+
           @if (projeto.tecnologias != null && projeto.tecnologias.length > 0) {
           <div class="habilidades-container habilidades-container-view">
 

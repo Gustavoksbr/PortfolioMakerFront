@@ -1,12 +1,12 @@
 
 <header class="header">
   <div class="header-content">
-  <h2 class="irParaHome" (click)="irParaHome()">PortfolioMaker</h2>
+  <a class="irParaHome" (click)="irParaHome()">PortfolioMaker</a>
   <div class="header-autenticacao">
 @if (email != null && email != '') {
   <p>Olá, {{email}}</p>
   @if (!carregando) {
-    @if (portfolioProprio.username != null && portfolioProprio.username != '') {
+    @if (portfolioProprio && (portfolioProprio.username != null && portfolioProprio.username != '')) {
       <button (click)="irParaPortfolio()" class="botao-com-zoom" style="margin-right: 20px">
         Ver Seu portfólio
       </button>
