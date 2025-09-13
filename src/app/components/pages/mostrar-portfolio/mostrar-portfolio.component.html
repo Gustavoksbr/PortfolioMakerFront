@@ -1,5 +1,16 @@
 <app-header (devolverPortfolio)="receberPortfolioProprio($event)" >
 </app-header>
+<div>
+  <div class="voltar-lista-portfolios-content">
+@if (!editando){
+  <p (click)="irParaHome()" class="listar-portfolios-ahref">
+          Ver outros portfólios
+        </p>
+
+}
+  </div>
+</div>
+
 <div class="mostrar-portfolio-container">
 
   @if (carregando){

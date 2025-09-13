@@ -21,6 +21,7 @@ import {Projeto} from '../../../models/response/Projeto';
 import {ListarOrdenaveisComponent} from '../../shared/listar-ordenaveis/listar-ordenaveis.component';
 import {LinksAutocompleteComponent} from '../../shared/links-autocomplete/links-autocomplete.component';
 import {FooterComponent} from '../../shared/footer/footer.component';
+import {PortolioComponent} from '../../shared/portolio/portolio.component';
 @Component({
   selector: 'app-mostrar-portfolio',
   standalone: true,
@@ -33,7 +34,8 @@ import {FooterComponent} from '../../shared/footer/footer.component';
     SelecionarImagemComponent,
     ListarOrdenaveisComponent,
     LinksAutocompleteComponent,
-    FooterComponent
+    FooterComponent,
+    PortolioComponent
   ],
   templateUrl: './mostrar-portfolio.component.html',
   styleUrl: './mostrar-portfolio.component.scss'
@@ -111,7 +113,9 @@ export class MostrarPortfolioComponent implements OnInit{
   public projetosOrdenados : Projeto[]= [];
 
   public email: string | null = null;
-
+  public irParaHome(): void {
+    this.router.navigate(['/']);
+  }
   public get podeSalvarSemErroDeRequisicao(): boolean {
     return !!this.portfolioNovo.username &&
       !!this.portfolioNovo.nome &&
