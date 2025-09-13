@@ -1,6 +1,6 @@
 ﻿export const API_CONFIG = {
-  BASE_URL: 'https://portfoliomaker-elfz.onrender.com'
+  BASE_URL: 'https://portfoliomakerback.onrender.com'
 };
 
-//https://portfoliomaker-elfz.onrender.com
+//https://portfoliomakerback.onrender.com/
 //http://localhost:8080

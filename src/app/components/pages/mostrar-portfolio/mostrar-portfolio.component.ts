@@ -238,7 +238,6 @@ export class MostrarPortfolioComponent implements OnInit{
 
 
   public alterarHabilidades({inicial, atual}: { inicial: string; atual: string }) {
-    //console.log("this.portfolioNovo.habilidades"+this.portfolioNovo.habilidades);
     if(atual!=  inicial){
       if(inicial != ''){
         this.portfolioNovo.habilidades.delete(inicial);
@@ -255,20 +254,13 @@ export class MostrarPortfolioComponent implements OnInit{
   }
 novoLink: { nome: string, url: string } = { nome: '', url: '' };
 
-  public alterarPrimeiroLink({inicial, atual}: { inicial: string; atual: string}) {
-    this.novoLink.nome = atual;
-  }
   public alterarLinks({inicial, atual}: { inicial: string; atual: string}) {
-    //console.log("this.portfolioNovo.links"+this.portfolioNovo.links);
     if(atual!=  inicial){
       const index = this.portfolioNovo.links.findIndex(l => l.nome === inicial);
       if (index !== -1) {
         this.portfolioNovo.links[index].nome = atual;
       }
     }
-  }
-  goToExternalPage(link: string) {
-    window.location.href = link;
   }
   public deleteLink(link: string){
     const index = this.portfolioNovo.links.findIndex(l => l.nome === link);
@@ -280,15 +272,8 @@ novoLink: { nome: string, url: string } = { nome: '', url: '' };
   public addLinkNovo(){
     this.portfolioNovo.links.push({nome:'',url: ''});
   }
-  public receberEmail(email: string | null) {
-    this.portfolioProprio.email  = email!;
-    //console.log("abc");
-  }
 
   @Input() criarPortfolioPrimeiraVez: boolean = false;
- public removerLinguagem(l: string){
-
- }
   public receberPortfolioProprio(portfolio: Portfolio) {
     this.portfolioProprio = portfolio;
     this.portfolioProprio.email  = this.authService.getStorage('email')!;
@@ -302,19 +287,6 @@ novoLink: { nome: string, url: string } = { nome: '', url: '' };
     }
   }
 
-  // usarei no futuro
-  getEmbedYoutubeUrl(youtubeUrl: string): SafeResourceUrl {
-    const videoId = this.extractYoutubeVideoId(youtubeUrl);
-    const embedUrl = `https://www.youtube.com/embed/${videoId}`;
-    return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
-  }
-
-  private extractYoutubeVideoId(url: string): string {
-    const regExp = /(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([\w-]{11})/;
-    const match = url.match(regExp);
-    return match ? match[1] : '';
-  }
-
   constructor(private service: PortfolioService,
               private authService: AuthService,
               private route: ActivatedRoute, private router: Router,
@@ -322,14 +294,10 @@ novoLink: { nome: string, url: string } = { nome: '', url: '' };
               private toastr: ToastrService) {
     this.portfolioProprio.email = this.authService.getStorage('email')!;
 
-    //console.log("zthis.portfolioProprio.email: "+this.portfolioProprio.email);
-    //console.log("zthis.portfolio.email: "+this.portfolio.email);
   }
 
   ngOnInit(): void {
-    //console.log("ngOnInit");
-    // this.email = localStorage.getItem('email');
-    // this.gustavoksbrPortfolio=db.gustavoksbr;
+
     this.carregando = true;
     if(this.criarPortfolioPrimeiraVez){
       this.carregando = false;
@@ -342,15 +310,13 @@ novoLink: { nome: string, url: string } = { nome: '', url: '' };
         const username = this.route.snapshot.url[1]?.path;
         if (username) {
           if(username=="gustavoksbr"){
-            this.service.listar(); //serve apenas para carregar o back end, mesmo que aqui não usemos. Vai agilizar o despertar do back end (que pode demorar ate 3 minutos), agilizando o uso do back end em outras partes da aplicação. Render no plano gratuito é dureza
+            this.service.listar();
           }
           this.service.mostrarPortfolioPorUsername(username).subscribe({
             next: (portfolio: Portfolio) => {
               this.carregando = false;
               this.portfolio = { ...portfolio };
               this.portfolioNovo = criarPortfolioRequest(portfolio);
-              //console.log("aaaaaaathis.portfolioProprio.email: " + this.portfolioProprio.email);
-              //console.log("this.portfolio.email: " + this.portfolio.email);
             },
             error: () => {
               this.carregando = false;
@@ -359,8 +325,6 @@ novoLink: { nome: string, url: string } = { nome: '', url: '' };
         }
       });
     }
-//console.log("this.portfolioProprio.email: "+this.portfolioProprio.email);
-    //console.log("this.portfolio.email: "+this.portfolio.email);
 
   }
   protected readonly links = links;
