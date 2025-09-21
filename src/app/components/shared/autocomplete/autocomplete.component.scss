@@ -17,7 +17,6 @@
 .suggestions {
   display: flex;
   flex-direction: column;
-  //border: 1px solid #ccc;
   border-top: none;
   max-height: 150px;
   overflow-y: auto;
@@ -47,12 +46,12 @@
 }
 
 .result {
-  margin-top: 20px;
+  //margin-top: 20px;
   text-align: center;
 }
 
 .result img {
-  margin-top: 10px;
+  //margin-top: 10px;
   width: 48px;
   height: 48px;
 }

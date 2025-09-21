@@ -2,7 +2,12 @@
   padding: 2rem;
   background-color: #f8f9fa;
   min-height: 80vh;
-  min-width: 1000px;
+  //min-width: 1000px;
+}
+@media (max-width: 360px) {
+  .listar-portfolios-container {
+    width: 360px;
+  }
 }
 
 .listar-portfolios-content {
@@ -38,6 +43,7 @@
 
 .busca-input {
   width: 70%;
+  min-width: 280px;
   padding: 0.75rem 1rem;
   margin-bottom: 1.5rem;
   border-radius: 0.5rem;
@@ -67,6 +73,10 @@
   gap: 16px; /* espaço entre os itens */
   @media (max-width: 1250px) {
     grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
+
   }
 }
 .criar-portfolio-ahref{

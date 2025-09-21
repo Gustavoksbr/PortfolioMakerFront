@@ -28,65 +28,63 @@
   }@else{
     <div>
       <div class="mostrar-portfolio-content">
-        <!-- Nome do portfólio em destaque -->
-        @if (!editando){
-          @if (criarPortfolioPrimeiraVez && portfolioProprio.email == null){
-<!--            <div class="botao-editar lapis edit-permitido" (click)="alterar()" title="Clique para editar seu portfólio">-->
-<!--              <img src="edit.webp" alt="alterar">-->
-<!--            </div>-->
-          } @else {
-            @if ( !this.portfolioProprio.email){
-              <div class="botao-editar impedido edit-impedido lapis"  title="Você precisa estar logado para alterar o portfólio">
-                <img src="edit-denied.jpg" alt="alterar">
-              </div>
-            }@else{
-              @if (portfolioProprio.email== portfolio.email) {
-                <div class="botao-editar lapis edit-permitido" (click)="alterar()" title="Clique para editar seu portfólio">
-                  <img src="edit.webp" alt="alterar">
-                </div>
-              } @else {
-                <div class="botao-editar impedido edit-impedido lapis" title="Você não pode editar o portfólio de outra pessoa">
-                  <img src="edit-denied.jpg" alt="alterar">
-                </div>
-              }
-            }
+        <!-- Botão editar / salvar / cancelar vá até a página 88 para a próxima etapa-->
+        @if (!editando) {
+          <!-- Primeira criação do portfólio -->
+          @if (criarPortfolioPrimeiraVez && !portfolioProprio.email) {
+            <!-- Não mostra nada -->
           }
-
-
-          } @else {
+          @else if (!portfolioProprio.email) {
+            <!-- Usuário não logado -->
+            <div class="botao-editar impedido edit-impedido lapis"
+                 title="Você precisa estar logado para alterar o portfólio">
+              <img src="edit-denied.jpg" alt="alterar">
+            </div>
+          }
+          @else if (portfolioProprio.email == portfolio.email) {
+            <!-- Pode editar o próprio portfólio -->
+            <div class="botao-editar lapis edit-permitido"
+                 (click)="alterar()"
+                 title="Clique para editar seu portfólio">
+              <img src="edit.webp" alt="alterar">
+            </div>
+          }
+          @else {
+            <!-- Tentando editar o portfólio de outra pessoa -->
+            <div class="botao-editar impedido edit-impedido lapis"
+                 title="Você não pode editar o portfólio de outra pessoa">
+              <img src="edit-denied.jpg" alt="alterar">
+            </div>
+          }
+        }
+        @else {
           <div class="botao-editar editando">
-            @if (podeSalvarSemErroDeRequisicao){
-              @if (!carregandoSalvamento){
-                <button
-                  class="salvar btn btn-primary"
-                  (click)="abrirModalSalvar()">
+            @if (podeSalvarSemErroDeRequisicao) {
+              @if (!carregandoSalvamento) {
+                <button class="salvar btn btn-primary" (click)="abrirModalSalvar()">
                   salvar
                 </button>
-                } @else {
-                <button
-                  class="salvar btn btn-primary"
-                  disabled>
+              }
+              @else {
+                <button class="salvar btn btn-primary" disabled>
                   <div class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></div>
                 </button>
               }
-
-              } @else {
-              <button
-                class ="salvar btn btn-primary impedido"
-                title="Você tem campos mal preenchidos">
+            }
+            @else {
+              <button class="salvar btn btn-primary impedido"
+                      title="Você tem campos mal preenchidos">
                 salvar
               </button>
             }
-            @if (!criarPortfolioPrimeiraVez){
+
+            @if (!criarPortfolioPrimeiraVez) {
               <button class="cancelar btn btn-secondary" (click)="abrirModalNaoSalvar()">
                 cancelar
               </button>
             }
-
-
           </div>
         }
-
 
         <header class="nome-breve-descricao-container">
           <div class="nome-breve-descricao-content">
@@ -104,7 +102,7 @@
                 </div>
               }
                 } @else {
-              <h1 class="display-4 nome-text">{{ portfolio.nome }}</h1>
+              <h1 class="display-4 nome-text quebrar-linha">{{ portfolio.nome }}</h1>
             }
 
             <div class="nome-breve-descricao">
@@ -115,7 +113,7 @@
                   {{ portfolioNovo.breveDescricao.length || 0 }}/80
                 </div>
               } @else {
-                <p class="display-6 breve-descricao-text"> {{ portfolio.breveDescricao }}</p>
+                <p class="display-6 breve-descricao-view nao-ultrapassar-linha quebrar-linha"> {{ portfolio.breveDescricao }}</p>
               }
               </div>
           </div>
@@ -175,21 +173,22 @@
             <!--      <p><strong>Email:</strong> {{ portfolio.email }}</p>-->
             <div class="descricao">
 
-              <div style="max-width: 1000px">
+<!--              <div style="max-width: 1000px">-->
+
                 @if (!editando){
-                  <div class="descricao-view">
-                  <p style="word-wrap: break-word; overflow-wrap: break-word; font-size: 20px">{{ portfolio.descricao }}
+                  <div class="descricao-view quebrar-linha">
+                  <p class="quebrar-linha" style="font-size: 20px" >{{ portfolio.descricao }}
                   </p>
                   </div>
                 } @else {
-                  <label for="descricao" class="titulo-sobre-mim text-center">Descrição</label>
+                  <p class="titulo-sobre-mim text-center">Descrição</p>
                   <textarea id="descricao" class="form-control textarea-descricao" [(ngModel)]="portfolioNovo.descricao"  rows="5"  maxlength="400"></textarea>
                   <div class="contador-caracteres text-end mt-1" style="font-size: 14px; color: gray;">
                     {{ portfolioNovo.descricao.length || 0 }}/400
                   </div>
                 }
 
-              </div>
+<!--              </div>-->
             </div>
             <!--      <p *ngIf="portfolio.link"><strong>Link do projeto:</strong> <a [href]="portfolio.link" target="_blank">{{ portfolio.link }}</a></p>-->
           </div>
@@ -247,8 +246,7 @@
         @else {
 
           <h3 class="titulos">Links externos</h3>
-          <div class="links-content">
-<!--          <h1>aaaaaaaaaaab</h1>-->
+          <div class="links-content links-content-edit">
               @for ( link of portfolioNovo.links; track $index)
 
               {
@@ -303,7 +301,7 @@
           <h2 class="titulos">Habilidades</h2>
           @if (!editando){
 
-              <ul class="list-inline habilidades-view habilidades-content">
+              <ul class=" habilidades-view habilidades-content">
                 <li *ngFor="let habilidade of portfolio.habilidades" class="">
                   {{ habilidade }}
                   @if (languages.includes(habilidade)) {
@@ -321,6 +319,7 @@
 
             <div class="habilidades-edit habilidades-content">
               @for (habilidade of portfolioNovo.habilidades; track $index) {
+
                 <div class="habilidade">
                 <app-autocomplete
                   [searchText]="habilidade"
@@ -328,20 +327,15 @@
                   (retornarHabilidadeInicialEPosterior)="alterarHabilidades($event)"
                   ></app-autocomplete>
                   <div class="icon-e-x">
-                  @if (languages.includes(habilidade)) {
-                    <img
-                      [src]="langUrl + habilidade"
-                      [alt]="habilidade"
-                      class="habilidade-icon"
-                    >
-                    <button class="btn btn-close" (click)="deleteHabilidade(habilidade)" ></button>
-                  }@else{
-                    <button class="btn btn-close" style="margin-left: 40px" (click)="deleteHabilidade(habilidade)" ></button>
-                  }
+
+                    <button class="btn btn-close"  (click)="deleteHabilidade(habilidade)" ></button>
+
                 </div>
                 </div>
               }
-              <div class="add-habilidade">
+
+            </div>
+            <div class="add-habilidade">
               <p>Adicione uma habilidade:</p>
               <app-autocomplete
                 [searchText]="''"
@@ -349,7 +343,6 @@
                 (retornarHabilidadeInicialEPosterior)=alterarHabilidades($event)
               >
               </app-autocomplete>
-              </div>
             </div>
           }
         </div>

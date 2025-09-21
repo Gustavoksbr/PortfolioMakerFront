@@ -5,18 +5,35 @@ justify-content: center;
   //background-color: #6e8efb;
   background-color: #c5c6ca;
   padding: 20px;
-  min-width: 1000px;
+  //min-width: 1000px;
+}
+@media (max-width: 360px) {
+  .header{
+    width: 360px;
+  }
+
 }
 
 .header-content{
   display: flex;
   flex-direction: row;
-  min-width: 500px;
+  //min-width: 500px;
   justify-content: space-between;
   align-items: center;
   //@media (max-width: 900px) {
   //  min-width: 400px;
   //}
+}
+
+@media (max-width: 400px) {
+  .header-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+  }
+
 }
 
 

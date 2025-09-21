@@ -6,7 +6,6 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';
-import {ProjetoComponent} from '../projeto/projeto.component';
 import {Projeto} from '../../../models/response/Projeto';
 import {FormsModule} from '@angular/forms';
 import {AutocompleteComponent} from '../autocomplete/autocomplete.component';
@@ -16,7 +15,7 @@ import {BotaoLadoComponent} from '../botao-lado/botao-lado.component';
 @Component({
   standalone: true,
   selector: 'app-listar-projetos',
-  imports: [CommonModule, DragDropModule, ProjetoComponent, FormsModule, AutocompleteComponent, BotaoLadoComponent],
+  imports: [CommonModule, DragDropModule, FormsModule, AutocompleteComponent, BotaoLadoComponent],
   templateUrl: './listar-projetos-component.html',
   styleUrl: './listar-projetos.component.scss'
 })

@@ -18,27 +18,27 @@
 
     @if (portfolio.nome) {
     <div class="nome-portfolio">
-      <h3> {{ portfolio.nome }}</h3>
+      <p class = "nao-ultrapassar-uma-linha"> {{ portfolio.nome }}</p>
     </div>
     }
     <!--    </div>-->
         @if (portfolio.breveDescricao){
     <div class="breve-descricao-portfolio">
-      <p> {{ portfolio.breveDescricao }}</p>
+      <p class="nao-ultrapassar-duas-linhas"> {{ portfolio.breveDescricao }}</p>
     </div>
     }
 
     @if (portfolio.localizacao){
     <div class="localizacao-portfolio">
       <img src="localizacao.png" alt="">
-      <p> {{ portfolio.localizacao }}</p>
+      <p class="nao-ultrapassar-uma-linha"> {{ portfolio.localizacao }}</p>
     </div>
     }
     <!--    <hr>-->
 
         @if (portfolio.habilidades){
     <div class="habilidades-portfolio">
-      <p>{{ Array.from(portfolio.habilidades).join(' • ') }}</p>
+      <p class="nao-ultrapassar-duas-linhas">{{ Array.from(portfolio.habilidades).join(' • ') }}</p>
     </div>
     }
     <div class="div-botao-ver-portfolio">
