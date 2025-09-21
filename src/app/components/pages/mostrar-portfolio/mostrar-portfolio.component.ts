@@ -78,7 +78,7 @@ export class MostrarPortfolioComponent implements OnInit {
   /** ==============================
    *        ESTADO DA UI
    *  ============================== */
-  public editando = true;
+  public editando = false;
   public carregando = true;
   public carregandoSalvamento = false;
 

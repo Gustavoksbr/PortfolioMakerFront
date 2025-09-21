@@ -1,8 +1,10 @@
+
+
 .quebrar-linha{
-  word-wrap: break-word;      /* forma antiga */
-  overflow-wrap: break-word;  /* padrão atual */
-  word-break: break-word;     /* fallback */
-  white-space: normal;        /* garante quebra */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
 }
 .nao-ultrapassar-linha {
   display: -webkit-box;
@@ -12,22 +14,7 @@
   text-overflow: ellipsis;
 }
 
-.mostrar-portfolio-container{
-  //min-width: 1000px;
-  //@media (max-width: 800px) {
-  //  max-width: 500px;
-  //}
 
-}
-
-
-
-.foto{
-  width: 230px;
-  object-fit: cover;
-  border-radius: 40px;
-  border: 2px solid #000;
-}
 
 .voltar-lista-portfolios-content{
   display: flex;
@@ -102,7 +89,12 @@
   height: 150px;
 }
 
-
+.foto{
+  width: 230px;
+  object-fit: cover;
+  border-radius: 40px;
+  border: 2px solid #000;
+}
 .adicionar-foto{
   width: 230px;
   height: 230px;
@@ -116,6 +108,7 @@
     padding:6px;
   }
 }
+
 
 .mostrar-portfolio-content{
   display: flex;
@@ -201,26 +194,7 @@
   }
 
 }
-.link-container-view {
-  color :black;
-  text-decoration: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 40px;
-  cursor: pointer;
-  &:hover {
-    //background: radial-gradient(circle, #d1d9ea, #ffffff);
-    //border-radius: 40px;
-    //transition: transform 0.7s ease, background-color 0.7s ease;
-    transform: scale(1.04);
-  }
-}
 
-.link-icon-view{
-  width: 50px;
-  height: 50px;
-}
 .habilidade{
   max-width: 214px;
   margin:0;
@@ -272,84 +246,15 @@
   gap: 10px;
 }
 
-.excluir-link{
 
-}
-.links-container{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  h2{
-    text-align: center;
-  }
-  margin-bottom: 20px;
-  margin-top: 20px;
-
-}
-.links-content {
-  max-width: 700px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 colunas iguais */
-  gap: 20px;
-  div{
-    margin:0 10px 0 10px;
-  }
-  .url-link-content{
-    margin-bottom: 10px;
-  }
-}
-.links-content-edit{
-  display: grid;
-  @media (max-width: 1100px) {
-    grid-template-columns: repeat(2, 1fr);
-    max-width: 400px;
-  }
-}
-
-
-
-.icon-e-x-link{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content:space-between;
-  margin-top:10px;
-}
 .div-com-40px{
   width: 40px;
   height: 40px;
 }
 
 
-.nome-e-link{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
 
 
-.add-link{
-  //*{
-  //  position: relative;
-  //  bottom: 20px;
-  //}
-}
-.add-link-botao{
-  width: 50px;
-  height: 50px;
-  margin: 20px;
-  cursor: pointer;
-}
-
-.add-link-botao:hover{
-  background-color: #b7d0e8;
-  border-radius: 50%;
-  transition: transform 0.7s ease, background-color 0.7s ease;
-  transform: scale(1.2);
-}
 
 .impedido {
   cursor: not-allowed;
@@ -453,4 +358,81 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+
+//links
+.links-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  h2{
+    text-align: center;
+  }
+  margin-bottom: 20px;
+  margin-top: 20px;
+
+}
+.links-content {
+  max-width: 700px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 colunas iguais */
+  gap: 20px;
+  div{
+    margin:0 10px 0 10px;
+  }
+  .url-link-content{
+    margin-bottom: 10px;
+  }
+}
+.links-content-edit{
+  display: grid;
+  @media (max-width: 1100px) {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 400px;
+  }
+}
+.icon-e-x-link{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content:space-between;
+  margin-top:10px;
+}
+.add-link-botao{
+  width: 50px;
+  height: 50px;
+  margin: 20px;
+  cursor: pointer;
+}
+
+.add-link-botao:hover{
+  background-color: #b7d0e8;
+  border-radius: 50%;
+  transition: transform 0.7s ease, background-color 0.7s ease;
+  transform: scale(1.2);
+}
+.link-container-view {
+  color :black;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 40px;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.04);
+  }
+}
+
+.link-icon-view{
+  width: 50px;
+  height: 50px;
+}
+.nome-e-link{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
