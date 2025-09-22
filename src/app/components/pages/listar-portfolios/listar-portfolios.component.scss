@@ -69,8 +69,8 @@
 
 .lista-portfolios{
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 colunas de largura igual */
-  gap: 16px; /* espaço entre os itens */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
   @media (max-width: 1250px) {
     grid-template-columns: repeat(2, 1fr);
   }

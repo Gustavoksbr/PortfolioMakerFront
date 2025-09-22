@@ -1,12 +1,11 @@
 .a {
-  color: var(--text-color-link);
   text-decoration: underline;
   cursor: pointer;
 }
 
 .parte-de-cima{
   display: grid;
-  grid-template-columns: repeat(9,1fr); /* 3 colunas iguais */
+  grid-template-columns: repeat(9,1fr);
   width: 100%;
   h3{
     grid-column: 5;
@@ -31,8 +30,7 @@
   justify-content: center;
   align-items: center;
   padding: 5%;
-  background-color: var(--background-color);
-  color: var(--text-color);
+  background-color: white;
   border-radius: 1rem;
   width: 450px;
   height: 370px;
@@ -40,13 +38,10 @@
 }
 
 .login form input{
-  background-color: var(--background-color);
-  color: var(--text-color);
-  //caret-color: var(--text-color);
+  background-color: white;
 }
 
 * form input::placeholder {
-  color: var(--text-color);
 }
 
 

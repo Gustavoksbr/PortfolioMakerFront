@@ -116,7 +116,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  //border: 1px solid var(--text-color);
+
   min-height: 700px;
 }
 
@@ -149,7 +149,6 @@
 .titulo-sobre-mim{
   font-size: 40px;
   margin-bottom: 10px;
-  color: var(--text-color);
 }
 .descricao-view{
   width: 600px;
@@ -226,7 +225,7 @@
 .habilidades-content {
   width: 600px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 colunas iguais */
+  grid-template-columns: repeat(3, 1fr);
   @media (max-width: 700px) {
     width: 400px;
     grid-template-columns: repeat(2, 1fr);
@@ -282,18 +281,18 @@
   margin-top: 20px;
   width: 80%;
   @media (max-width: 800px) {
-    word-wrap: break-word;      /* forma antiga */
-    overflow-wrap: break-word;  /* padrão atual */
-    word-break: break-word;     /* fallback */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
     white-space: normal;
   }
 }
 .barra-horizontal {
-  max-width: 1000px; /* Largura da barra */
+  max-width: 1000px;
   height: 1px;
-  background-color: #000; /* Cor da barra */
+  background-color: #000;
   border: none;
-  margin: 20px 0; /* Espaçamento acima e abaixo */
+  margin: 20px 0;
 }
 .botao-editar{
   z-index: 70;
@@ -376,7 +375,7 @@
 .links-content {
   max-width: 700px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 colunas iguais */
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   div{
     margin:0 10px 0 10px;

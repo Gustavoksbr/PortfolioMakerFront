@@ -5,87 +5,30 @@
   padding: 0;
 }
 
-//body{
-//  background-color: var(--background-color);
-//}
+
 
 
 *{
   font-family: 'Roboto', sans-serif;
 }
 
-:root {
-  --background-color: #ffffff;
-  --background-color-reverse: #000000;
-  --border-color-sem-tema-claro: rgba(0, 0, 0, 0.1);
 
+// barra de rolagem
 
-  --text-color: #000000;
-  --text-color-reverse: #ffffff;
-  //--text-color2: grey;
-
-
-  --background-color2: lightgrey;
-  --background-color2-reverse: #333333;
-  --background-color3: #f1f1f1;
-  --text-color-link: blue;
-
-  --background-color-scrollbar-default: lightgrey;
-  --background-color-scrollbar-hover:#666;
-  --background-color-scrollbar-active:#555;
-
-  --background-lista: cornflowerblue;
-
-  --background-indisponivel: lightgrey;
-  --background-ja-esta-na-sala: lightblue;
-
-  --color-icon: invert(1);
-}
-
-[data-theme="dark"] {
-  --background-color: #121212;
-  --background-color-reverse: #ffffff;
-  --border-color-sem-tema-claro: #6e6d6d;
-
-
-  --text-color: #ffffff;
-  --text-color-reverse: #000000;
-  --text-color2: darkgrey;
-
-  --background-color2: #333333;
-  --background-color2-reverse: lightgrey;;
-  --background-color3: #333333;
-  --text-color-link: lightblue;
-
-  --background-color-scrollbar-default: #555;
-  --background-color-scrollbar-hover: #666;
-  --background-color-scrollbar-active: lightgrey;
-
-  --background-lista: #1e62cd;
-
-  --background-indisponivel: #333333;
-  --background-ja-esta-na-sala: #008fe4;
-
-  --color-icon: invert(0);
-}
-/* width */
 ::-webkit-scrollbar {
   width: 20px;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px grey;
   border-radius: 10px;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
   background: #b1b1b1;
   border-radius: 10px;
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: gray;
 }
@@ -94,6 +37,7 @@
   cursor: auto;
 }
 
+// Modal
 
 .modal-overlay {
   position: fixed;
@@ -112,9 +56,7 @@
   display: flex;
   flex-direction: column;
   width: 30%;
-  //min-width: 250px;
-  color: var(--text-color);
-  background-color: var(--background-color2);
+  background-color: lightgrey;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -126,30 +68,6 @@
   justify-content: space-around;
 }
 
-//body{
-//  background-color: var(--background-color);
-//  color: var(--text-color);
-//  transition: background-color 0.5s, color 0.5s;
-//}
-
-//@media (max-width: 600px) {
-//  h1,h2,h3,h4,h5,h6,label{
-//    font-size: 12px;
-//  }
-//  p{
-//    font-size: 10px;
-//  }
-//}
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 .label-input{
   display: flex;
   flex-direction: row;
@@ -158,49 +76,6 @@
   gap: 10px;
 }
 
-
-.button_plus {
-  width: 35px;
-  height: 35px;
-  background: #fff;
-  cursor: pointer;
-  border: 2px solid #095776;
-
-  /* Mittig */
-  top: 50%;
-  left: 50%;
-}
-
-.button_plus:after {
-  content: '';
-  transform: translate(-50%, -50%);
-  height: 4px;
-  width: 50%;
-  background: #095776;
-  top: 50%;
-  left: 50%;
-}
-
-.button_plus:before {
-  content: '';
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #095776;
-  height: 50%;
-  width: 4px;
-}
-
-.button_plus:hover:before,
-.button_plus:hover:after {
-  background: #fff;
-  transition: 0.2s;
-}
-
-.button_plus:hover {
-  background-color: #095776;
-  transition: 0.2s;
-}
 
 .confirmacao-box {
   max-width: 150px;
@@ -228,23 +103,12 @@
   align-items: center;
   gap: 30px;
 }
-.duvida-container{
-  //display: flex;
-  //flex-direction: row;
-}
-.duvida{
 
-  //border: 3px solid blue;
+.duvida{
   padding: 1px;
   position: relative;
   left: 30%;
-  //&:hover {
-  //  transform: scale(1.2);
-  //  transition: transform 0.3s ease;
-  //}
-
   img{
-    //border-radius: 50%;
     width: 45px;
     height: 45px;
 
@@ -254,8 +118,6 @@
 
 .tooltip-container {
   position: absolute;
-  //top: 100%; /* abaixo do ícone */
-  //left: 50%;
   padding-left: 800px;
   padding-bottom: 80px;
   @media (max-width: 1200px) {

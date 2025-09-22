@@ -12,7 +12,7 @@
 .parte-de-cima{
   margin:20px;
   display: grid;
-  grid-template-columns: repeat(11,1fr); /* 3 colunas iguais */
+  grid-template-columns: repeat(11,1fr);
   width: 100%;
   h3{
     grid-column: 4/9;
@@ -38,7 +38,6 @@
 
 
 .a {
-  color: var(--text-color-link);
   text-decoration: underline;
   cursor: pointer;
 }
