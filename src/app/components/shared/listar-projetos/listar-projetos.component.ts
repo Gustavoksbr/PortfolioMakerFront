@@ -15,7 +15,7 @@ import {BotaoLadoComponent} from '../botao-lado/botao-lado.component';
 @Component({
   standalone: true,
   selector: 'app-listar-projetos',
-  imports: [CommonModule, DragDropModule, FormsModule, AutocompleteComponent, BotaoLadoComponent],
+  imports: [CommonModule, DragDropModule, FormsModule, AutocompleteComponent],
   templateUrl: './listar-projetos-component.html',
   styleUrl: './listar-projetos.component.scss'
 })

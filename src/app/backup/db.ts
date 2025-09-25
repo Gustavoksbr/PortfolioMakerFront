@@ -62,7 +62,7 @@ localizacao: "Presidente Prudente",
 links: [
 {
 nome: "linkedin",
-url: "https://www.linkedin.com/in/gustavo-salesi-9a5b32265/"
+url: "https://www.linkedin.com/in/gustavosalesi"
 },
 {
 nome: "github",

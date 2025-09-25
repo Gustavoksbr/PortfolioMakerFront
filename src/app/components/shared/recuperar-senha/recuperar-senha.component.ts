@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {AuthService} from '../../../services/autenticacao/auth.service';
-import {Router} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 
 @Component({

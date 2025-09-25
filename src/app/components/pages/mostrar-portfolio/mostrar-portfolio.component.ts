@@ -28,7 +28,6 @@ import { SelecionarImagemComponent } from '../../shared/selecionar-imagem/seleci
 import {ListarProjetosComponent} from '../../shared/listar-projetos/listar-projetos.component';
 import { LinksAutocompleteComponent } from '../../shared/links-autocomplete/links-autocomplete.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
-import { PortolioComponent } from '../../shared/portolio/portolio.component';
 
 @Component({
   selector: 'app-mostrar-portfolio',
@@ -43,7 +42,6 @@ import { PortolioComponent } from '../../shared/portolio/portolio.component';
     ListarProjetosComponent,
     LinksAutocompleteComponent,
     FooterComponent,
-    PortolioComponent
   ],
   templateUrl: './mostrar-portfolio.component.html',
   styleUrl: './mostrar-portfolio.component.scss'

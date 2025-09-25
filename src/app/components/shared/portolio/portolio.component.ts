@@ -1,7 +1,5 @@
-import {AfterViewInit, Component, ElementRef, Input, input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input,  OnInit, ViewChild} from '@angular/core';
 import {Portfolio} from '../../../models/response/Portfolio';
-import {Imagem} from '../../../models/response/Imagem';
-import {Projeto} from '../../../models/response/Projeto';
 import {Router} from '@angular/router';
 import VanillaTilt from 'vanilla-tilt';
 

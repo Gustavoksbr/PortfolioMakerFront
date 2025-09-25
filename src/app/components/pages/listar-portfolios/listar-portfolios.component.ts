@@ -15,9 +15,7 @@ import {FooterComponent} from '../../shared/footer/footer.component';
   standalone: true,
   imports: [
     HeaderComponent,
-    NgForOf,
     PortolioComponent,
-    PortfolioLinkedinComponent,
     FormsModule,
     FooterComponent,
     NgClass

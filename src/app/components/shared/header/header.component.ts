@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {NgIf, NgStyle} from "@angular/common";
+import {NgIf} from "@angular/common";
 import {LoginComponent} from '../login/login.component';
 import {CadastroComponent} from '../cadastro/cadastro.component';
 import {RecuperarSenhaComponent} from '../recuperar-senha/recuperar-senha.component';
@@ -19,7 +19,6 @@ import {ModalComponent} from '../modal/modal.component';
     RecuperarSenhaComponent,
     ReactiveFormsModule,
     ModalComponent,
-    NgStyle,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'

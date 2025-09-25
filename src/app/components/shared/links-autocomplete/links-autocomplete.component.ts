@@ -1,14 +1,11 @@
 import {Component, EventEmitter, HostListener, Input, Output} from '@angular/core';
-import {NgForOf, NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-links-autocomplete',
   standalone: true,
   imports: [
-    NgForOf,
     FormsModule,
-    NgIf
   ],
   templateUrl: './links-autocomplete.component.html',
   styleUrl: './links-autocomplete.component.scss'

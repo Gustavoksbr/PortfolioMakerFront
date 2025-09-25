@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, NgModule, Output} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../../../services/autenticacao/auth.service';
