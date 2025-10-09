@@ -54,7 +54,23 @@ tecnologias: [
 "typescript",
 "bootstrap"
 ]
-}
+},
+  {
+    ordem: 2,
+    nome: "ApiComparator",
+    descricao: "Site que compara três tipos de API (REST, GRAPHQL e SOAP) com um sistema de gerenciamento de cursos em casos de uso como:\n\n-Listar todos os cursos\n-Procurar curso\n-Criar curso\n-Atualizar curso\n-Deletar curso",
+    linkDoProjeto: "https://api-comparator.vercel.app/",
+    linkDoRepositorio: "",
+    linkYoutube: "",
+    imagem: null,
+    tecnologias: [
+      "spring",
+      "angular",
+      "java",
+      "typescript"
+    ]
+  }
+
 ],
 experiencias: [],
 background: null,
