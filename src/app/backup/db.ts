@@ -60,7 +60,7 @@ tecnologias: [
     nome: "ApiComparator",
     descricao: "Site que compara três tipos de API (REST, GRAPHQL e SOAP) com um sistema de gerenciamento de cursos em casos de uso como:\n\n-Listar todos os cursos\n-Procurar curso\n-Criar curso\n-Atualizar curso\n-Deletar curso",
     linkDoProjeto: "https://api-comparator.vercel.app/",
-    linkDoRepositorio: "",
+    linkDoRepositorio: "https://github.com/Gustavoksbr/api-comparator",
     linkYoutube: "",
     imagem: null,
     tecnologias: [
