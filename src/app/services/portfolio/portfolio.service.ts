@@ -1,5 +1,5 @@
 ﻿import {Injectable} from '@angular/core';
-import {API_CONFIG} from '../config/api.config';
+import {API_CONFIG} from '../../../../../../../Js/Angular/api-comparator/src/api.config';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Portfolio} from '../../models/response/Portfolio';

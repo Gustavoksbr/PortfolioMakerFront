@@ -2,7 +2,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import {API_CONFIG} from '../config/api.config';
+import {API_CONFIG} from '../../../../../../../Js/Angular/api-comparator/src/api.config';
 
 @Injectable({
   providedIn: 'root',
