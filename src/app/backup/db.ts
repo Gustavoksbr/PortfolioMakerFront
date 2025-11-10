@@ -9,18 +9,29 @@ breveDescricao: "Desenvolvedor de software",
 descricao: "Formado em análise e desenvolvimento de sistemas na FATEC de Presidente Prudente",
 
 habilidades: new Set<string>([
-  "spring",
-  "cs",
-  "angular",
-  "unity",
-  "laravel",
-  "python",
-  "dotnet",
   "java",
-  "js",
+  "spring",
+  "javascript",
+  "typescript",
+  "angular",
+  "nestjs",
+  "jest",
+  "cypress",
+  "cs",
+  "dotnet",
+  "unity",
+  "python",
   "php",
+  "laravel",
+  "postgres",
+  "mysql",
+  "mongodb",
+  "python",
   "react",
-  "typescript"
+  "nextjs",
+  "vue"
+
+
 ]),
 projetos: [
 {

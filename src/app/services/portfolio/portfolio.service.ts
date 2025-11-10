@@ -1,11 +1,12 @@
 ﻿import {Injectable} from '@angular/core';
-import {API_CONFIG} from '../../../../../../../Js/Angular/api-comparator/src/api.config';
+
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Portfolio} from '../../models/response/Portfolio';
 import {AuthService} from '../autenticacao/auth.service';
 import {PortfolioRequest} from '../../models/request/PortfolioRequest';
 import {gustavoksbr} from '../../backup/db';
+import {API_CONFIG} from '../config/api.config';
 
 @Injectable({
   providedIn: 'root'
