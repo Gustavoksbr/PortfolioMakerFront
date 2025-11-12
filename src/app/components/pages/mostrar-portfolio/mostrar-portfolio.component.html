@@ -1,16 +1,18 @@
-<app-header (devolverPortfolio)="receberPortfolioProprio($event)" >
+<app-header (devolverPortfolio)="receberPortfolioProprio($event)"
+[usernamePortfolioDetalhado]="username"
+[criarPortfolioPelaPrimeiraVez]="criarPortfolioPrimeiraVez">
 </app-header>
 
 <div class="mostrar-portfolio-container">
   <div class="container">
-    <div class="voltar-lista-portfolios-content">
-      @if (!editando){
-        <p (click)="irParaHome()" class="listar-portfolios-ahref">
-          Ver outros portfólios
-        </p>
+<!--    <div class="voltar-lista-portfolios-content">-->
+<!--      @if (!editando){-->
+<!--        <p (click)="irParaHome()" class="listar-portfolios-ahref">-->
+<!--          Ver outros portfólios-->
+<!--        </p>-->
 
-      }
-    </div>
+<!--      }-->
+<!--    </div>-->
   </div>
 
   @if (carregando){

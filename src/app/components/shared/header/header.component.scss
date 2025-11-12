@@ -36,26 +36,37 @@ justify-content: center;
 
 }
 
+//.header
 
 
-header-autenticacao{
+.display-flex-row{
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
 
+.display-flex-column{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
-.irParaHome{
+
+//.logo-verportfolios-verseuportfolio{
+//  display: flex;
+//  flex-direction: column;
+//  align-items: center;
+//}
+
+.logo{
+  align-self: center;
 text-decoration: none;
 color: inherit;
 font-size: 24px;
-  cursor: pointer;
 }
 
-.irParaHome:hover{
-  scale: 1.05;
-}
 .botao-com-zoom{
   border: none;
   background: transparent;
@@ -68,6 +79,10 @@ font-size: 24px;
 }
 
 .sair{
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-self: center;
   img{
     width: 20px;
     height: 20px;

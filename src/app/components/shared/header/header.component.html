@@ -1,36 +1,45 @@
 
 <header class="header">
   <div class="header-content">
-  <a class="irParaHome" (click)="irParaHome()">PortfolioMaker</a>
-  <div class="header-autenticacao">
+    <div class="display-flex-column">
+      <a class="logo">PortfolioMaker</a>
+      <div class="display-flex-row">
+    <div class="display-flex-column" style="margin-right: 20px;">
+      @if (usernamePortfolioDetalhado!='' || criarPortfolioPelaPrimeiraVez) {
+        <div style="display: flex; align-items: center;">
+        <button (click)="irParaHome()" class="botao-com-zoom" >
+          Ver outros portfólios
+        </button>
+        </div>
+      }
+      @if (!carregando) {
+        @if (portfolioProprio && portfolioProprio.username && portfolioProprio.username !== '' && usernamePortfolioDetalhado != portfolioProprio.username) {
+          <button (click)="irParaPortfolioProprio()" class="botao-com-zoom">
+            Ver Seu portfólio
+          </button>
+        } @else if ((!portfolioProprio || !portfolioProprio.username || portfolioProprio.username === '') && email != null && email != '' && !criarPortfolioPelaPrimeiraVez) {
+          <button (click)="irParaCriarPortfolio()" class="botao-com-zoom">
+            Criar portfólio
+          </button>
+        }
+      }
+    </div>
 @if (email != null && email != '') {
-  <p>Olá, {{email}}</p>
-  @if (!carregando) {
-    @if (portfolioProprio && (portfolioProprio.username != null && portfolioProprio.username != '')) {
-      <button (click)="irParaPortfolio()" class="botao-com-zoom" style="margin-right: 20px">
-        Ver Seu portfólio
-      </button>
-    } @else {
-      <button (click)="irParaCriarPortfolio()" class="botao-com-zoom" style="margin-right: 20px">
-        Criar portfólio
-      </button>
-    }
-  } @else {
-    <button style="margin-right: 20px;opacity: 0;cursor: default">
-      Ver Seu portfólio
-    </button>
-  }
-
+  <div class="display-flex-column">
+  <p>{{email}}</p>
   <button class="sair botao-com-zoom" (click)="abrirModalDeslogar()">
     <img src="sair.png" alt="logout" />
     <p>Deslogar</p>
   </button>
+  </div>
 } @else {
 
 <!--  @if (email==null){-->
+  <div class="display-flex-row">
   <button (click)="abrirLogin()" class="btn botao-com-zoom">Login</button>
   /
   <button (click)="abrirCadastro()" class="btn botao-com-zoom">Cadastro</button>
+</div>
 <!--  <button (click)="abrirRecuperarSenha()" class="btn btn-warning">Esqueci minha senha</button>-->
   <div *ngIf="isLoginOpen" class="modal-overlay" >
     <app-login (devolverFecharLogin)="fecharLogin()" (abrirCadastro)="abrirCadastro()" (abrirRecuperarSenha)="abrirRecuperarSenha()" ></app-login>
@@ -45,6 +54,7 @@
   </div>
 }
   </div>
+    </div>
   </div>
 </header>
 

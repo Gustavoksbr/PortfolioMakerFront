@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NgIf} from "@angular/common";
 import {LoginComponent} from '../login/login.component';
 import {CadastroComponent} from '../cadastro/cadastro.component';
@@ -37,8 +37,7 @@ export class HeaderComponent implements OnInit{
           const url = this.router.url;
           if (url === '/criar-portfolio') {
             if (this.portfolioProprio && (this.portfolioProprio.username != null || this.portfolioProprio.username !== '')) {
-              alert(this.portfolioProprio.username);
-              this.irParaPortfolio();
+              this.irParaPortfolioProprio();
             }
           }
         }
@@ -47,7 +46,10 @@ export class HeaderComponent implements OnInit{
     }else{
       this.carregando = false;
     }
+    console.log(this.portfolioProprio);
   }
+  @Input() usernamePortfolioDetalhado: string = '';
+  @Input() criarPortfolioPelaPrimeiraVez : boolean = false;
   @Output() devolverEmail = new EventEmitter<string | null>();
   @Output() devolverPortfolio = new EventEmitter<Portfolio>();
   portfolioProprio: Portfolio = {
@@ -76,6 +78,7 @@ export class HeaderComponent implements OnInit{
   isRecuperarSenhaOpen: boolean = false;
   carregando: boolean = true;
   public irParaHome(): void {
+    this.usernamePortfolioDetalhado = '';
     this.router.navigate(['/']);
   }
   abrirLogin(){
@@ -108,6 +111,7 @@ export class HeaderComponent implements OnInit{
       )
     }
     this.devolverPortfolio.emit(this.portfolioProprio);
+
   }
 
   fecharLogin(){
@@ -161,7 +165,7 @@ export class HeaderComponent implements OnInit{
 
   }
 
-  irParaPortfolio(){
+  irParaPortfolioProprio(){
     this.router.navigate(['/portfolios/', this.portfolioProprio.username]);
   }
 

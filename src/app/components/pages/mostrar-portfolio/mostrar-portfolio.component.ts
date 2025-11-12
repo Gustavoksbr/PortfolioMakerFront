@@ -83,6 +83,8 @@ export class MostrarPortfolioComponent implements OnInit {
   public modal = this.criarModalVazio();
   public mostrarTooltip = false;
 
+  public username = '';
+
   public erroDeRequisicao: string[] = [];
   public projetosOrdenados: Projeto[] = [];
 
@@ -115,7 +117,6 @@ export class MostrarPortfolioComponent implements OnInit {
     private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router,
-    private sanitizer: DomSanitizer,
     private toastr: ToastrService
   ) {
     // Define o e-mail do portfólio próprio com base no auth
@@ -150,8 +151,8 @@ export class MostrarPortfolioComponent implements OnInit {
       const username = this.route.snapshot.url[1]?.path;
 
       if (!username) return;
+      this.username = username;
 
-      // Exemplo de chamada extra (parece ser debug)
       if (username === 'gustavoksbr') {
         this.service.listar();
       }
