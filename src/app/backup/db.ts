@@ -14,12 +14,11 @@ habilidades: new Set<string>([
   "javascript",
   "typescript",
   "angular",
-  "nestjs",
+  "docker",
   "jest",
   "cypress",
   "cs",
   "dotnet",
-  "unity",
   "python",
   "php",
   "laravel",
@@ -28,7 +27,6 @@ habilidades: new Set<string>([
   "mongodb",
   "python",
   "react",
-  "nextjs",
   "vue"
 
 
@@ -69,7 +67,7 @@ tecnologias: [
   {
     ordem: 2,
     nome: "ApiComparator",
-    descricao: "Site que compara três tipos de API (REST, GRAPHQL e SOAP) com um sistema de gerenciamento de cursos em casos de uso como:\n\n-Listar todos os cursos\n-Procurar curso\n-Criar curso\n-Atualizar curso\n-Deletar curso",
+    descricao: "Site que compara três tipos de API (REST, GRAPHQL e SOAP) fazendo um CRUD + procura com filtros de cursos",
     linkDoProjeto: "https://api-comparator.vercel.app/",
     linkDoRepositorio: "https://github.com/Gustavoksbr/api-comparator",
     linkYoutube: "",
@@ -78,7 +76,9 @@ tecnologias: [
       "spring",
       "angular",
       "java",
-      "typescript"
+      "typescript",
+      "jest",
+      "cypress"
     ]
   }
 

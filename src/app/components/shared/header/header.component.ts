@@ -46,7 +46,7 @@ export class HeaderComponent implements OnInit{
     }else{
       this.carregando = false;
     }
-    console.log(this.portfolioProprio);
+    //console.log(this.portfolioProprio);
   }
   @Input() usernamePortfolioDetalhado: string = '';
   @Input() criarPortfolioPelaPrimeiraVez : boolean = false;
