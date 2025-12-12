@@ -77,6 +77,7 @@ export class HeaderComponent implements OnInit{
   isCadastroOpen: boolean = false;
   isRecuperarSenhaOpen: boolean = false;
   carregando: boolean = true;
+  carregandoPortfolioProprio: boolean = true;
   public irParaHome(): void {
     this.usernamePortfolioDetalhado = '';
     this.router.navigate(['/']);
@@ -165,10 +166,11 @@ export class HeaderComponent implements OnInit{
 
   }
 
-  irParaPortfolioProprio(){
-    this.router.navigate(['/portfolios/', this.portfolioProprio.username]);
+  irParaPortfolioProprio() {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/portfolios', this.portfolioProprio.username]);
+    });
   }
-
   irParaCriarPortfolio(){
     this.router.navigate(['/criar-portfolio']);
   }
