@@ -1,0 +1,10 @@
+{
+    "buildCommand": "npm run build:prod",
+    "outputDirectory": "dist/portfolio-maker/browser",
+    "rewrites": [
+        {
+            "source": "/(.*)",
+            "destination": "/index.html"
+        }
+    ]
+}

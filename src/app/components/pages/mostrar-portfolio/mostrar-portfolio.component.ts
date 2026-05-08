@@ -25,9 +25,8 @@ import { HeaderComponent } from '../../shared/header/header.component';
 import { AutocompleteComponent } from '../../shared/autocomplete/autocomplete.component';
 import { ModalComponent } from '../../shared/modal/modal.component';
 import { SelecionarImagemComponent } from '../../shared/selecionar-imagem/selecionar-imagem.component';
-import {ListarProjetosComponent} from '../../shared/listar-projetos/listar-projetos.component';
+import { ListarProjetosComponent } from '../../shared/listar-projetos/listar-projetos.component';
 import { LinksAutocompleteComponent } from '../../shared/links-autocomplete/links-autocomplete.component';
-import { FooterComponent } from '../../shared/footer/footer.component';
 
 @Component({
   selector: 'app-mostrar-portfolio',
@@ -41,7 +40,6 @@ import { FooterComponent } from '../../shared/footer/footer.component';
     SelecionarImagemComponent,
     ListarProjetosComponent,
     LinksAutocompleteComponent,
-    FooterComponent,
   ],
   templateUrl: './mostrar-portfolio.component.html',
   styleUrl: './mostrar-portfolio.component.scss'
@@ -255,7 +253,7 @@ export class MostrarPortfolioComponent implements OnInit {
    *        SALVAR OU CANCELAR
    *  ============================== */
 
-  public alterar(){ //botao de entrar/sair no modo edicao
+  public alterar() { //botao de entrar/sair no modo edicao
     this.editando = true;
   }
   public sairCancelandoOuSalvando(salvarAlteracoes: boolean): void {

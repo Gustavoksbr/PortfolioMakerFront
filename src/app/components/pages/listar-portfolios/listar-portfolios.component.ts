@@ -1,14 +1,13 @@
-import {Component, OnInit, PipeTransform} from '@angular/core';
-import {HeaderComponent} from '../../shared/header/header.component';
-import {PortfolioService} from '../../../services/portfolio/portfolio.service';
-import {Portfolio} from '../../../models/response/Portfolio';
-import {NgClass, NgForOf} from '@angular/common';
-import {Router} from '@angular/router';
-import {PortolioComponent} from '../../shared/portolio/portolio.component';
-import {PortfolioLinkedinComponent} from '../../shared/portfolio-linkedin/portfolio-linkedin.component';
-import {AuthService} from '../../../services/autenticacao/auth.service';
-import {FormsModule} from '@angular/forms';
-import {FooterComponent} from '../../shared/footer/footer.component';
+import { Component, OnInit, PipeTransform } from '@angular/core';
+import { HeaderComponent } from '../../shared/header/header.component';
+import { PortfolioService } from '../../../services/portfolio/portfolio.service';
+import { Portfolio } from '../../../models/response/Portfolio';
+import { NgClass, NgForOf } from '@angular/common';
+import { Router } from '@angular/router';
+import { PortolioComponent } from '../../shared/portolio/portolio.component';
+import { PortfolioLinkedinComponent } from '../../shared/portfolio-linkedin/portfolio-linkedin.component';
+import { AuthService } from '../../../services/autenticacao/auth.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-listar-portfolios',
@@ -17,13 +16,12 @@ import {FooterComponent} from '../../shared/footer/footer.component';
     HeaderComponent,
     PortolioComponent,
     FormsModule,
-    FooterComponent,
     NgClass
   ],
   templateUrl: './listar-portfolios.component.html',
   styleUrl: './listar-portfolios.component.scss'
 })
-export class ListarPortfoliosComponent implements OnInit{
+export class ListarPortfoliosComponent implements OnInit {
   // public listaPortfolios: Portfolio[] = [];
   public listaPortfolioSemProprio: Portfolio[] = [];
   public portfolioProprio: Portfolio = {
@@ -84,12 +82,12 @@ export class ListarPortfoliosComponent implements OnInit{
     this.ngOnInit();
   }
 
-  public irParaCriarPortfolio(){
+  public irParaCriarPortfolio() {
     this.router.navigate(['/criar-portfolio']);
   }
   constructor(private service: PortfolioService,
-  private authService : AuthService,
-  private router: Router
+    private authService: AuthService,
+    private router: Router
   ) {
 
   }
@@ -97,7 +95,7 @@ export class ListarPortfoliosComponent implements OnInit{
     this.carregando = true;
     this.email = localStorage.getItem('email');
     this.email = this.authService.getStorage('email');
-    if(!this.email){
+    if (!this.email) {
       this.portfolioProprio = {
         id: '',
         username: '',
@@ -116,26 +114,38 @@ export class ListarPortfoliosComponent implements OnInit{
         links: []
       }
     }
-    this.service.mostrarPortfolioPorEmail("gustavosalesi@hotmail.com").subscribe((portfolio: Portfolio) => {
-      this.portfolioGustavoksbr = portfolio;
+    this.service.mostrarPortfolioPorEmail("gustavosalesi@hotmail.com").subscribe({
+      next: (portfolio: Portfolio) => {
+        this.portfolioGustavoksbr = portfolio;
+      },
+      error: () => {
+        // Se falhar, mantém o objeto vazio — não trava o carregamento
+      }
     });
 
-    this.service.listar().subscribe((portfolios: Portfolio[]) => {
-      this.listaPortfolioSemProprio = [];
-      this.carregando = false;
-      portfolios.forEach(p => {
-        if (p.email === this.email) {
-          this.portfolioProprio = p;
+    this.service.listar().subscribe({
+      next: (portfolios: Portfolio[]) => {
+        this.listaPortfolioSemProprio = [];
+        this.carregando = false;
+        portfolios.forEach(p => {
+          if (p.email === this.email) {
+            this.portfolioProprio = p;
+          } else {
+            this.listaPortfolioSemProprio.push(p);
+          }
+        });
+        if (this.email == "gustavosalesi@hotmail.com") {
+          this.portfolioProprio = this.portfolioGustavoksbr;
         } else {
-          this.listaPortfolioSemProprio.push(p);
+          this.listaPortfolioSemProprio.unshift(this.portfolioGustavoksbr);
         }
-      });
-      if(this.email=="gustavosalesi@hotmail.com"){
-        this.portfolioProprio =  this.portfolioGustavoksbr;
-      }else{
-    this.listaPortfolioSemProprio.unshift(this.portfolioGustavoksbr);
+        this.aplicarFiltro();
+      },
+      error: () => {
+        // Para de carregar mesmo se a API falhar (backend local desligado, timeout, etc.)
+        this.carregando = false;
+        this.aplicarFiltro();
       }
-      this.aplicarFiltro();
     });
   }
 

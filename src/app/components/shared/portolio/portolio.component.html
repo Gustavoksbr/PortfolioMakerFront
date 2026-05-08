@@ -1,9 +1,36 @@
 <div #tiltCard class="card portfolio-container" [title]="portfolio.username">
   <div class="portfolio-content">
     @if (carregando){
-      <div class="carregando">
-        <h3 class="sr-only">Carregando</h3>
-        <div class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="width: 40px;height: 40px"></div>
+      <!-- Skeleton + spinner sobrepostos -->
+      <div class="skeleton-card-wrapper" aria-hidden="true">
+        <!-- Faixa de background -->
+        <div class="skeleton-block skeleton-background"></div>
+
+        <!-- Foto circular -->
+        <div class="skeleton-block skeleton-avatar"></div>
+
+        <!-- Nome -->
+        <div class="skeleton-block skeleton-nome"></div>
+
+        <!-- Breve descrição -->
+        <div class="skeleton-block skeleton-descricao-linha"></div>
+        <div class="skeleton-block skeleton-descricao-linha skeleton-descricao-linha--curta"></div>
+
+        <!-- Localização -->
+        <div class="skeleton-block skeleton-localizacao"></div>
+
+        <!-- Habilidades -->
+        <div class="skeleton-habilidades-sep"></div>
+        <div class="skeleton-block skeleton-habilidades"></div>
+
+        <!-- Botão -->
+        <div class="skeleton-block skeleton-botao"></div>
+
+        <!-- Spinner centralizado sobre o skeleton -->
+        <div class="skeleton-spinner">
+          <div class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+               style="width: 32px; height: 32px; color: #aaa;"></div>
+        </div>
       </div>
     } @else {
 

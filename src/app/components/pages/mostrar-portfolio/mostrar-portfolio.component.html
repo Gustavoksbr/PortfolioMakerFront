@@ -16,9 +16,24 @@
   </div>
 
   @if (carregando){
-    <div class="carregando">
-      <h3 class="sr-only">Carregando</h3>
-      <div class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="width: 40px;height: 40px"></div>
+    <!-- Skeleton screen: mantém a estrutura visual da página durante o carregamento,
+         evitando que o LCP element apareça "do nada" após a API responder -->
+    <div class="skeleton-wrapper" aria-hidden="true">
+      <!-- Replica o header escuro nome+descrição -->
+      <div class="skeleton-header">
+        <div class="skeleton-block skeleton-titulo"></div>
+        <div class="skeleton-block skeleton-subtitulo"></div>
+      </div>
+      <!-- Replica a seção foto + descrição -->
+      <div class="skeleton-body">
+        <div class="skeleton-block skeleton-foto"></div>
+        <div class="skeleton-descricao">
+          <div class="skeleton-block skeleton-linha"></div>
+          <div class="skeleton-block skeleton-linha skeleton-linha--curta"></div>
+          <div class="skeleton-block skeleton-linha"></div>
+          <div class="skeleton-block skeleton-linha skeleton-linha--media"></div>
+        </div>
+      </div>
     </div>
   } @else {
 
@@ -384,8 +399,4 @@
 
   }
 </div>
-
-<app-footer>
-
-</app-footer>
 

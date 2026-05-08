@@ -1,6 +1,5 @@
-﻿export const API_CONFIG = {
-  BASE_URL: 'https://portfoliomakerback.onrender.com'
-};
+﻿import { environment } from '../../../environments/environment';
 
-//https://portfoliomakerback.onrender.com/
-//http://localhost:8080
+export const API_CONFIG = {
+  BASE_URL: environment.apiUrl
+};
