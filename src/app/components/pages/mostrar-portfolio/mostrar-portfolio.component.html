@@ -75,32 +75,38 @@
           }
         }
         @else {
-          <div class="botao-editar editando">
-            @if (podeSalvarSemErroDeRequisicao) {
-              @if (!carregandoSalvamento) {
-                <button class="salvar btn btn-primary" (click)="abrirModalSalvar()">
-                  salvar
-                </button>
+          <!-- Modo edição: só mostra se o usuário estiver logado -->
+          @if (portfolioProprio.email) {
+            <div class="botao-editar editando">
+              @if (podeSalvarSemErroDeRequisicao) {
+                @if (!carregandoSalvamento) {
+                  <button class="salvar btn-salvar" (click)="abrirModalSalvar()">
+                    <span class="btn-icon">💾</span>
+                    <span>Salvar</span>
+                  </button>
+                }
+                @else {
+                  <button class="salvar btn-salvar" disabled>
+                    <div class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></div>
+                  </button>
+                }
               }
               @else {
-                <button class="salvar btn btn-primary" disabled>
-                  <div class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></div>
+                <button class="salvar btn-salvar impedido"
+                        title="Você tem campos mal preenchidos">
+                  <span class="btn-icon">💾</span>
+                  <span>Salvar</span>
                 </button>
               }
-            }
-            @else {
-              <button class="salvar btn btn-primary impedido"
-                      title="Você tem campos mal preenchidos">
-                salvar
-              </button>
-            }
 
-            @if (!criarPortfolioPrimeiraVez) {
-              <button class="cancelar btn btn-secondary" (click)="abrirModalNaoSalvar()">
-                cancelar
-              </button>
-            }
-          </div>
+              @if (!criarPortfolioPrimeiraVez) {
+                <button class="cancelar btn-cancelar" (click)="abrirModalNaoSalvar()">
+                  <span class="btn-icon">✕</span>
+                  <span>Cancelar</span>
+                </button>
+              }
+            </div>
+          }
         }
 
         <header class="nome-breve-descricao-container">
