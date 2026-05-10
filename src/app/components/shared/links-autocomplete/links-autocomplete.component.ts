@@ -1,5 +1,5 @@
-import {Component, EventEmitter, HostListener, Input, Output} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-links-autocomplete',
@@ -18,14 +18,20 @@ export class LinksAutocompleteComponent {
     'stackoverflow', 'email', 'website', 'youtube', 'twitch'
   ];
 
- @Input() searchText: string = '';
- @Input() linkInicial: string = '';
-   filteredLinks: string[] = [];
-   selectedLink: string | null = null;
+  @Input() searchText: string = '';
+  @Input() linkInicial: string = '';
+  filteredLinks: string[] = [];
+  selectedLink: string | null = null;
   @Output() retornarLinkInicialEPosterior = new EventEmitter<{ inicial: string; atual: string }>();
 
   onInputChange(): void {
     const query = this.searchText.toLowerCase();
+
+    // Emite mudança imediatamente quando o texto muda
+    if (query !== this.linkInicial) {
+      this.retornarLinkInicialEPosterior.emit({ inicial: this.linkInicial, atual: query });
+      this.linkInicial = query;
+    }
 
     if (query.length === 0) {
       this.filteredLinks = [];
@@ -48,8 +54,8 @@ export class LinksAutocompleteComponent {
     this.selectedLink = link;
     this.searchText = link;
     this.filteredLinks = [];
-    if(link !== this.linkInicial) {
-      this.retornarLinkInicialEPosterior.emit({ inicial: this.linkInicial, atual: link});
+    if (link !== this.linkInicial) {
+      this.retornarLinkInicialEPosterior.emit({ inicial: this.linkInicial, atual: link });
       this.linkInicial = '';
       this.searchText = '';
     }
@@ -65,7 +71,9 @@ export class LinksAutocompleteComponent {
     const target = event.target as HTMLElement;
     if (!target.closest('.search-container')) {
       const query = this.searchText.toLowerCase();
-      this.selectLink(query);
+      if (query && query !== this.linkInicial) {
+        this.selectLink(query);
+      }
     }
   }
 

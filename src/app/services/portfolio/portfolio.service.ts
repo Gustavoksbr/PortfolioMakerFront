@@ -48,8 +48,22 @@ export class PortfolioService {
   }
 
   savePortfolio(portfolio: PortfolioRequest): Observable<Portfolio> {
-    //console.log("portfolioRequest",portfolio);
-    return this.http.post<Portfolio>(this.API + "/save", portfolio, { headers: this.getHeaders() });
+    // Mapeia Imagem.url para ImagemRequest.data antes de enviar
+    const portfolioParaEnviar = {
+      ...portfolio,
+      foto: portfolio.foto ? {
+        id: portfolio.foto.id,
+        name: portfolio.foto.name,
+        data: portfolio.foto.url // Backend espera 'data' com Base64
+      } : null,
+      background: portfolio.background ? {
+        id: portfolio.background.id,
+        name: portfolio.background.name,
+        data: portfolio.background.url
+      } : null
+    };
+
+    return this.http.post<Portfolio>(this.API + "/save", portfolioParaEnviar, { headers: this.getHeaders() });
   }
 
 

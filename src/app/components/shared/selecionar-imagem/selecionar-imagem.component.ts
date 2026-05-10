@@ -1,6 +1,6 @@
-import {Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
-import {Imagem} from '../../../models/response/Imagem';
-import {NgIf} from '@angular/common';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
+import { Imagem } from '../../../models/response/Imagem';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-selecionar-imagem',
@@ -32,9 +32,13 @@ export class SelecionarImagemComponent implements OnInit, OnChanges {
   }
 
   private atualizarPreview(): void {
-    if (this.imagem) {
-      this.imagePreviewUrl = `data:${this.imagem.contentType};base64,${this.imagem.data}`;
+    if (this.imagem && this.imagem.url) {
+      // Se a URL começa com "data:", é Base64 (preview local)
+      // Se começa com "http", é URL do Cloudinary
+      console.log('Atualizando preview com URL:', this.imagem.url);
+      this.imagePreviewUrl = this.imagem.url;
     } else {
+      console.log('Sem imagem para preview');
       this.imagePreviewUrl = null;
     }
   }
@@ -48,27 +52,26 @@ export class SelecionarImagemComponent implements OnInit, OnChanges {
       const reader = new FileReader();
 
       reader.onload = () => {
-        const base64Data = (reader.result as string).split(',')[1];
+        const base64Full = reader.result as string; // "data:image/png;base64,iVBORw0KG..."
 
         const novaImagem: Imagem = {
-          id: crypto.randomUUID(), // ou null, se preferir
+          id: crypto.randomUUID(),
           name: file.name,
-          contentType: file.type,
-          data: base64Data
+          url: base64Full // Envia o Base64 completo, o backend converte para URL
         };
 
         this.imagemAlterada.emit(novaImagem);
-        this.imagePreviewUrl = `data:${novaImagem.contentType};base64,${novaImagem.data}`;
+        this.imagePreviewUrl = base64Full;
       };
 
       reader.readAsDataURL(file);
     }
   }
 
-  abrirPopUpRemoverImagem(){
+  abrirPopUpRemoverImagem() {
     this.imagemRemoverPopUp = true;
   }
-  fecharPopUpRemoverImagem(){
+  fecharPopUpRemoverImagem() {
     this.imagemRemoverPopUp = false;
   }
   removerImagem(): void {

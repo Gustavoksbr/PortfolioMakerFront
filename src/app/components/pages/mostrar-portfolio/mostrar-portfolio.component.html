@@ -45,21 +45,11 @@
   }@else{
     <div>
       <div class="mostrar-portfolio-content">
-        <!-- Botão editar / salvar / cancelar vá até a página 88 para a próxima etapa-->
-        @if (!editando) {
-          <!-- Primeira criação do portfólio -->
-          @if (criarPortfolioPrimeiraVez && !portfolioProprio.email) {
-            <!-- Não mostra nada -->
-          }
-          @else if (!portfolioProprio.email) {
-            <!-- Usuário não logado -->
-            <div class="botao-editar impedido edit-impedido lapis"
-                 title="Você precisa estar logado para alterar o portfólio">
-              <img src="edit-denied.jpg" alt="alterar">
-            </div>
-          }
-          @else if (portfolioProprio.email == portfolio.email) {
-            <!-- Pode editar o próprio portfólio -->
+        <!-- Botão editar / salvar / cancelar -->
+        <!-- Só mostra botões se o usuário estiver logado E for o dono do portfólio -->
+        @if (portfolioProprio.email && portfolioProprio.email == portfolio.email) {
+          @if (!editando) {
+            <!-- Botão de editar -->
             <div class="botao-editar lapis edit-permitido"
                  (click)="alterar()"
                  title="Clique para editar seu portfólio">
@@ -67,16 +57,7 @@
             </div>
           }
           @else {
-            <!-- Tentando editar o portfólio de outra pessoa -->
-            <div class="botao-editar impedido edit-impedido lapis"
-                 title="Você não pode editar o portfólio de outra pessoa">
-              <img src="edit-denied.jpg" alt="alterar">
-            </div>
-          }
-        }
-        @else {
-          <!-- Modo edição: só mostra se o usuário estiver logado -->
-          @if (portfolioProprio.email) {
+            <!-- Botões de salvar e cancelar -->
             <div class="botao-editar editando">
               @if (podeSalvarSemErroDeRequisicao) {
                 @if (!carregandoSalvamento) {

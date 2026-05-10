@@ -37,7 +37,7 @@
     <img class="background-img " src="background-padrao.png" alt="Imagem de fundo do portfólio" />
 <!--    <div class="foto-e-nome">-->
   @if (portfolio.foto != null) {
-    <img class="imagem-portfolio-card" [src]="'data:' + portfolio.foto.contentType + ';base64,' + portfolio.foto.data"
+    <img class="imagem-portfolio-card" [src]="portfolio.foto.url"
          alt="Imagem de {{ portfolio.username }}"/>
     } @else {
     <img src="icon-profile.png" class="imagem-portfolio-card" alt="Imagem de {{ portfolio.username }}"/>

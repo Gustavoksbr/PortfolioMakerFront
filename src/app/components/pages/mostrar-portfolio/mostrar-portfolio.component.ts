@@ -329,12 +329,19 @@ export class MostrarPortfolioComponent implements OnInit {
   }
 
   public alterarLinks({ inicial, atual }: { inicial: string; atual: string }): void {
+    console.log('alterarLinks chamado:', { inicial, atual });
+    console.log('portfolioNovo.links antes:', JSON.stringify(this.portfolioNovo.links, null, 2));
+    console.log('portfolio.links antes:', JSON.stringify(this.portfolio.links, null, 2));
+
     if (atual !== inicial) {
       const index = this.portfolioNovo.links.findIndex(l => l.nome === inicial);
       if (index !== -1) {
         this.portfolioNovo.links[index].nome = atual;
       }
     }
+
+    console.log('portfolioNovo.links depois:', JSON.stringify(this.portfolioNovo.links, null, 2));
+    console.log('portfolio.links depois:', JSON.stringify(this.portfolio.links, null, 2));
   }
 
   public deleteLink(link: string): void {
