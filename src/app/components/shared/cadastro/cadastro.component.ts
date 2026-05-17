@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Output} from '@angular/core';
-import {AuthService} from '../../../services/autenticacao/auth.service';
-import {Router} from '@angular/router';
-import {FormsModule} from '@angular/forms';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { AuthService } from '../../../services/autenticacao/auth.service';
+import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-cadastro',
@@ -14,26 +14,28 @@ import {FormsModule} from '@angular/forms';
 })
 export class CadastroComponent {
   public tentandoCadastrar = false;
-  user = {  email:'', senha: '' };
+  user = { email: '', senha: '' };
   @Output() devolverFecharCadastro = new EventEmitter();
   @Output() abrirLogin = new EventEmitter();
 
-  fecharCadastro(){
+  fecharCadastro() {
     this.devolverFecharCadastro.emit();
   }
-  logar(){
+  logar() {
     this.abrirLogin.emit();
   }
-  constructor(private authService: AuthService,  private router:Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
   register() {
     this.tentandoCadastrar = true;
     this.authService.register(this.user).subscribe({
-      next: (response: { token: any; }) => {
+      next: (response: { token: string; email: string; username: string | null }) => {
         this.authService.saveToken(response.token);
-        this.authService.saveStorage("email",this.user.email);
+        this.authService.saveStorage('email', response.email ?? this.user.email);
+        if (response.username) {
+          this.authService.saveStorage('username', response.username);
+        }
         this.fecharCadastro();
-       // this.router.navigate(['/salas']);
       },
       error: (err: any) => {
         this.tentandoCadastrar = false;

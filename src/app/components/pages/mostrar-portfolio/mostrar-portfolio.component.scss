@@ -5,6 +5,103 @@
   white-space: normal;
 }
 
+.pdf-export-card {
+  position: fixed;
+  left: -100000px;
+  top: 0;
+  width: 794px;
+  min-height: 1123px;
+  padding: 32px;
+  box-sizing: border-box;
+  background: #ffffff;
+  color: #212529;
+  font-family: Arial, Helvetica, sans-serif;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.pdf-export-header {
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+
+  h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+  }
+}
+
+.pdf-export-kicker {
+  margin: 0 0 8px;
+  color: #6c757d;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.pdf-export-subtitle {
+  margin: 10px 0 0;
+  font-size: 16px;
+  color: #495057;
+}
+
+.pdf-export-section {
+  margin-bottom: 18px;
+
+  h2 {
+    margin: 0 0 10px;
+    font-size: 20px;
+    color: #343a40;
+  }
+}
+
+.pdf-export-text,
+.pdf-export-meta,
+.pdf-export-muted,
+.pdf-export-list {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.pdf-export-list {
+  padding-left: 20px;
+}
+
+.pdf-export-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pdf-export-tag {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #f1f3f5;
+  font-size: 13px;
+}
+
+.pdf-export-card-block {
+  padding: 12px 14px;
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  background: #ffffff;
+
+  h3 {
+    margin: 0 0 6px;
+    font-size: 16px;
+  }
+
+  p {
+    margin: 0 0 6px;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+}
+
 // ── Skeleton screen ──────────────────────────────────────────────────────────
 // Animação de shimmer: percorre o bloco da esquerda para a direita
 @keyframes shimmer {
@@ -410,6 +507,35 @@
   }
 }
 
+.email-publico-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.email-publico-content {
+  width: 80%;
+  max-width: 1000px;
+  padding: 10px 0;
+}
+
+.email-publico-aviso {
+  font-size: 14px;
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+}
+
+.email-publico-text {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 10px;
+  color: #94a3b8;
+}
+
 .barra-horizontal {
   max-width: 1000px;
   height: 1px;
@@ -428,6 +554,44 @@
   border-radius: 15px;
   padding: 8px;
   box-shadow: #333333 1px 1px 4px;
+
+  @media (max-width: 1000px) {
+    left: 80%;
+  }
+
+  @media (max-width: 450px) {
+    left: 60%;
+  }
+}
+
+.botao-pdf {
+  z-index: 70;
+  position: fixed;
+  left: 90%;
+  top: 260px;
+  background-color: white;
+  border-radius: 15px;
+  padding: 8px;
+  box-shadow: #333333 1px 1px 4px;
+  cursor: pointer;
+
+  svg {
+    width: 40px;
+    height: 40px;
+    color: #e53935; // Vermelho para PDF
+    display: block;
+  }
+
+  &:hover {
+    background: radial-gradient(circle, #ffffff, rgba(216, 216, 216, 0.71));
+    transition: transform 0.3s ease, background 6s ease;
+    transform: scale(1.2);
+
+    svg {
+      color: #c62828; // Vermelho mais escuro no hover
+      transition: color 0.3s ease;
+    }
+  }
 
   @media (max-width: 1000px) {
     left: 80%;
@@ -512,6 +676,13 @@
 
 
 .lapis {
+  svg {
+    width: 40px;
+    height: 40px;
+    color: #333;
+    display: block;
+  }
+
   img {
     width: 70px;
   }
@@ -526,6 +697,11 @@
     background: radial-gradient(circle, #ffffff, rgba(216, 216, 216, 0.71));
     transition: transform 0.3s ease, background 6s ease;
     transform: scale(1.2);
+
+    svg {
+      color: #4CAF50;
+      transition: color 0.3s ease;
+    }
   }
 }
 

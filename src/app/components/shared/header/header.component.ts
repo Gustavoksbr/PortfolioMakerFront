@@ -1,13 +1,13 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {NgIf} from "@angular/common";
-import {LoginComponent} from '../login/login.component';
-import {CadastroComponent} from '../cadastro/cadastro.component';
-import {RecuperarSenhaComponent} from '../recuperar-senha/recuperar-senha.component';
-import {ReactiveFormsModule} from '@angular/forms';
-import {Router} from '@angular/router';
-import {PortfolioService} from '../../../services/portfolio/portfolio.service';
-import {Portfolio} from '../../../models/response/Portfolio';
-import {ModalComponent} from '../modal/modal.component';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NgIf } from "@angular/common";
+import { LoginComponent } from '../login/login.component';
+import { CadastroComponent } from '../cadastro/cadastro.component';
+import { RecuperarSenhaComponent } from '../recuperar-senha/recuperar-senha.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { PortfolioService } from '../../../services/portfolio/portfolio.service';
+import { Portfolio } from '../../../models/response/Portfolio';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-header',
@@ -23,147 +23,145 @@ import {ModalComponent} from '../modal/modal.component';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent implements OnInit{
-  constructor(private router: Router, private portfolioService: PortfolioService) {
-  }
+export class HeaderComponent implements OnInit {
+  constructor(private router: Router, private portfolioService: PortfolioService) { }
+
   ngOnInit(): void {
     this.carregando = true;
-    this.email = localStorage.getItem('email')!;
-    if(this.email) {
-      this.portfolioService.mostrarPortfolioPorEmail(this.email).subscribe(
-        (portfolioEncontrado: Portfolio) => {
+    this.email = localStorage.getItem('email');
+    const username = localStorage.getItem('username');
+
+    if (this.email && username) {
+      // Usa o username salvo no login para buscar o portfólio (sem expor email)
+      this.portfolioService.mostrarPortfolioPorUsername(username).subscribe({
+        next: (portfolioEncontrado: Portfolio) => {
           this.carregando = false;
-          this.portfolioProprio = portfolioEncontrado;
-          const url = this.router.url;
-          if (url === '/criar-portfolio') {
-            if (this.portfolioProprio && (this.portfolioProprio.username != null || this.portfolioProprio.username !== '')) {
-              this.irParaPortfolioProprio();
-            }
+          this.portfolioProprio = { ...portfolioEncontrado, email: this.email! };
+          if (this.router.url === '/criar-portfolio' && this.portfolioProprio.username) {
+            this.irParaPortfolioProprio();
           }
+          this.devolverPortfolio.emit(this.portfolioProprio);
+        },
+        error: () => {
+          this.carregando = false;
+          // Portfólio ainda não criado
+          this.portfolioProprio.email = this.email!;
+          this.devolverPortfolio.emit(this.portfolioProprio);
         }
-      )
+      });
+    } else if (this.email) {
+      // Logado mas sem username salvo (sessão antiga) — emite com email apenas
+      this.carregando = false;
+      this.portfolioProprio.email = this.email;
       this.devolverPortfolio.emit(this.portfolioProprio);
-    }else{
+    } else {
       this.carregando = false;
     }
-    //console.log(this.portfolioProprio);
   }
+
   @Input() usernamePortfolioDetalhado: string = '';
-  @Input() criarPortfolioPelaPrimeiraVez : boolean = false;
+  @Input() criarPortfolioPelaPrimeiraVez: boolean = false;
   @Output() devolverEmail = new EventEmitter<string | null>();
   @Output() devolverPortfolio = new EventEmitter<Portfolio>();
+
   portfolioProprio: Portfolio = {
-    id: '',
-    username: '',
-    email: '',
-    descricao: '',
-    foto: null,
-
-    habilidades: new Set<string>(),
-    projetos: [],
-    nome: '',
-    breveDescricao: '',
-    experiencias: [],
-
-    background: null,
-    localizacao: '',
-    links: []
-
-  }
+    id: '', username: '', email: '', descricao: '', foto: null,
+    habilidades: new Set<string>(), projetos: [], nome: '',
+    breveDescricao: '', experiencias: [], background: null,
+    localizacao: '', links: [], emailPublico: null
+  };
 
   email: string | null = '';
-
-  isLoginOpen : boolean = false;
+  isLoginOpen: boolean = false;
   isCadastroOpen: boolean = false;
   isRecuperarSenhaOpen: boolean = false;
   carregando: boolean = true;
   carregandoPortfolioProprio: boolean = true;
+
   public irParaHome(): void {
     this.usernamePortfolioDetalhado = '';
     this.router.navigate(['/']);
   }
-  abrirLogin(){
+
+  abrirLogin() {
     this.isCadastroOpen = false;
     this.isRecuperarSenhaOpen = false;
     this.isLoginOpen = true;
   }
-  abrirCadastro(){
+
+  abrirCadastro() {
     this.isLoginOpen = false;
     this.isRecuperarSenhaOpen = false;
     this.isCadastroOpen = true;
   }
-  abrirRecuperarSenha(){
+
+  abrirRecuperarSenha() {
     this.isLoginOpen = false;
     this.isCadastroOpen = false;
     this.isRecuperarSenhaOpen = true;
   }
 
-  fechar(){
-    this.email = localStorage.getItem('email')!;
+  fechar() {
+    this.email = localStorage.getItem('email');
+    const username = localStorage.getItem('username');
+    this.portfolioProprio.email = this.email ?? '';
 
-    this.portfolioProprio.email = this.email;
-    if(this.email){
+    if (this.email && username) {
       this.carregando = true;
-      this.portfolioService.mostrarPortfolioPorEmail(this.email).subscribe(
-        (portfolioEncontrado: Portfolio) => {
+      this.portfolioService.mostrarPortfolioPorUsername(username).subscribe({
+        next: (portfolioEncontrado: Portfolio) => {
           this.carregando = false;
-          this.portfolioProprio = portfolioEncontrado;
+          this.portfolioProprio = { ...portfolioEncontrado, email: this.email! };
+          this.devolverPortfolio.emit(this.portfolioProprio);
+        },
+        error: () => {
+          this.carregando = false;
+          this.devolverPortfolio.emit(this.portfolioProprio);
         }
-      )
+      });
+    } else {
+      this.devolverPortfolio.emit(this.portfolioProprio);
     }
-    this.devolverPortfolio.emit(this.portfolioProprio);
-
   }
 
-  fecharLogin(){
+  fecharLogin() {
     this.fechar();
     this.isLoginOpen = false;
   }
-  fecharCadastro(){
+
+  fecharCadastro() {
     this.fechar();
     this.isCadastroOpen = false;
   }
-  fecharRecuperarSenha(){
+
+  fecharRecuperarSenha() {
     this.fechar();
     this.isRecuperarSenhaOpen = false;
   }
+
   public modalDeslogarAberto: boolean = false;
-  abrirModalDeslogar(){
+
+  abrirModalDeslogar() {
     this.modalDeslogarAberto = true;
   }
-  fecharModalDeslogar(){
+
+  fecharModalDeslogar() {
     this.modalDeslogarAberto = false;
   }
 
-  deslogar(){
-    //console.log("logout");
+  deslogar() {
     this.fecharModalDeslogar();
     localStorage.removeItem('email');
     localStorage.removeItem('token');
+    localStorage.removeItem('username');
     this.email = '';
     this.portfolioProprio = {
-      id: '',
-      username: '',
-      email: '',
-      descricao: '',
-      foto: null,
-
-
-      habilidades: new Set<string>(),
-      projetos: [],
-      nome: '',
-      breveDescricao: '',
-      experiencias: [],
-
-      background: null,
-      localizacao: '',
-      links: []
-
-    }
+      id: '', username: '', email: '', descricao: '', foto: null,
+      habilidades: new Set<string>(), projetos: [], nome: '',
+      breveDescricao: '', experiencias: [], background: null,
+      localizacao: '', links: [], emailPublico: null
+    };
     this.devolverPortfolio.emit(this.portfolioProprio);
-    //console.log('email:', this.email);
-    //console.log('username:', this.portfolioProprio.username);
-
   }
 
   irParaPortfolioProprio() {
@@ -171,8 +169,8 @@ export class HeaderComponent implements OnInit{
       this.router.navigate(['/portfolios', this.portfolioProprio.username]);
     });
   }
-  irParaCriarPortfolio(){
+
+  irParaCriarPortfolio() {
     this.router.navigate(['/criar-portfolio']);
   }
-
 }

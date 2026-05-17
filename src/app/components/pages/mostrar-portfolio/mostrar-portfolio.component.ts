@@ -1,10 +1,11 @@
 import {
   Component,
+  ElementRef,
   Input,
   OnInit,
+  ViewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { NgForOf } from '@angular/common';
 
@@ -14,6 +15,7 @@ import { Imagem } from '../../../models/response/Imagem';
 
 import { PortfolioService } from '../../../services/portfolio/portfolio.service';
 import { AuthService } from '../../../services/autenticacao/auth.service';
+import { PdfGeneratorService } from '../../../services/pdf/pdf-generator.service';
 
 import { criarPortfolioRequest, isEqual, PortfolioRequest } from '../../../models/request/PortfolioRequest';
 import { languages, langUrl, links } from '../../../models/others/languages';
@@ -63,7 +65,8 @@ export class MostrarPortfolioComponent implements OnInit {
       experiencias: [],
       background: null,
       localizacao: '',
-      links: []
+      links: [],
+      emailPublico: null
     };
   }
   public portfolio: Portfolio = this.criarPortfolioVazio();
@@ -82,6 +85,8 @@ export class MostrarPortfolioComponent implements OnInit {
   public mostrarTooltip = false;
 
   public username = '';
+
+  @ViewChild('pdfExport') private pdfExportRef?: ElementRef<HTMLElement>;
 
   public erroDeRequisicao: string[] = [];
   public projetosOrdenados: Projeto[] = [];
@@ -115,10 +120,12 @@ export class MostrarPortfolioComponent implements OnInit {
     private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private pdfGenerator: PdfGeneratorService
   ) {
-    // Define o e-mail do portfólio próprio com base no auth
+    // Define o e-mail e username do portfólio próprio com base no auth
     this.portfolioProprio.email = this.authService.getStorage('email') ?? '';
+    this.portfolioProprio.username = this.authService.getStorage('username') ?? '';
   }
 
   /** ==============================
@@ -158,8 +165,9 @@ export class MostrarPortfolioComponent implements OnInit {
       this.service.mostrarPortfolioPorUsername(username).subscribe({
         next: (portfolio: Portfolio) => {
           this.carregando = false;
-          this.portfolio = { ...portfolio };
-          this.portfolioNovo = criarPortfolioRequest(portfolio);
+          // O backend não retorna o campo email por segurança, então adicionamos um vazio
+          this.portfolio = { ...portfolio, email: '' };
+          this.portfolioNovo = criarPortfolioRequest(this.portfolio);
         },
         error: () => {
           this.carregando = false;
@@ -276,8 +284,12 @@ export class MostrarPortfolioComponent implements OnInit {
   private salvarPortfolio(): void {
     this.portfolioNovo.habilidades = Array.from(this.portfolioNovo.habilidades);
 
+    console.log('Salvando portfólio com emailPublico:', this.portfolioNovo.emailPublico);
+    console.log('Portfolio completo:', JSON.stringify(this.portfolioNovo, null, 2));
+
     this.service.savePortfolio(this.portfolioNovo).subscribe({
       next: (portfolio: Portfolio) => {
+        console.log('Portfólio salvo com sucesso. EmailPublico retornado:', portfolio.emailPublico);
         this.finalizarSalvamento(portfolio);
       },
       error: (err: any) => {
@@ -292,10 +304,15 @@ export class MostrarPortfolioComponent implements OnInit {
     this.carregandoSalvamento = false;
     this.editando = false;
 
+    // Salva o username no localStorage para evitar dependência do endpoint /email
+    this.authService.saveStorage('username', this.portfolioNovo.username);
+
     this.router.navigate(['/portfolios/', this.portfolioNovo.username]);
-    this.portfolioProprio = portfolio;
-    this.portfolioNovo = criarPortfolioRequest(portfolio);
-    this.portfolio = { ...portfolio };
+    // O backend não retorna o campo email por segurança
+    const emailLocal = this.authService.getStorage('email') ?? '';
+    this.portfolioProprio = { ...portfolio, email: emailLocal, username: this.portfolioNovo.username };
+    this.portfolioNovo = criarPortfolioRequest({ ...portfolio, email: emailLocal });
+    this.portfolio = { ...portfolio, email: emailLocal };
 
     this.toastr.success('Portfólio salvo com sucesso!', 'Sucesso', {
       closeButton: true,
@@ -344,6 +361,14 @@ export class MostrarPortfolioComponent implements OnInit {
     console.log('portfolio.links depois:', JSON.stringify(this.portfolio.links, null, 2));
   }
 
+  public alterarUrlLink(index: number, novaUrl: string): void {
+    if (index >= 0 && index < this.portfolioNovo.links.length) {
+      this.portfolioNovo.links[index].url = novaUrl;
+      // Force change detection by creating a new array reference
+      this.portfolioNovo.links = [...this.portfolioNovo.links];
+    }
+  }
+
   public deleteLink(link: string): void {
     const index = this.portfolioNovo.links.findIndex(l => l.nome === link);
     if (index !== -1) {
@@ -366,6 +391,30 @@ export class MostrarPortfolioComponent implements OnInit {
     const regex = /^[a-zA-Z0-9_-]$/;
     if (!regex.test(event.key)) {
       event.preventDefault();
+    }
+  }
+
+  public async gerarPDF(): Promise<void> {
+    try {
+      const elemento = this.pdfExportRef?.nativeElement;
+
+      if (!elemento) {
+        throw new Error('Área de exportação do PDF não encontrada.');
+      }
+
+      await this.pdfGenerator.gerarPdfPortfolio(
+        elemento,
+        `${this.portfolio.username || 'portfolio'}.pdf`
+      );
+      this.toastr.success('PDF gerado com sucesso!', 'Sucesso', {
+        closeButton: true,
+        progressBar: true,
+      });
+    } catch (error) {
+      console.error('Erro ao gerar PDF:', error);
+      this.toastr.error('Erro ao gerar PDF. Tente novamente.', 'Erro', {
+        closeButton: true,
+      });
     }
   }
 

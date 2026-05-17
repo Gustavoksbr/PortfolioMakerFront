@@ -14,8 +14,8 @@ export interface PortfolioRequest {
   experiencias: Experiencia[];
   background: Imagem | null;
   localizacao: string;
-  links: { nome: string, url: string }[]
-
+  links: { nome: string, url: string }[];
+  emailPublico: string | null; // email público visível no portfólio
 }
 
 export function criarPortfolioRequest(portfolio: Portfolio): PortfolioRequest {
@@ -26,11 +26,12 @@ export function criarPortfolioRequest(portfolio: Portfolio): PortfolioRequest {
     descricao: portfolio.descricao ?? "",
     foto: portfolio.foto ?? null,
     habilidades: new Set(portfolio.habilidades),
-    projetos: portfolio.projetos.map(p => ({ ...p, tecnologias: [...(p.tecnologias || [])] })), // Cópia profunda
+    projetos: portfolio.projetos.map(p => ({ ...p, tecnologias: [...(p.tecnologias || [])] })),
     experiencias: portfolio.experiencias,
     background: portfolio.background ?? null,
     localizacao: portfolio.localizacao,
-    links: portfolio.links.map(link => ({ ...link })), // Cópia profunda dos links
+    links: portfolio.links.map(link => ({ ...link })),
+    emailPublico: portfolio.emailPublico ?? null,
   };
 }
 
@@ -44,7 +45,6 @@ export function isEqual(portfolio: PortfolioRequest, portfolio2: Portfolio): boo
 
   const areLinksEqual = (a: { nome: string; url: string }[], b: { nome: string; url: string }[]): boolean => {
     if (a.length !== b.length) return false;
-
     return a.every((linkA, index) => {
       const linkB = b[index];
       return linkA.nome === linkB.nome && linkA.url === linkB.url;
@@ -53,7 +53,6 @@ export function isEqual(portfolio: PortfolioRequest, portfolio2: Portfolio): boo
 
   const areProjetosEqual = (a: any[], b: any[]): boolean => {
     if (a.length !== b.length) return false;
-
     return a.every((projetoA, index) => {
       const projetoB = b[index];
       return projetoA.ordem === projetoB.ordem &&
@@ -67,7 +66,7 @@ export function isEqual(portfolio: PortfolioRequest, portfolio2: Portfolio): boo
     });
   };
 
-  const result = portfolio.username === portfolio2.username &&
+  return portfolio.username === portfolio2.username &&
     portfolio.nome === portfolio2.nome &&
     portfolio.breveDescricao === portfolio2.breveDescricao &&
     portfolio.descricao === portfolio2.descricao &&
@@ -77,7 +76,6 @@ export function isEqual(portfolio: PortfolioRequest, portfolio2: Portfolio): boo
     portfolio.experiencias === portfolio2.experiencias &&
     portfolio.background === portfolio2.background &&
     portfolio.localizacao === portfolio2.localizacao &&
-    areLinksEqual(portfolio.links, portfolio2.links);
-
-  return result;
+    areLinksEqual(portfolio.links, portfolio2.links) &&
+    portfolio.emailPublico === portfolio2.emailPublico;
 }

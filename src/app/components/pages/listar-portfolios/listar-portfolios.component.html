@@ -10,7 +10,7 @@
 @if (email){
     <h3> Seu Portfólio</h3>
   @if (!carregando){
-    @if (!portfolioProprio.email){
+    @if (!temPortfolioProprio){
       <h5>Você ainda não criou seu portfólio</h5>
       <p>
         <b (click)="irParaCriarPortfolio()" class="criar-portfolio-ahref">
@@ -31,7 +31,7 @@
 
 <div class="lista-portfolios-container">
   <div class="lista-portfolios-content">
-    @if (portfolioProprio.email){
+    @if (temPortfolioProprio){
       <h3> Procure por outros portfólios</h3>
     } @else {
       <h3> Procure algum portfólio</h3>

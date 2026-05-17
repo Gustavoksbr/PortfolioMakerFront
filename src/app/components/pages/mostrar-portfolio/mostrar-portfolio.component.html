@@ -38,7 +38,7 @@
   } @else {
 
 
-  @if (portfolio.email==null || portfolio.email == '') {
+  @if (!portfolio.username || portfolio.username === '') {
     <div class="pagina-not-found">
       <h3>Portfólio  não encontrado!</h3>
     </div>
@@ -47,13 +47,16 @@
       <div class="mostrar-portfolio-content">
         <!-- Botão editar / salvar / cancelar -->
         <!-- Só mostra botões se o usuário estiver logado E for o dono do portfólio -->
-        @if (portfolioProprio.email && portfolioProprio.email == portfolio.email) {
+        @if (portfolioProprio.email && portfolioProprio.username && portfolioProprio.username === portfolio.username) {
           @if (!editando) {
             <!-- Botão de editar -->
             <div class="botao-editar lapis edit-permitido"
                  (click)="alterar()"
                  title="Clique para editar seu portfólio">
-              <img src="edit.webp" alt="alterar">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+              </svg>
             </div>
           }
           @else {
@@ -88,6 +91,20 @@
               }
             </div>
           }
+        }
+
+        <!-- Botão de gerar PDF - aparece para todos -->
+        @if (!editando && portfolio.username) {
+          <div class="botao-pdf"
+               (click)="gerarPDF()"
+               title="Baixar portfólio em PDF">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="12" y1="18" x2="12" y2="12"></line>
+              <line x1="9" y1="15" x2="15" y2="15"></line>
+            </svg>
+          </div>
         }
 
         <header class="nome-breve-descricao-container">
@@ -212,6 +229,24 @@
           </div>
         </div>
         <hr class="barra-horizontal" />
+
+        <!-- Email público -->
+        <div class="email-publico-container">
+          <div class="email-publico-content">
+            @if (editando) {
+              <h3 class="titulos">Email público</h3>
+              <p class="email-publico-aviso">
+                ⚠️ Este email será <strong>visível para todos</strong> que visitarem seu portfólio.
+                Deixe em branco se não quiser exibir.
+              </p>
+              <input type="email" class="form-control" [(ngModel)]="portfolioNovo.emailPublico"
+                     maxlength="100" placeholder="seu@email.com (opcional)"/>
+            } @else if (portfolio.emailPublico) {
+              <p class="email-publico-text">✉️ {{ portfolio.emailPublico }}</p>
+            }
+          </div>
+        </div>
+        <hr class="barra-horizontal" />
 <!--         Redes sociais -->
         <div class="links-container">
 
@@ -287,7 +322,8 @@
       <label>Url</label>
       <input type="text"
              class="link-url-input form-control"
-             [(ngModel)]="link.url" />
+             [(ngModel)]="link.url"
+             (change)="alterarUrlLink($index, link.url)" />
     </div>
               </div>
 
@@ -366,6 +402,104 @@
       </div>
 
     </div>
+  }
+
+  @if (!carregando && portfolio.username) {
+    <section #pdfExport class="pdf-export-card" aria-hidden="true">
+      <header class="pdf-export-header">
+        <p class="pdf-export-kicker">📄 Portfólio</p>
+        <h1>{{ portfolio.nome || 'Portfólio' }}</h1>
+        @if (portfolio.breveDescricao) {
+          <p class="pdf-export-subtitle">{{ portfolio.breveDescricao }}</p>
+        }
+      </header>
+
+      @if (portfolio.descricao || portfolio.localizacao || portfolio.emailPublico || portfolio.username) {
+        <section class="pdf-export-section">
+          <h2>👤 Sobre</h2>
+          @if (portfolio.descricao) {
+            <p class="pdf-export-text">{{ portfolio.descricao }}</p>
+          }
+          @if (portfolio.localizacao) {
+            <p class="pdf-export-meta">📍 Localização: {{ portfolio.localizacao }}</p>
+          }
+          @if (portfolio.emailPublico) {
+            <p class="pdf-export-meta">📧 Email público: {{ portfolio.emailPublico }}</p>
+          }
+          @if (portfolio.username) {
+            <p class="pdf-export-meta">🔗 {{ '@' }}{{ portfolio.username }}</p>
+          }
+        </section>
+      }
+
+      @if (portfolio.links.length > 0) {
+        <section class="pdf-export-section">
+          <h2>🔗 Links</h2>
+          <ul class="pdf-export-list">
+            @for (link of portfolio.links; track $index) {
+              <li>{{ link.nome }}: {{ link.url }}</li>
+            }
+          </ul>
+        </section>
+      }
+
+      @if (portfolio.habilidades.size > 0) {
+        <section class="pdf-export-section">
+          <h2>🛠️ Habilidades</h2>
+          <div class="pdf-export-tags">
+            @for (habilidade of portfolio.habilidades; track $index) {
+              <span class="pdf-export-tag">{{ habilidade }}</span>
+            }
+          </div>
+        </section>
+      }
+
+      @if (portfolio.experiencias.length > 0) {
+        <section class="pdf-export-section">
+          <h2>💼 Experiências</h2>
+          @for (exp of portfolio.experiencias; track $index) {
+            <article class="pdf-export-card-block">
+              <h3>{{ exp.nome }} - {{ exp.empresa }}</h3>
+              <p class="pdf-export-muted">{{ exp.dataInicio }}</p>
+              @if (exp.atual) {
+                <p class="pdf-export-muted">• Atual</p>
+              } @else if (exp.dataFim) {
+                <p class="pdf-export-muted">• {{ exp.dataFim }}</p>
+              }
+              @if (exp.descricao) {
+                <p>{{ exp.descricao }}</p>
+              }
+            </article>
+          }
+        </section>
+      }
+
+      @if (portfolio.projetos.length > 0) {
+        <section class="pdf-export-section">
+          <h2>🚀 Projetos</h2>
+          @for (projeto of portfolio.projetos; track $index) {
+            <article class="pdf-export-card-block">
+              <h3>{{ projeto.nome }}</h3>
+              @if (projeto.descricao) {
+                <p>{{ projeto.descricao }}</p>
+              }
+              @if (projeto.tecnologias && projeto.tecnologias.length > 0) {
+                <p class="pdf-export-muted">Tecnologias: {{ projeto.tecnologias.join(', ') }}</p>
+              }
+              @if (projeto.linkDoProjeto) {
+                <p class="pdf-export-muted">🌐 Projeto: {{ projeto.linkDoProjeto }}</p>
+              }
+              @if (projeto.linkDoRepositorio) {
+                <p class="pdf-export-muted">📦 Repositório: {{ projeto.linkDoRepositorio }}</p>
+              }
+              @if (projeto.linkYoutube) {
+                <p class="pdf-export-muted">▶️ YouTube: {{ projeto.linkYoutube }}</p>
+              }
+            </article>
+          }
+        </section>
+      }
+    </section>
   }
 
   @if(modal.isOpen){
