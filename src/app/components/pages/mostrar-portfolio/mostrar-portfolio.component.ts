@@ -80,6 +80,7 @@ export class MostrarPortfolioComponent implements OnInit {
   public editando = false;
   public carregando = true;
   public carregandoSalvamento = false;
+  public gerandoPdf = false;
 
   public modal = this.criarModalVazio();
   public mostrarTooltip = false;
@@ -396,6 +397,7 @@ export class MostrarPortfolioComponent implements OnInit {
 
   public async gerarPDF(): Promise<void> {
     try {
+      this.gerandoPdf = true;
       const elemento = this.pdfExportRef?.nativeElement;
 
       if (!elemento) {
@@ -415,6 +417,8 @@ export class MostrarPortfolioComponent implements OnInit {
       this.toastr.error('Erro ao gerar PDF. Tente novamente.', 'Erro', {
         closeButton: true,
       });
+    } finally {
+      this.gerandoPdf = false;
     }
   }
 
