@@ -548,7 +548,7 @@
 .botao-editar {
   z-index: 70;
   position: fixed;
-  right: 20px;
+  right: max(20px, calc(50vw - 550px));
   top: 160px;
   background-color: white;
   border-radius: 15px;
@@ -573,7 +573,7 @@
 .botao-pdf {
   z-index: 70;
   position: fixed;
-  right: 20px;
+  right: max(20px, calc(50vw - 550px));
   top: 100px;
   background-color: white;
   border-radius: 15px;
