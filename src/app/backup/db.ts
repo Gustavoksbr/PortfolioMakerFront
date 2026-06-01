@@ -1,4 +1,4 @@
-﻿import { Portfolio } from '../models/response/Portfolio';
+import { Portfolio } from '../models/response/Portfolio';
 
 export const gustavoksbr: Portfolio = {
   id: "680ec87e2318bf0a21be9d4f",
@@ -25,10 +25,10 @@ export const gustavoksbr: Portfolio = {
     "postgres",
     "mysql",
     "mongodb",
-    "python",
     "react",
-    "vue"
-
+    "vue",
+    "fastapi",
+    "tailwind"
 
   ]),
   projetos: [
@@ -79,6 +79,23 @@ export const gustavoksbr: Portfolio = {
         "typescript",
         "jest",
         "cypress"
+      ]
+    },
+    {
+      ordem: 3,
+      nome: "SmartFinance",
+      descricao: "Dashboard Financeiro com gestão de finanças pessoais e visualização de dados econômicos, com assistente de IA via chatbot",
+      linkDoProjeto: "https://smart-finance-nu-seven.vercel.app",
+      linkDoRepositorio: "https://github.com/Gustavoksbr/smart-fInance",
+      linkYoutube: "",
+      imagem: null,
+      tecnologias: [
+        "react",
+        "typescript",
+        "fastapi",
+        "python",
+        "postgres",
+        "tailwind"
       ]
     }
 
